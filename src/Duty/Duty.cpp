@@ -1,6 +1,8 @@
+/**
+ * @file Duty.cpp
+ * @brief Implementation file for Duty interface.
+ */
+
 #include "Duty.h"
 
-Duty::Duty() {
-	// TODO - implement Duty::Duty
-	throw "Not yet implemented";
-}
+Duty::Duty() {}
