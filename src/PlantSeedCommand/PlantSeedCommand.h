@@ -1,6 +1,7 @@
 #ifndef PLANTSEEDCOMMAND_H
 #define PLANTSEEDCOMMAND_H
 
+#include "Duty.h"  
 class Plant;
 class PlantableArea; 
 
@@ -12,7 +13,7 @@ class PlantableArea;
  * a seed. The command can be executed by a StaffMember (Invoker).
  */
 
-class PlantSeedCommand : Duty {
+class PlantSeedCommand : public Duty {
 
 public:
     /// Pointer to the Plant to be planted
