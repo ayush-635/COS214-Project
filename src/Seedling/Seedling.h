@@ -1,12 +1,12 @@
-#ifndef GROWING_H
-#define GROWING_H
+#ifndef SEEDLING_H
+#define SEEDLING_H
 
 #include "src/PlantState/PlantState.h"
 
-class Growing : public PlantState {
+class Seedling : public PlantState {
 public:
     void handle(Plant* plant) override;
-    std::string getName() const override { return "Growing"; }
+    std::string getName() const override { return "Seedling"; }
     bool canProgress(Plant* plant) override;
 };
 

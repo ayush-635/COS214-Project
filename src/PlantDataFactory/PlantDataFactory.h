@@ -1,15 +1,17 @@
 #ifndef PLANTDATAFACTORY_H
 #define PLANTDATAFACTORY_H
 
-class PlantDataFactory {
+#include "src/PlantData/PlantData.h"
+#include <map>
+#include <memory>
 
+class PlantDataFactory {
 private:
-	map<string, PlantData*> plantDataMap;
+    static std::map<std::string, std::shared_ptr<PlantData>> plantDataMap;
 
 public:
-	PlantData* getPlantData(string key);
-
-	PlantDataFactory();
+    static std::shared_ptr<PlantData> getPlantData(const std::string& key);
+    static void initializeFactory();
 };
 
 #endif

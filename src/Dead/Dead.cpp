@@ -1,6 +1,10 @@
 #include "Dead.h"
+#include "src/Plant/Plant.h"
 
-void Dead::handle() {
-	// TODO - implement Dead::handle
-	throw "Not yet implemented";
+void Dead::handle(Plant* plant) {
+    // Dead plants don't do anything
+}
+
+bool Dead::canProgress(Plant* plant) {
+    return false;
 }
