@@ -12,13 +12,16 @@ void PlanterBoxCollection::add(PlantableArea* area){
 }
 
 void PlanterBoxCollection::remove(PlantableArea* area){
-	for(size_t i = 0; i < boxes.size(); i++){
-		if(boxes[i] == area){
-			boxes.erase(boxes.begin() + i);
+	std::vector<PlantableArea*>::iterator it;
+
+	for(it = boxes.begin(); it != boxes.end(); it++){
+		if(*it == area){
+			boxes.erase(it);
 			std::cout << "Removed PlanterBox from collection." << std::endl;
 			return;
 		}
 	}
+
 	std::cout << "PlanterBox not found in collection." << std::endl;
 }
 
@@ -30,9 +33,12 @@ PlantableArea* PlanterBoxCollection::getChild(int index){
 }
 
 void PlanterBoxCollection::populate(Plant* plant){
-	for(size_t i = 0; i < boxes.size(); i++){
-		if(boxes[i] != nullptr){
-			boxes[i]->populate(plant);
+
+	std::vector<PlantableArea*>::iterator it;
+
+	for(it = boxes.begin(); it != boxes.end(); it++){
+		if(*it != nullptr){
+			(*it)->populate(plant);
 			return;
 		}
 	}
@@ -48,11 +54,17 @@ void PlanterBoxCollection::populate(Plant* plant, int plantBoxIndex){
 }
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant){
-	//TODO:
+	//TODO: need to find a way to maybe use state of a plant stored to automatically pick the first one thats ready for harvest
+	
 }
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){
 	//TODO:
+	if (plantBoxIndex >= 0 && plantBoxIndex < boxes.size()) {
+        boxes[plantBoxIndex]->removePlant(plant);
+    } else {
+        std::cout << "Invalid PlanterBox index.\n";
+    }
 }
 
 void PlanterBoxCollection::water(int units){

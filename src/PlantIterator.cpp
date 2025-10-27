@@ -1,21 +1,29 @@
 #include "PlantIterator.h"
 
+PlantIterator::PlantIterator(const std::vector<Plant*>& plantsList) : plants(plantsList), curIndex(0) {}
+
 bool PlantIterator::hasNext() {
-	// TODO - implement PlantIterator::hasNext
-	throw "Not yet implemented";
+	return curIndex < plants.size();
 }
 
-Plant2* PlantIterator::next() {
-	// TODO - implement PlantIterator::next
-	throw "Not yet implemented";
+Plant* PlantIterator::next() { // returns next plant
+	if(!hasNext()) {
+		return nullptr; // or throw an exception
+	}
+	return plants[curIndex++];
 }
 
-Plant2* PlantIterator::first() {
-	// TODO - implement PlantIterator::first
-	throw "Not yet implemented";
+Plant* PlantIterator::first() { // returns first plant
+	if(plants.empty()) {
+		return nullptr;
+	}
+	curIndex = 1;
+	return plants[0];
 }
 
-Plant2* PlantIterator::currItem() {
-	// TODO - implement PlantIterator::currItem
-	throw "Not yet implemented";
+Plant* PlantIterator::currItem() {
+	if(curIndex == 0 || curIndex > plants.size()) {
+		return nullptr;
+	}
+	return plants[curIndex-1];
 }

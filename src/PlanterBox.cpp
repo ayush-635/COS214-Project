@@ -10,21 +10,28 @@ void PlanterBox::populate(Plant* plant) {
 }
 
 Plant* PlanterBox::removePlant(Plant* plant) {
-	for(size_t i = 0; i < plants.size(); i++){
-		if(plants[i]->getName() == plant->getName()){
-			Plant* removed = plants[i];
-			plants.erase(plants.begin() + i);
-			std::cout << "Removed " << removed->getName() << " from planter box" << std::endl; 
+	std::vector<Plant*>::iterator it;
+
+	for(it = plants.begin(); it != plants.end(); it++){
+		if(*it == plant){
+			Plant* removed = *it;
+			plants.erase(it);
+			std::cout << "Removed " << removed->getName() << " from planter box" << std::endl;
 			return removed; // plant removed returned to be added to store/inventory
 		}
 	}
+
 	return nullptr;
 }
 
 void PlanterBox::water(int unit) {
-	
+	//TODO: Needs an attribute to change in plant
 }
 
-void PlanterBox::giveMedicine() {
-	
+void PlanterBox::giveMedicine(int units) {
+	//TODO: Needs an attribute to change in plant
+}
+
+void PlanterBox::giveFertilizer(int units){
+	//TODO: Needs an attribute to change in plant
 }
