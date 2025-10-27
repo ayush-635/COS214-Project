@@ -51,3 +51,25 @@ help:
 	@echo "  make help   - Show this help"
 
 .PHONY: all run clean help
+
+TEST_DIR = tests
+TEST_SRCS = $(wildcard $(TEST_DIR)/*.cpp)
+TEST_OBJS = $(TEST_SRCS:.cpp=.o)
+TEST_EXEC = plant_game_tests
+
+# Build and run tests
+test: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+$(TEST_EXEC): $(TEST_OBJS) $(filter-out main.o, $(OBJS))
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Compile test files
+$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean tests too
+clean:
+	rm -f $(EXEC) $(TEST_EXEC) $(OBJS) $(TEST_OBJS)
+
+.PHONY: all run clean help test
