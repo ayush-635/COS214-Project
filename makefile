@@ -9,6 +9,7 @@ SRCS = src/PlantData/PlantData.cpp \
        src/Growing/Growing.cpp \
        src/Mature/Mature.cpp \
        src/ReadyToSell/ReadyToSell.cpp \
+       src/Dying/Dying.cpp \
        src/Dead/Dead.cpp \
        src/Plant/Plant.cpp \
        src/FlowerPlant/FlowerPlant.cpp \

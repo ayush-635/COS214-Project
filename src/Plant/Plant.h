@@ -4,11 +4,12 @@
 #include <string>
 #include <memory>
 #include "src/PlantData/PlantData.h"
-#include "src/PlantState/PlantState.h"  // Abstract interface
-#include "src/Seedling/Seedling.h"    // Concrete states
+#include "src/PlantState/PlantState.h"
+#include "src/Seedling/Seedling.h"
 #include "src/Growing/Growing.h"
 #include "src/Mature/Mature.h"
 #include "src/ReadyToSell/ReadyToSell.h"
+#include "src/Dying/Dying.h"
 #include "src/Dead/Dead.h"
 
 class CareVisitor;
@@ -19,6 +20,7 @@ protected:
     std::string name;
     std::shared_ptr<PlantData> plantData;
     std::unique_ptr<PlantState> state;
+    std::string previousState; // Track state before Dying
     
     int waterReceived;
     int fertilizerReceived;
@@ -37,6 +39,12 @@ public:
     void setState(std::unique_ptr<PlantState> newState);
     std::string getStateName() const;
     
+    // Method to check if plant should enter dying state
+    bool shouldEnterDyingState() const;
+    
+    // Method to recover from dying state
+    void recoverFromDying();
+    
     // Visitor pattern
     virtual void accept(CareVisitor& visitor) = 0;
     
@@ -44,6 +52,7 @@ public:
     std::string getId() const { return id; }
     std::string getName() const { return name; }
     std::string getSpeciesName() const { return plantData->getSpeciesName(); }
+    std::string getPreviousState() const { return previousState; }
     int getWaterReceived() const { return waterReceived; }
     int getFertilizerReceived() const { return fertilizerReceived; }
     int getWaterNeededForNextState() const { return plantData->getWaterNeededForNextState(); }
@@ -57,6 +66,7 @@ public:
     bool needsWater() const { return ticksWithoutWater >= plantData->getWaterInterval(); }
     bool needsFertilizer() const { return ticksWithoutFertilizer >= plantData->getFertilizerInterval(); }
     bool isDead() const { return getStateName() == "Dead"; }
+    bool isDying() const { return getStateName() == "Dying"; }
     bool isInDanger() const { 
         return ticksWithoutWater >= plantData->getWaterDeathTime() - 3 || 
                ticksWithoutFertilizer >= plantData->getFertilizerDeathTime() - 3; 

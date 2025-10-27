@@ -13,6 +13,11 @@ void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& e
         return;
     }
     
+    if (plant->isDying()) {
+        plantReports.push_back(emoji + " " + plant->getName() + " ⚠️ DYING - Needs immediate care!");
+        return;
+    }
+    
     std::string report = emoji + " " + plant->getName() + " [" + plant->getStateName() + "]";
     
     if (plant->needsWater()) {
