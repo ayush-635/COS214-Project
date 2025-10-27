@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ '**' ]
+    branches: [ 'main', 'dev' ]
   pull_request:
-    branches: [ '**' ]
+    branches: [ 'main', 'dev' ]
   workflow_dispatch:
 
 jobs:
@@ -21,9 +21,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential cmake cppcheck
 
-      - name: Run cppcheck linter
-        run: |
-          cppcheck --enable=all --inconclusive --std=c++17 src tests || true
+      #- name: Run cppcheck linter
+        #run: |
+          #cppcheck --enable=all --inconclusive --std=c++17 src tests || true
 
       - name: Gather source and test files
         run: |
