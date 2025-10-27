@@ -38,6 +38,8 @@ void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& e
     
     std::string report = emoji + " " + plant->getName() + " [" + plant->getStateName() + "]";
     
+
+
     if (plant->needsWater()) {
         report += " | 💧 Needs Water";
         if (plant->isInDanger()) {
@@ -49,6 +51,8 @@ void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& e
         report += " | 💧 Watered (" + std::to_string(ticksUntilNextWater) + " ticks)";
     }
     
+
+
     if (plant->needsFertilizer()) {
         report += " | 🌱 Needs Fertilizer";
         if (plant->isInDanger()) {
@@ -65,6 +69,7 @@ void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& e
     
     plantReports.push_back(report);
 }
+
 
 void HealthCheckVisitor::visitFlowerPlant(FlowerPlant* flower) {
     checkPlantConditions(flower, "🌸");

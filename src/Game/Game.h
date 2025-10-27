@@ -36,7 +36,6 @@ public:
     void waterPlant(const std::string& plantId);
     void fertilizePlant(const std::string& plantId);
     
-    // Getters
     const std::vector<std::unique_ptr<Plant>>& getPlants() const { return plants; }
     void displayGameStatus() const;
 };

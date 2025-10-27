@@ -16,11 +16,12 @@ class CareVisitor;
 
 class Plant {
 protected:
+
     std::string id;
     std::string name;
     std::shared_ptr<PlantData> plantData;
     std::unique_ptr<PlantState> state;
-    std::string previousState; // Track state before Dying
+    std::string previousState; // before Dying
     
     int waterReceived;
     int fertilizerReceived;
@@ -39,13 +40,9 @@ public:
     void setState(std::unique_ptr<PlantState> newState);
     std::string getStateName() const;
     
-    // Method to check if plant should enter dying state
     bool shouldEnterDyingState() const;
-    
-    // Method to recover from dying state
     void recoverFromDying();
     
-    // Visitor pattern
     virtual void accept(CareVisitor& visitor) = 0;
     
     // Getters
@@ -62,6 +59,7 @@ public:
     int getWaterDeathTime() const { return plantData->getWaterDeathTime(); }
     int getFertilizerDeathTime() const { return plantData->getFertilizerDeathTime(); }
     
+
     // Condition checkers
     bool needsWater() const { return ticksWithoutWater >= plantData->getWaterInterval(); }
     bool needsFertilizer() const { return ticksWithoutFertilizer >= plantData->getFertilizerInterval(); }
@@ -71,12 +69,14 @@ public:
         return ticksWithoutWater >= plantData->getWaterDeathTime() - 3 || 
                ticksWithoutFertilizer >= plantData->getFertilizerDeathTime() - 3; 
     }
+
+    
     
     // Progress calculations
     int getWaterRemaining() const { return plantData->getWaterNeededForNextState() - waterReceived; }
     int getFertilizerRemaining() const { return plantData->getFertilizerNeededForNextState() - fertilizerReceived; }
     
-    // For debugging/status
+    // For status
     int getTicksWithoutWater() const { return ticksWithoutWater; }
     int getTicksWithoutFertilizer() const { return ticksWithoutFertilizer; }
 };

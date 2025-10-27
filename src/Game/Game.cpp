@@ -77,6 +77,7 @@ void Game::fertilizePlant(const std::string& plantId) {
     }
 }
 
+//might remove later
 void Game::displayGameStatus() const {
     std::cout << "\n=== GARDEN STATUS ===" << std::endl;
     std::cout << "Total Plants: " << plants.size() << std::endl;

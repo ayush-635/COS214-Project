@@ -5,14 +5,18 @@
 
 TEST_SUITE("Visitor Pattern Tests") {
     TEST_CASE("HealthCheckVisitor Creation") {
+
         HealthCheckVisitor visitor;
         // Should compile and be usable
         SUBCASE("Visitor can be instantiated") {
             CHECK(true);
+
+
         }
     }
     
     TEST_CASE("Plants Accept Visitors") {
+
         PlantDataFactory::initializeFactory();
         auto data = PlantDataFactory::getPlantData("FlowerPlant");
         FlowerPlant plant("F1", "Rose", data);
@@ -20,9 +24,12 @@ TEST_SUITE("Visitor Pattern Tests") {
         
         // Should not crash when plant accepts visitor
         CHECK_NOTHROW(plant.accept(visitor));
+
+
     }
     
     TEST_CASE("Visitor Collects Reports") {
+        
         PlantDataFactory::initializeFactory();
         auto data = PlantDataFactory::getPlantData("FlowerPlant");
         FlowerPlant plant("F1", "Rose", data);
@@ -35,5 +42,7 @@ TEST_SUITE("Visitor Pattern Tests") {
         
         // Should be able to clear reports
         CHECK_NOTHROW(visitor.clearReports());
+
+
     }
 }

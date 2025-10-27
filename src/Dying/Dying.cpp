@@ -5,8 +5,7 @@
 Dying::Dying(const std::string& prevState) : previousState(prevState) {}
 
 void Dying::handle(Plant* plant) {
-    // Recovery is now handled in Plant::update() and Plant::water()/fertilize()
-    // So here we only handle death progression
+    // Recovery is handled in Plant::update() and Plant::water()/fertilize(), here is just death progress
     
     if (canProgress(plant)) {
         plant->setState(std::make_unique<Dead>());

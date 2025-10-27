@@ -17,7 +17,6 @@ public:
     PlantData(const std::string& name, int waterForState, int fertilizerForState,
               int waterInt, int fertilizerInt, int waterDeath, int fertilizerDeath);
     
-    // Getters
     std::string getSpeciesName() const { return speciesName; }
     int getWaterNeededForNextState() const { return waterNeededForNextState; }
     int getFertilizerNeededForNextState() const { return fertilizerNeededForNextState; }

@@ -2,7 +2,7 @@
 #include "src/Plant/Plant.h"
 
 void Dead::handle(Plant* plant) {
-    // Dead plants don't do anything
+    // Plant is dead
 }
 
 bool Dead::canProgress(Plant* plant) {

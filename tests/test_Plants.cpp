@@ -7,7 +7,10 @@
 #include "../src/PlantDataFactory/PlantDataFactory.h"
 
 TEST_SUITE("Plant Type Tests") {
+
+
     TEST_CASE("FlowerPlant Creation") {
+
         PlantDataFactory::initializeFactory();
         auto data = PlantDataFactory::getPlantData("FlowerPlant");
         
@@ -15,9 +18,12 @@ TEST_SUITE("Plant Type Tests") {
         CHECK(flower.getName() == "Rose");
         CHECK(flower.getSpeciesName() == "FlowerPlant");
         CHECK(flower.getStateName() == "Seedling");
+
+
     }
     
     TEST_CASE("Different Plant Types Have Different Requirements") {
+
         PlantDataFactory::initializeFactory();
         
         auto flowerData = PlantDataFactory::getPlantData("FlowerPlant");
@@ -29,6 +35,7 @@ TEST_SUITE("Plant Type Tests") {
     }
     
     TEST_CASE("Plant Water and Fertilizer Tracking") {
+
         auto data = std::make_shared<PlantData>("Test", 3, 2, 5, 5, 10, 10);
         FlowerPlant plant("F1", "Test Flower", data);
         
@@ -40,9 +47,11 @@ TEST_SUITE("Plant Type Tests") {
         
         CHECK(plant.getWaterReceived() == 1);
         CHECK(plant.getFertilizerReceived() == 1);
+
     }
     
     TEST_CASE("All Plant Types Can Be Created") {
+
         PlantDataFactory::initializeFactory();
         
         auto flowerData = PlantDataFactory::getPlantData("FlowerPlant");
@@ -56,5 +65,7 @@ TEST_SUITE("Plant Type Tests") {
         CHECK_NOTHROW(HerbPlant("H1", "Herb", herbData));
         CHECK_NOTHROW(GrassPlant("G1", "Grass", grassData));
         CHECK_NOTHROW(SucculentPlant("S1", "Succulent", succulentData));
+
+        
     }
 }

@@ -9,9 +9,11 @@ TEST_SUITE("Game Manager Tests") {
         Game* game2 = Game::getInstance();
         
         CHECK(game1 == game2); // Should be same instance
+
     }
     
     TEST_CASE("Add Plants to Game") {
+
         Game* game = Game::getInstance();
         PlantDataFactory::initializeFactory();
         
@@ -19,15 +21,18 @@ TEST_SUITE("Game Manager Tests") {
         game->addPlant(std::make_unique<FlowerPlant>("TEST_F1", "Test Rose", data));
         
         // Should be able to retrieve plant
+
         auto plant = game->getPlant("TEST_F1");
         CHECK(plant != nullptr);
         CHECK(plant->getName() == "Test Rose");
         
         // Clean up
         game->removePlant("TEST_F1");
+
     }
     
     TEST_CASE("Game Update All Plants") {
+
         Game* game = Game::getInstance();
         PlantDataFactory::initializeFactory();
         
@@ -35,6 +40,8 @@ TEST_SUITE("Game Manager Tests") {
         auto data = PlantDataFactory::getPlantData("FlowerPlant");
         game->addPlant(std::make_unique<FlowerPlant>("TEST_UPDATE", "Test Rose", data));
         
+
+
         // Update should not crash and should progress plant state
         CHECK_NOTHROW(game->update());
         
@@ -81,6 +88,8 @@ TEST_SUITE("Game Manager Tests") {
     }
     
     TEST_CASE("Game Handles Non-Existent Plants") {
+
+        
         Game* game = Game::getInstance();
         
         // Should handle non-existent plants gracefully
