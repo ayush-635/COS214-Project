@@ -4,17 +4,17 @@
 Plant::Plant(const std::string& plantId, const std::string& plantName, 
              std::shared_ptr<PlantData> data)
     : id(plantId), name(plantName), plantData(data),
+      previousState("Seedling"),
       waterReceived(0), fertilizerReceived(0),
-      ticksWithoutWater(0), ticksWithoutFertilizer(0),
-      previousState("Seedling") {
+      ticksWithoutWater(0), ticksWithoutFertilizer(0) {
     
     state = std::make_unique<Seedling>();
 }
 
 bool Plant::shouldEnterDyingState() const {
-    // Enter dying state if plant needs both water AND fertilizer
+    // Enter dying state if plant needs water OR fertilizer OR both
     // And it's not already dying or dead
-    return needsWater() && needsFertilizer() && !isDying() && !isDead();
+    return (needsWater() || needsFertilizer()) && !isDying() && !isDead();
 }
 
 void Plant::update() {
@@ -23,15 +23,7 @@ void Plant::update() {
     ticksWithoutWater++;
     ticksWithoutFertilizer++;
     
-    // Check if plant should enter dying state
-    if (shouldEnterDyingState() && !isDying()) {
-        std::string currentState = getStateName();
-        setState(std::make_unique<Dying>(currentState));
-        std::cout << "⚠️ " << name << " is DYING! Needs immediate care!\n";
-        return;
-    }
-    
-    // Check for actual death (only if not recovering from dying)
+    // Check for actual death FIRST (before any state transitions)
     if (ticksWithoutWater >= plantData->getWaterDeathTime() || 
         ticksWithoutFertilizer >= plantData->getFertilizerDeathTime()) {
         
@@ -44,6 +36,20 @@ void Plant::update() {
         return;
     }
     
+    // Check if plant should enter dying state
+    if (shouldEnterDyingState() && !isDying()) {
+        std::string currentState = getStateName();
+        setState(std::make_unique<Dying>(currentState));
+        std::cout << "⚠️ " << name << " is DYING! Needs immediate care!\n";
+        return;
+    }
+    
+    // Check for recovery from Dying state during update
+    if (isDying()) {
+        recoverFromDying();
+        return; // If we recovered, don't process normal state transitions this update
+    }
+    
     if (state) {
         state->handle(this);
     }
@@ -54,8 +60,8 @@ void Plant::water() {
     ticksWithoutWater = 0;
     std::cout << "💧 " << name << " was watered. Total: " << waterReceived << std::endl;
     
-    // Immediate recovery from Dying state if watered and no longer needs fertilizer
-    if (isDying() && !needsFertilizer()) {
+    // Check for recovery from Dying state immediately
+    if (isDying()) {
         recoverFromDying();
     }
 }
@@ -65,8 +71,8 @@ void Plant::fertilize() {
     ticksWithoutFertilizer = 0;
     std::cout << "🌱 " << name << " was fertilized. Total: " << fertilizerReceived << std::endl;
     
-    // Immediate recovery from Dying state if fertilized and no longer needs water
-    if (isDying() && !needsWater()) {
+    // Check for recovery from Dying state immediately
+    if (isDying()) {
         recoverFromDying();
     }
 }
@@ -84,17 +90,21 @@ std::string Plant::getStateName() const {
 }
 
 void Plant::recoverFromDying() {
-    if (previousState == "Seedling") {
-        setState(std::make_unique<Seedling>());
-        std::cout << "💚 " << name << " recovered from Dying to Seedling!\n";
-    } else if (previousState == "Growing") {
-        setState(std::make_unique<Growing>());
-        std::cout << "💚 " << name << " recovered from Dying to Growing!\n";
-    } else if (previousState == "Mature") {
-        setState(std::make_unique<Mature>());
-        std::cout << "💚 " << name << " recovered from Dying to Mature!\n";
-    } else if (previousState == "ReadyToSell") {
-        setState(std::make_unique<ReadyToSell>());
-        std::cout << "💚 " << name << " recovered from Dying to ReadyToSell!\n";
+    // Recover if we no longer need water AND no longer need fertilizer
+    // (i.e., we have both water and fertilizer)
+    if (!needsWater() && !needsFertilizer()) {
+        if (previousState == "Seedling") {
+            setState(std::make_unique<Seedling>());
+            std::cout << "💚 " << name << " recovered from Dying to Seedling!\n";
+        } else if (previousState == "Growing") {
+            setState(std::make_unique<Growing>());
+            std::cout << "💚 " << name << " recovered from Dying to Growing!\n";
+        } else if (previousState == "Mature") {
+            setState(std::make_unique<Mature>());
+            std::cout << "💚 " << name << " recovered from Dying to Mature!\n";
+        } else if (previousState == "ReadyToSell") {
+            setState(std::make_unique<ReadyToSell>());
+            std::cout << "💚 " << name << " recovered from Dying to ReadyToSell!\n";
+        }
     }
 }

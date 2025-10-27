@@ -148,11 +148,12 @@ int main() {
         }
         
         if (tick == 32) {
-            std::cout << "\n>>> Final fertilizer <<<" << std::endl;
+            std::cout << "\n>>> Final care <<<" << std::endl;
             game->fertilizePlant("F1");
             game->fertilizePlant("F2");
             game->fertilizePlant("T1");
             game->fertilizePlant("C1");
+            game->waterPlant("F1");
         }
         
         // Display full status every 8 ticks to see progression

@@ -14,7 +14,25 @@ void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& e
     }
     
     if (plant->isDying()) {
-        plantReports.push_back(emoji + " " + plant->getName() + " ⚠️ DYING - Needs immediate care!");
+        std::string report = emoji + " " + plant->getName() + " ⚠️ DYING";
+        
+        // Show what the dying plant needs
+        if (plant->needsWater() && plant->needsFertilizer()) {
+            report += " - Needs BOTH Water and Fertilizer!";
+        } else if (plant->needsWater()) {
+            report += " - Needs Water!";
+        } else if (plant->needsFertilizer()) {
+            report += " - Needs Fertilizer!";
+        }
+        
+        // Show danger level
+        int waterTicksUntilDeath = plant->getWaterDeathTime() - plant->getTicksWithoutWater();
+        int fertilizerTicksUntilDeath = plant->getFertilizerDeathTime() - plant->getTicksWithoutFertilizer();
+        int ticksUntilDeath = std::min(waterTicksUntilDeath, fertilizerTicksUntilDeath);
+        
+        report += " (Dying in " + std::to_string(ticksUntilDeath) + " ticks!)";
+        
+        plantReports.push_back(report);
         return;
     }
     
