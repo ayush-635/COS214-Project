@@ -1,6 +1,11 @@
 #include "GiveFertilizerCommand.h"
 
+
+GiveFertilizerCommand::GiveFertilizerCommand(int units) : units(units) {}
+
 void GiveFertilizerCommand::executeDuty(PlantableArea* area) {
-	// TODO - implement GiveFertilizerCommand::executeDuty
-	throw "Not yet implemented";
+	
+	if (!area) return;
+	
+	area->giveFertilizer(units);
 }

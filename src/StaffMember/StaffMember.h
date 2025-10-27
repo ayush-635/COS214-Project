@@ -1,10 +1,20 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
 
-class StaffMember : Colleague {
+#include "Colleague.h"
+#include "Duty.h"
+#include "PlantableArea.h"
 
+class StaffMember : public Colleague {
+
+	protected:
+    Duty* currentDuty;          
+    PlantableArea* currentArea;
 
 public:
+
+	StaffMember();
+	
 	void doDuty();
 
 	void tick();
@@ -14,6 +24,10 @@ public:
 	void browse();
 
 	void sendAdvice();
+
+	 void assignDuty(Duty* duty, PlantableArea* area);
+
+	 
 };
 
 #endif

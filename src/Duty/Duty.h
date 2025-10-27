@@ -6,7 +6,8 @@
 #ifndef DUTY_H
 #define DUTY_H
 
-class PlantableArea; /// Forward declaration
+#include "PlantableArea.h"
+#include "Plant.h"
 
 /**
  * @class Duty
@@ -22,7 +23,7 @@ public:
     /**
      * @brief Virtual destructor for safe polymorphic deletion.
      */
-    virtual ~Duty() = default;
+    virtual ~Duty();
 
     /**
      * @brief Executes the command on the specified PlantableArea.
@@ -31,4 +32,4 @@ public:
     virtual void executeDuty(PlantableArea* area) = 0;
 };
 
-#endif // DUTY_H
+#endif 

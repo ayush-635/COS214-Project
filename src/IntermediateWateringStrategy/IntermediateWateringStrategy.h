@@ -1,11 +1,15 @@
 #ifndef INTERMEDIATEWATERINGSTRATEGY_H
 #define INTERMEDIATEWATERINGSTRATEGY_H
 
-class IntermediateWateringStrategy : WateringStrategy {
+#include "WateringStrategy.h"
 
-
+/**
+ * @class IntermediateWateringStrategy
+ * @brief Concrete strategy for intermediate watering.
+ */
+class IntermediateWateringStrategy : public WateringStrategy {
 public:
-	void waterPlant();
+    void waterPlant(PlantableArea* area);
 };
 
 #endif

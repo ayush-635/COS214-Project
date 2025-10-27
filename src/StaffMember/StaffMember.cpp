@@ -1,9 +1,21 @@
 #include "StaffMember.h"
+#include "Duty.h"
+#include "PlantableArea.h"
+
+
+StaffMember::StaffMember() : currentDuty(nullptr), currentArea(nullptr){}
 
 void StaffMember::doDuty() {
-	// TODO - implement StaffMember::doDuty
-	throw "Not yet implemented";
+	if (!currentDuty || !currentArea) return;
+
+        currentDuty->executeDuty(currentArea);
+    
 }
+
+void StaffMember::assignDuty(Duty* duty, PlantableArea* area) {
+        currentDuty = duty;
+        currentArea = area;
+    }
 
 void StaffMember::tick() {
 	// TODO - implement StaffMember::tick

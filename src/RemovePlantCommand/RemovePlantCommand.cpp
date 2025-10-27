@@ -1,6 +1,5 @@
 #include "RemovePlantCommand.h"
-#include "PlantableArea.h"
-#include "Plant.h"
+
 
 /**
  * @brief Constructor sets the plant to remove

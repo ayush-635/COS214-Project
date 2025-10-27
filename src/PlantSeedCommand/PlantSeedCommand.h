@@ -2,8 +2,8 @@
 #define PLANTSEEDCOMMAND_H
 
 #include "Duty.h"  
-class Plant;
-class PlantableArea; 
+#include "Plant.h"
+
 
 /**
  * @class PlantSeedCommand

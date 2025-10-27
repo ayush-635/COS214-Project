@@ -6,3 +6,6 @@
 #include "Duty.h"
 
 Duty::Duty() {}
+
+
+Duty::~Duty() {}

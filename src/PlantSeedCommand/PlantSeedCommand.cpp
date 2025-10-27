@@ -1,6 +1,5 @@
 #include "PlantSeedCommand.h"
-#include "PlantableArea.h"
-#include "Plant.h"
+
 
 /**
  * @brief Constructor for PlantSeedCommand

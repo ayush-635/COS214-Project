@@ -2,8 +2,7 @@
 #define REMOVEPLANTCOMMAND_H
 
 #include "Duty.h"
-class Plant;
-class PlantableArea;
+
 
 /**
  * @class RemovePlantCommand

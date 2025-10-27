@@ -1,6 +1,10 @@
 #include "GiveMedicineCommand.h"
 
+
+/**
+ * @brief Executes the command to give medicine to the PlantableArea.
+ */
 void GiveMedicineCommand::executeDuty(PlantableArea* area) {
-	// TODO - implement GiveMedicineCommand::executeDuty
-	throw "Not yet implemented";
+    if (!area) return;
+    area->giveMedicine();
 }
