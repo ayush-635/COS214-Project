@@ -1,23 +1,32 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-class Plant : PlantDataFactory, PlantData {
+#include "PlantData.h"
+#include "PlantState.h"
+#include "PlantDataFactory.h"
+#include "Pot.h"
+#include <string>
+
+class Plant : PlantDataFactory, PlantData { // Componennt in Composite
 
 private:
-	PlantState state;
+	PlantState* state;
 	int growthRate;
 	PlantData* plantData;
 	int health;
 	int id;
-	string name;
+	std::string name;
 	Pot pot;
 
 public:
+
 	virtual Plant* clone() = 0;
 
-	virtual void setGrowthRate(int std::string_season) = 0;
+	virtual void setGrowthRate(const std::string& season) = 0;
 
 	void tick();
+
+	std::string getName();
 };
 
-#endif
+#endif // PLANT_H
