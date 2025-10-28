@@ -1,20 +1,23 @@
 #ifndef ORDER_H
 #define ORDER_H
-#include "string"
+#include <string>
+#include <list>
+#include "DeliveryStrategy.h"
+#include "OrderItem.h" 
 
 class Order {
 
 private:
-	list<OrderItem*> items;
+	std::list<OrderItem*> items;
 	DeliveryStrategy* delivery;
 
 public:
-	void addItem();
+	void addItem(OrderItem* item);
 
 	double total();
 	std::string getOrder();
 
-	Order();
+	Order(DeliveryStrategy* d);
 };
 
 #endif

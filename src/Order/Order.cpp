@@ -1,16 +1,26 @@
 #include "Order.h"
 
-void Order::addItem() {
-	// TODO - implement Order::addItem
-	throw "Not yet implemented";
+void Order::addItem(OrderItem* item) {
+	items.push_back(item);
 }
 
 double Order::total() {
-	// TODO - implement Order::total
-	throw "Not yet implemented";
+	double sum=0;
+	for(std::list<OrderItem*>::iterator it = items.begin(); it!=items.end(); ++it){
+		sum+=(*it)->subtotal();
+	}
+	return sum;
 }
 
-Order::Order() {
-	// TODO - implement Order::Order
-	throw "Not yet implemented";
+std::string Order::getOrder()
+{
+    std::string ret="";
+	for(std::list<OrderItem*>::iterator it = items.begin(); it!=items.end(); ++it){
+		ret+=(*it)->name+"\n";
+	}
+	return ret;
+}
+
+Order::Order(DeliveryStrategy* d) {
+	delivery = d;
 }
