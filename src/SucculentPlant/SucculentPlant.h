@@ -1,7 +1,7 @@
 #ifndef SUCCULENTPLANT_H
 #define SUCCULENTPLANT_H
 
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 
 class SucculentPlant : public Plant {
 public:

@@ -1,5 +1,5 @@
 #include "Growing.h"
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 #include <iostream>
 
 void Growing::handle(Plant* plant) {

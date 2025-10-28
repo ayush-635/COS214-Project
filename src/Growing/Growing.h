@@ -1,7 +1,7 @@
 #ifndef GROWING_H
 #define GROWING_H
 
-#include "src/PlantState/PlantState.h"
+#include "../PlantState/PlantState.h"
 
 class Growing : public PlantState {
 public:

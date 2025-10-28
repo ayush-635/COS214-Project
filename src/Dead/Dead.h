@@ -1,7 +1,7 @@
 #ifndef DEAD_H
 #define DEAD_H
 
-#include "src/PlantState/PlantState.h"
+#include "../PlantState/PlantState.h"
 
 class Dead : public PlantState {
 public:

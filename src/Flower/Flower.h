@@ -1,7 +1,7 @@
 #ifndef FLOWER_H
 #define FLOWER_H
 
-#include "src/Plants/Plant.h"
+#include "../Plants/Plant.h"
 
 class Flower : public Plant {
 public:
