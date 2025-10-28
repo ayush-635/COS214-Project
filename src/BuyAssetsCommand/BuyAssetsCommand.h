@@ -1,15 +1,15 @@
 #ifndef BUYASSETSCOMMAND_H
 #define BUYASSETSCOMMAND_H
-#include "TransactionCommand.h"
-#include "BankAccount.h"
+#include "../TransactionCommand/TransactionCommand.h"
+#include "../BankAccount/BankAccount.h"
 #include <string>
 
-class BuyAssetsCommand : TransactionCommand {
+class BuyAssetsCommand : public TransactionCommand {
 
 private:
 	BankAccount* bank;
 	std::string item;
-	double amount;
+
 public:
 	double amount;
 

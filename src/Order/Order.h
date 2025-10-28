@@ -2,14 +2,14 @@
 #define ORDER_H
 #include <string>
 #include <list>
-#include "DeliveryStrategy.h"
-#include "OrderItem.h" 
+class DeliveryStrategy;
+class OrderItem;
 
 class Order {
 
 private:
 	std::list<OrderItem*> items;
-	DeliveryStrategy* delivery;
+	//DeliveryStrategy* delivery;
 
 public:
 	void addItem(OrderItem* item);
@@ -17,7 +17,8 @@ public:
 	double total();
 	std::string getOrder();
 
-	Order(DeliveryStrategy* d);
+	//Order(DeliveryStrategy* d);
+	Order();
 };
 
 #endif

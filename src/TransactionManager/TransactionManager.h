@@ -1,7 +1,7 @@
 #ifndef TRANSACTIONMANAGER_H
 #define TRANSACTIONMANAGER_H
 #include <queue>
-#include "TransactionCommand.h"
+#include "../TransactionCommand/TransactionCommand.h"
 
 class TransactionManager {
 
