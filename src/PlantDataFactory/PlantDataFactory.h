@@ -1,7 +1,7 @@
 #ifndef PLANTDATAFACTORY_H
 #define PLANTDATAFACTORY_H
 
-#include "src/PlantData/PlantData.h"
+#include "../PlantData/PlantData.h"
 #include <map>
 #include <memory>
 
@@ -13,5 +13,6 @@ public:
     static std::shared_ptr<PlantData> getPlantData(const std::string& key);
     static void initializeFactory();
 };
+
 
 #endif
