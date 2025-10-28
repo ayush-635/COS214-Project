@@ -2,6 +2,7 @@
 #define GIVEFERTILIZERCOMMAND_H
 
 #include "CareForPlantCommand.h"
+#include "PlanterBoxCollection.h"
 
 
 /**
@@ -10,13 +11,16 @@
  */
 class GiveFertilizerCommand : public CareForPlantCommand {
 
+private:
 	int units;
+    PlanterBoxCollection* collection;
+    int boxIndex;
 public:
 
-	GiveFertilizerCommand(int units);
+	GiveFertilizerCommand(PlanterBoxCollection* collection, int boxIndex, int units);
 
     /// Executes the command to give fertilizer
-    void executeDuty(PlantableArea* area);
+    void executeDuty() override;
 };
 
 #endif

@@ -1,11 +1,17 @@
 #include "WaterPlantCommand.h"
 
-WaterPlantCommand::WaterPlantCommand(WateringStrategy* strategy)
-    : wateringStrategy(strategy) {}
+WaterPlantCommand::WaterPlantCommand(PlanterBoxCollection* collection, int boxIndex, WateringStrategy* strategy)
+    : collection(collection), boxIndex(boxIndex), wateringStrategy(strategy) {}
 
 void WaterPlantCommand::executeDuty(PlantableArea* area) {
-    if (!area && !wateringStrategy) return;
+    if (!collection || !wateringStrategy) return;
 
 	
-        wateringStrategy->waterPlant(area);
+       PlantableArea* box = collection->getChild(boxIndex);
+    if (!box) {
+        
+        return;
+    }
+
+    wateringStrategy->waterPlant(box);
 }

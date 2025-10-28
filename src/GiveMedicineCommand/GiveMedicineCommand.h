@@ -2,6 +2,7 @@
 #define GIVEMEDICINECOMMAND_H
 
 #include "CareForPlantCommand.h"
+#include "PlanterBoxCollection.h"
 
 
 /**
@@ -9,8 +10,15 @@
  * @brief Concrete command to give medicine to plants.
  */
 class GiveMedicineCommand : public CareForPlantCommand {
+
+private:
+    PlanterBoxCollection* collection;
+    int boxIndex;
+    int units;
 public:
-    void executeDuty(PlantableArea* area);
+
+GiveMedicineCommand(PlanterBoxCollection* collection, int boxIndex, int units);
+    void executeDuty() override;
 };
 
 #endif

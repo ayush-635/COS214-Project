@@ -3,18 +3,18 @@
 #include "PlantableArea.h"
 
 
-StaffMember::StaffMember() : currentDuty(nullptr), currentArea(nullptr){}
+StaffMember::StaffMember() : currentDuty(nullptr) {}
 
 void StaffMember::doDuty() {
-	if (!currentDuty || !currentArea) return;
+	if (!currentDuty) return;
 
-        currentDuty->executeDuty(currentArea);
+        currentDuty->executeDuty();
     
 }
 
 void StaffMember::assignDuty(Duty* duty, PlantableArea* area) {
         currentDuty = duty;
-        currentArea = area;
+        
     }
 
 void StaffMember::tick() {

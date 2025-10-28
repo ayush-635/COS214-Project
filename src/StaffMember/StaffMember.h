@@ -9,7 +9,7 @@ class StaffMember : public Colleague {
 
 	protected:
     Duty* currentDuty;          
-    PlantableArea* currentArea;
+    
 
 public:
 

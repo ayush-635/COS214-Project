@@ -1,35 +1,32 @@
 #ifndef PLANTSEEDCOMMAND_H
 #define PLANTSEEDCOMMAND_H
 
-#include "Duty.h"  
-#include "Plant.h"
+#include "Duty.h"
+#include "PlanterBoxCollection.h"
 
 
 /**
- * @class PlantSeedCommand
- * @brief Concrete command to plant a seed in a PlantableArea.
- * 
- * Implements the Command pattern by encapsulating the action of planting
- * a seed. The command can be executed by a StaffMember (Invoker).
+ * @brief Command to plant a seed in a specific planter box.
  */
-
 class PlantSeedCommand : public Duty {
+private:
+    PlanterBoxCollection* collection; 
+    Plant* seed;                      
+    int boxIndex;                    
 
 public:
-    /// Pointer to the Plant to be planted
-	Plant* seed;
+    /**
+     * @brief Constructor for PlantSeedCommand.
+     * @param collection Pointer to the PlanterBoxCollection (row).
+     * @param seed Pointer to the Plant to plant.
+     * @param boxIndex Index of the planter box where the plant will be placed.
+     */
+    PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int boxIndex);
 
     /**
-     * @brief Constructor
-     * @param seed Pointer to the Plant object to be planted
+     * @brief Executes the planting action on the specified planter box.
      */
-	PlantSeedCommand(Plant* seed);
-
-    /**
-     * @brief Executes the planting command on the specified PlantableArea.
-     * @param area Pointer to the PlantableArea where the seed is planted
-     */
-	void executeDuty(PlantableArea* area);
+    void executeDuty() override;
 };
 
 #endif

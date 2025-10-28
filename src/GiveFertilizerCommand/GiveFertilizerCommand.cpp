@@ -1,11 +1,11 @@
 #include "GiveFertilizerCommand.h"
+#include <iostream>
 
+GiveFertilizerCommand::GiveFertilizerCommand(PlanterBoxCollection* collection, int boxIndex, int units)
+    : collection(collection), boxIndex(boxIndex), units(units) {}
 
-GiveFertilizerCommand::GiveFertilizerCommand(int units) : units(units) {}
+void GiveFertilizerCommand::executeDuty() {
+    if (!collection) return;
 
-void GiveFertilizerCommand::executeDuty(PlantableArea* area) {
-	
-	if (!area) return;
-	
-	area->giveFertilizer(units);
+    collection->giveFertilizer(units, boxIndex); 
 }

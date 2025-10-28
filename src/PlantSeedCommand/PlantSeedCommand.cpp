@@ -1,22 +1,18 @@
 #include "PlantSeedCommand.h"
 
 
-/**
- * @brief Constructor for PlantSeedCommand
- * @param seed Pointer to the Plant object to be planted
- */
-PlantSeedCommand::PlantSeedCommand(Plant* seed) : seed(seed) {}
+PlantSeedCommand::PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int boxIndex)
+    : collection(collection), seed(seed), boxIndex(boxIndex) {}
 
-/**
- * @brief Executes the command to plant a seed in the given PlantableArea
- * @param area Pointer to the PlantableArea where the seed is planted
- */
-void PlantSeedCommand::executeDuty(PlantableArea* area) {
-	
-	if (!area || !seed) return;
+void PlantSeedCommand::executeDuty() {
+    if (!collection || !seed) {
+       
+        return;
+    }
 
     
-        area->populate(seed); 
-    
+    collection->populate(seed, boxIndex);
 
+    
 }
+

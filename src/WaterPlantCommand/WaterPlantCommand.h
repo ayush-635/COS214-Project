@@ -3,27 +3,24 @@
 
 #include "CareForPlantCommand.h"
 #include "WateringStrategy.h"
+#include "PlanterBoxCollection.h"
 
 
-/**
- * @class WaterPlantCommand
- * @brief Concrete command to water a PlantableArea using a specified strategy.
- */
+
 class WaterPlantCommand : public CareForPlantCommand {
+
+private:
+    PlanterBoxCollection* collection; 
+    int boxIndex;
+
 public:
     WateringStrategy* wateringStrategy; 
 
-    /**
-     * @brief Constructor
-     * @param strategy Pointer to a WateringStrategy object
-     */
-    WaterPlantCommand(WateringStrategy* strategy);
+    
+    WaterPlantCommand(PlanterBoxCollection* collection, int boxIndex, WateringStrategy* strategy);
 
-    /**
-     * @brief Executes the watering command on the given PlantableArea.
-     * @param area Pointer to the PlantableArea to water
-     */
-    void executeDuty(PlantableArea* area);
+    
+    void executeDuty(PlantableArea* area) override;
 };
 
 #endif

@@ -29,7 +29,7 @@ public:
      * @brief Executes the command on the specified PlantableArea.
      * @param area Pointer to the PlantableArea on which the command acts.
      */
-    virtual void executeDuty(PlantableArea* area) = 0;
+    virtual void executeDuty() = 0;
 };
 
 #endif 

@@ -2,33 +2,31 @@
 #define REMOVEPLANTCOMMAND_H
 
 #include "Duty.h"
+#include "PlanterBoxCollection.h"
 
 
 /**
- * @class RemovePlantCommand
- * @brief Concrete command to remove a plant from a PlantableArea.
- * 
- * Implements the Command pattern by encapsulating the action of
- * removing a plant. Can be executed by a StaffMember (Invoker).
+ * @brief Command to remove a plant from a specific planter box.
  */
 class RemovePlantCommand : public Duty {
-	
-	Plant* plantToRemove; /// The plant that will be removed
-
+private:
+    PlanterBoxCollection* collection; 
+    Plant* targetPlant;               
+    int boxIndex;                    
 
 public:
-
-	 /**
-     * @brief Constructor
-     * @param plant Pointer to the plant to remove
+    /**
+     * @brief Constructor for RemovePlantCommand.
+     * @param collection Pointer to the PlanterBoxCollection (row).
+     * @param targetPlant Pointer to the plant to remove.
+     * @param boxIndex Index of the planter box from which to remove the plant.
      */
-    RemovePlantCommand(Plant* plant);
+    RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int boxIndex);
 
-     /**
-     * @brief Executes the command to remove a plant from the given PlantableArea.
-     * @param area Pointer to the PlantableArea from which the plant will be removed.
+    /**
+     * @brief Executes the removal action on the specified planter box.
      */
-	void executeDuty(PlantableArea* area);
+    void executeDuty() override;
 };
 
 #endif

@@ -1,18 +1,17 @@
 #include "RemovePlantCommand.h"
+#include <iostream>
 
+RemovePlantCommand::RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int boxIndex)
+    : collection(collection), targetPlant(targetPlant), boxIndex(boxIndex) {}
 
-/**
- * @brief Constructor sets the plant to remove
- */
-RemovePlantCommand::RemovePlantCommand(Plant* plant) : plantToRemove(plant) {}
-
-/**
- * @brief Executes the remove command
- * @param area Pointer to the PlantableArea to remove the plant from
- */
-void RemovePlantCommand::executeDuty(PlantableArea* area) {
-    if (!area || !plantToRemove) return;
+void RemovePlantCommand::executeDuty() {
+    if (!collection) {
+       
+        return;
+    }
 
     
-    area->removePlant(plantToRemove);
+    collection->removePlant(targetPlant, boxIndex);
+
+    
 }

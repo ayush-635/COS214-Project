@@ -4,7 +4,12 @@
 /**
  * @brief Executes the command to give medicine to the PlantableArea.
  */
-void GiveMedicineCommand::executeDuty(PlantableArea* area) {
-    if (!area) return;
-    area->giveMedicine();
+
+GiveMedicineCommand::GiveMedicineCommand(PlanterBoxCollection* collection, int boxIndex, int units)
+    : collection(collection), boxIndex(boxIndex), units(units) {}
+
+ void GiveMedicineCommand::executeDuty() {
+    if (!collection) return;
+
+    collection->giveMedicine(units, boxIndex);
 }
