@@ -16,45 +16,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install build essentials and cppcheck
+      - name: Install build tools
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential cmake
 
-      #- name: Run cppcheck linter
-        #run: |
-          #cppcheck --enable=all --inconclusive --std=c++17 src tests || true
-
-      - name: Gather source and test files
+      - name: Build tests
         run: |
-          echo "SRC_FILES=$(find src -name '*.cpp' -print | tr '\n' ' ')" >> $GITHUB_ENV
-          echo "TEST_FILES=$(find tests -name '*.cpp' -print | tr '\n' ' ')" >> $GITHUB_ENV
-          echo "INCLUDE_FLAGS=-Isrc -Itests" >> $GITHUB_ENV
-          echo "CXXFLAGS=-std=c++17 -O2 -Wall -Wextra" >> $GITHUB_ENV
-          echo "BUILD_EXE=test_runner" >> $GITHUB_ENV
-          echo "SRC_FILES='$SRC_FILES'"
-          echo "TEST_FILES='$TEST_FILES'"
-
-      - name: Build project and tests
-        run: |
-          set -e
-          echo "Building with CXXFLAGS=$CXXFLAGS"
-          if [ -n "$TEST_FILES" ]; then
-            echo "Found test files. Compiling src + tests"
-           
-            g++ $CXXFLAGS $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
-          else
-            echo "No test .cpp files found. Compiling src files only"
-            g++ $CXXFLAGS $SRC_FILES -Isrc -o $BUILD_EXE || (echo "Build failed — maybe you need test drivers in tests/*.cpp"; exit 1)
-          fi
-          echo "Build succeeded."
+          TEST_FILES=$(find tests -name '*.cpp')
+          g++ -std=c++17 -O2 -Wall -Wextra -Isrc $TEST_FILES -o test_runner
 
       - name: Run tests
-        run: |
-          set -e
-          ./test_runner
+        run: ./test_runner
 
-      - name: Upload test logs
+      - name: Upload test logs if failed
         if: failure()
         uses: actions/upload-artifact@v4
         with:
