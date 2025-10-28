@@ -41,7 +41,8 @@ jobs:
           echo "Building with CXXFLAGS=$CXXFLAGS"
           if [ -n "$TEST_FILES" ]; then
             echo "Found test files. Compiling src + tests"
-            g++ $CXXFLAGS $SRC_FILES $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
+            #g++ $CXXFLAGS $SRC_FILES $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
+            g++ $CXXFLAGS $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
           else
             echo "No test .cpp files found. Compiling src files only"
             g++ $CXXFLAGS $SRC_FILES -Isrc -o $BUILD_EXE || (echo "Build failed — maybe you need test drivers in tests/*.cpp"; exit 1)
