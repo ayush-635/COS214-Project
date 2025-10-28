@@ -5,7 +5,7 @@ class TransactionCommand {
 
 
 public:
-	void execute();
+	virtual void execute();
 
 	TransactionCommand();
 };

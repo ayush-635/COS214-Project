@@ -1,5 +1,8 @@
 #ifndef SALECOMMAND_H
 #define SALECOMMAND_H
+#include "TransactionCommand.h"
+#include "BankAccount.h"
+#include "Order.h"
 
 class SaleCommand : TransactionCommand {
 
@@ -9,7 +12,7 @@ public:
 
 	void execute();
 
-	SaleCommand();
+	SaleCommand(BankAccount* bank, Order* pur);
 };
 
 #endif

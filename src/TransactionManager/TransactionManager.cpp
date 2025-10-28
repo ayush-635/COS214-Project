@@ -1,11 +1,17 @@
 #include "TransactionManager.h"
 
-void TransactionManager::executeCommand(int cmd) {
-	// TODO - implement TransactionManager::executeCommand
-	throw "Not yet implemented";
+void TransactionManager::executeCommands()
+{
+	while(!commands.empty()){
+		commands.front()->execute();
+		commands.pop();
+	}
 }
 
-TransactionManager::TransactionManager() {
-	// TODO - implement TransactionManager::TransactionManager
-	throw "Not yet implemented";
+void TransactionManager::addCommand(TransactionCommand *cmd)
+{
+	commands.push(cmd);
 }
+
+TransactionManager::TransactionManager()
+{}
