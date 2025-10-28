@@ -1,10 +1,10 @@
 #include "HealthCheckVisitor.h"
-#include "src/Plant/Plant.h"
-#include "src/FlowerPlant/FlowerPlant.h"
-#include "src/TreePlant/TreePlant.h"
-#include "src/HerbPlant/HerbPlant.h"
-#include "src/GrassPlant/GrassPlant.h"
-#include "src/SucculentPlant/SucculentPlant.h"
+#include "../Plant/Plant.h"
+#include "../FlowerPlant/FlowerPlant.h"
+#include "../TreePlant/TreePlant.h"
+#include "../HerbPlant/HerbPlant.h"
+#include "../GrassPlant/GrassPlant.h"
+#include "../SucculentPlant/SucculentPlant.h"
 #include <iostream>
 
 void HealthCheckVisitor::checkPlantConditions(Plant* plant, const std::string& emoji) {
@@ -101,4 +101,5 @@ void HealthCheckVisitor::printReport() {
 
 void HealthCheckVisitor::clearReports() {
     plantReports.clear();
+
 }
