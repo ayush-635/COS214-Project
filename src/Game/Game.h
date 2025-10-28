@@ -1,8 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "src/Plant/Plant.h"
-#include "src/HealthCheckVisitor/HealthCheckVisitor.h"
+#include "../Plant/Plant.h"
+#include "../HealthCheckVisitor/HealthCheckVisitor.h"
 #include <vector>
 #include <memory>
 
@@ -39,5 +39,6 @@ public:
     const std::vector<std::unique_ptr<Plant>>& getPlants() const { return plants; }
     void displayGameStatus() const;
 };
+
 
 #endif
