@@ -1,26 +1,30 @@
 #include "Inventory.h"
 
+Inventory* Inventory::instance = 0;
+
 Inventory::Inventory() {
-	// TODO - implement Inventory::Inventory
-	throw "Not yet implemented";
+
 }
 
-static Inventory* Inventory::getInstance() {
+Inventory* Inventory::getInstance(){
 	// TODO - implement Inventory::getInstance
-	throw "Not yet implemented";
+	if (!instance){
+		instance = new Inventory();
+	}
+	return instance;
 }
 
-void Inventory::addStockType(PlantFactory* factory, std::string name, std::string idealSeason) {
+void Inventory::addStockType(PlantFactory* factory,const std::string name,const std::string idealSeason) {
 	// TODO - implement Inventory::addStockType
 	throw "Not yet implemented";
 }
 
-int Inventory::getStock(std::string name) {
+int Inventory::getStock(const std::string name) const{
 	// TODO - implement Inventory::getStock
 	throw "Not yet implemented";
 }
 
-void Inventory::updateStock(int name_std::string, int count) {
+void Inventory::updateStock(const std::string& name, int count) {
 	// TODO - implement Inventory::updateStock
 	throw "Not yet implemented";
 }

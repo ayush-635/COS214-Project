@@ -1,22 +1,30 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
 
-class Inventory : Subject {
+#include <map>
+#include <string>
+#include "../Subject/Subject.h"
+
+class Plant;
+class PlantFactory;
+
+class Inventory : public Subject {
 
 private:
-	Inventory instance;
-	std::map<Plant*, null> stock;
+	static Inventory* instance;
+	std::map<Plant*, int> stock;
 
 	Inventory();
+	~Inventory() {};
 
 public:
 	static Inventory* getInstance();
 
-	void addStockType(PlantFactory* factory, std::string name, std::string idealSeason);
+	void addStockType(PlantFactory* factory,const std::string name,const std::string idealSeason);
 
-	int getStock(std::string name);
+	int getStock(const std::string name) const;
 
-	void updateStock(int name_std::string, int count);
+	void updateStock(const std::string& name, int count);
 };
 
 #endif

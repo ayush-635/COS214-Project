@@ -7,6 +7,7 @@ struct Plant{};
 #include "../src/Observer/Observer.h"
 #include "../src/Subject/Subject.h"
 #include "../src/InventoryObserver/InventoryObserver.h"
+#include "../src/Inventory/Inventory.h"
 
 class FakeInv : public Subject {
     public:
@@ -30,6 +31,13 @@ int main(){
     inv.changeStock(&p3);
 
     obs.printStock(std::cout);
+
+    Inventory* i1 = Inventory::getInstance();
+    Inventory* i2 =Inventory::getInstance();
+
+    assert(i1 != 0);
+    assert(i1 == i2);
+    std::cout << "Inventory::getInstance() returns singleton at " << i1 << "\n";
 
     return 0;
 }

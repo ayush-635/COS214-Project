@@ -4,6 +4,7 @@ INCLUDES = -I.. -I../src/Observer
 
 SRC = 	../src/Subject/Subject.cpp \
 		../src/InventoryObserver/InventoryObserver.cpp \
+		../src/Inventory/Inventory.cpp \
 		ObserverTestMain.cpp
 
 TARGET = ObserverTest
