@@ -1,14 +1,26 @@
 #ifndef CASHIER_H
 #define CASHIER_H
 
-class Cashier : StaffMember {
+#include "../StaffMember/StaffMember.h"
 
+class Plant;
+
+class Cashier : public StaffMember {
 public:
-	InventoryObserver* inventoryObserver;
+	Cashier(){};
+	virtual ~Cashier(){};
 
-	boolean checkStockLevel();
+	virtual void tick();
 
-	void requestNewStock(Plant* plant);
+    virtual void receivePreference();
+
+    virtual void browse();
+	
+	virtual void sendAdvice();
+
+	bool checkStockLevel(Plant* plant);
+
+	void requestNewStock(Plant* plant, int qty);
 };
 
 #endif

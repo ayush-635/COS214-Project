@@ -1,7 +1,19 @@
 #ifndef SALES_H
 #define SALES_H
 
-class Sales : StaffMember {
+#include "../StaffMember/StaffMember.h"
+
+class Sales : public StaffMember {
+    public:
+        virtual ~Sales(){};
+
+        virtual void tick();
+
+        virtual void receivePreference();
+        
+        virtual void browse();
+
+        virtual void sendAdvice();
 };
 
 #endif

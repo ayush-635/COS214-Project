@@ -1,19 +1,23 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
 
-class StaffMember : Colleague {
+#include "../Colleague/Colleague.h"
+
+class StaffMember : public Colleague {
 
 
 public:
+	virtual ~StaffMember() {};
+
 	void doDuty();
 
-	void tick();
+	virtual void tick() = 0;
 
-	void receivePreference();
+	virtual void receivePreference() = 0;
 
-	void browse();
+	virtual void browse() = 0;
 
-	void sendAdvice();
+	virtual void sendAdvice() = 0;
 };
 
 #endif

@@ -1,7 +1,19 @@
 #ifndef GARDNER_H
 #define GARDNER_H
 
-class Gardner : StaffMember {
+#include "../StaffMember/StaffMember.h"
+
+class Gardner : public StaffMember {
+    public:
+        virtual ~Gardner(){};
+
+        virtual void tick();
+
+        virtual void receivePreference();
+        
+        virtual void browse();
+
+        virtual void sendAdvice();
 };
 
 #endif
