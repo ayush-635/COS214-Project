@@ -19,11 +19,11 @@ jobs:
       - name: Install build essentials and cppcheck
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake cppcheck
+          sudo apt-get install -y build-essential cmake
 
-      - name: Run cppcheck linter
-        run: |
-          cppcheck --enable=all --inconclusive --std=c++17 src tests || true
+      #- name: Run cppcheck linter
+        #run: |
+          #cppcheck --enable=all --inconclusive --std=c++17 src tests || true
 
       - name: Gather source and test files
         run: |
@@ -41,7 +41,7 @@ jobs:
           echo "Building with CXXFLAGS=$CXXFLAGS"
           if [ -n "$TEST_FILES" ]; then
             echo "Found test files. Compiling src + tests"
-            #g++ $CXXFLAGS $SRC_FILES $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
+           
             g++ $CXXFLAGS $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
           else
             echo "No test .cpp files found. Compiling src files only"
