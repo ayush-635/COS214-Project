@@ -1,7 +1,7 @@
 #ifndef SEEDLING_H
 #define SEEDLING_H
 
-#include "src/PlantState/PlantState.h"
+#include "../PlantState/PlantState.h"
 
 class Seedling : public PlantState {
 public:
