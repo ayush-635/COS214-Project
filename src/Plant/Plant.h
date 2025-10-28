@@ -3,14 +3,14 @@
 
 #include <string>
 #include <memory>
-#include "src/PlantData/PlantData.h"
-#include "src/PlantState/PlantState.h"
-#include "src/Seedling/Seedling.h"
-#include "src/Growing/Growing.h"
-#include "src/Mature/Mature.h"
-#include "src/ReadyToSell/ReadyToSell.h"
-#include "src/Dying/Dying.h"
-#include "src/Dead/Dead.h"
+#include "../PlantData/PlantData.h"
+#include "../PlantState/PlantState.h"
+#include "../Seedling/Seedling.h"
+#include "../Growing/Growing.h"
+#include "../Mature/Mature.h"
+#include "../ReadyToSell/ReadyToSell.h"
+#include "../Dying/Dying.h"
+#include "../Dead/Dead.h"
 
 class CareVisitor;
 
@@ -80,5 +80,6 @@ public:
     int getTicksWithoutWater() const { return ticksWithoutWater; }
     int getTicksWithoutFertilizer() const { return ticksWithoutFertilizer; }
 };
+
 
 #endif
