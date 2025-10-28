@@ -3,12 +3,12 @@
 
 #include "Duty.h"
 #include "Plant.h"
-
+#include <vector>
 
 class PlantableArea {
 private:
 	Duty* receiver;
-
+	std::vector<PlantableArea*> children;
 public:
 	virtual ~PlantableArea() = default;
 
@@ -19,9 +19,10 @@ public:
 	virtual void giveMedicine(int units) = 0;
 	virtual void giveFertilizer(int units) = 0;
 
-	virtual void add(PlantableArea* area);
-	virtual void remove(PlantableArea* area);
-	virtual PlantableArea* getChild(int index);
+	virtual void add(PlantableArea* area) = 0;
+	virtual void remove(PlantableArea* area) = 0;
+	virtual PlantableArea* getChild(int index) = 0;
+	virtual void display() = 0;
 };
 
 #endif

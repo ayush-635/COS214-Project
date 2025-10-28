@@ -9,6 +9,7 @@
 class PlanterBoxCollection : PlantableArea {
 private:
 	std::vector<PlantableArea*> boxes; // can store up to 4 PlanterBox objects
+	
 public:
 	PlanterBoxCollection() = default;
 	~PlanterBoxCollection() override = default;

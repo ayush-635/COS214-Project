@@ -24,6 +24,10 @@ Plant* PlanterBox::removePlant(Plant* plant) {
 	return nullptr;
 }
 
+const std::vector<Plant*> PlanterBox::getPlants() {
+	return plants;
+}
+
 void PlanterBox::water(int unit) {
 	//TODO: Needs an attribute to change in plant
 }

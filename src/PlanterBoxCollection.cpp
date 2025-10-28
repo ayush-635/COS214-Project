@@ -59,7 +59,6 @@ Plant* PlanterBoxCollection::removePlant(Plant* plant){
 }
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){
-	//TODO:
 	if (plantBoxIndex >= 0 && plantBoxIndex < boxes.size()) {
         boxes[plantBoxIndex]->removePlant(plant);
     } else {

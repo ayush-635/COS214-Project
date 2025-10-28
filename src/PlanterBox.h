@@ -16,6 +16,7 @@ public:
 
 	void populate(Plant* plant) override;
 	Plant* removePlant(Plant* plant) override;
+	const std::vector<Plant*> getPlants();
 
 	void water(int units) override;
 	void giveMedicine(int units) override;

@@ -9,12 +9,18 @@
 
 class PlantIterator : Iterator {
 protected:
-	int curIndex;
-	std::vector<PlantableArea*> boxes;
+	size_t boxIndex;
+	size_t plantIndex;
+	std::vector<PlantableArea*> boxes; // planter boxes in collection
+	std::vector<Plant*> plants; // plants in current box
 	
+	void loadCurrentBoxPlants();
+    void advanceToNextValidBox();
+
 public:
-	PlantIterator(const std::vector<Plant*>& plantsList);
+	PlantIterator(const std::vector<PlantableArea*>& plantsList);
 	~PlantIterator() override = default;
+
 	bool hasNext() override;
 	Plant* next() override;
 	Plant* first() override;
