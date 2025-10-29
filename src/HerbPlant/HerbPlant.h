@@ -1,11 +1,17 @@
 #ifndef HERBPLANT_H
 #define HERBPLANT_H
 
-class HerbPlant : Plant {
+#include "src/Plant/Plant.h"
 
-
+class HerbPlant : public Plant {
 public:
-	virtual Plant* clone() = 0;
+    HerbPlant(const std::string& id, const std::string& name, 
+              std::shared_ptr<PlantData> data);
+	HerbPlant(const HerbPlant& other) : Plant(other) { }
+
+    void accept(CareVisitor& visitor) override;
+
+	virtual Plant* clone();
 };
 
 #endif

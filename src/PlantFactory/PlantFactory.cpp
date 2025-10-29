@@ -1,11 +1,9 @@
-#include "PlantFactory.h"
+#include "src/PlantFactory/PlantFactory.h"
 
-void PlantFactory::addPlantPrototype(std::string name, std::string idealSeason) {
-	// TODO - implement PlantFactory::addPlantPrototype
-	throw "Not yet implemented";
-}
+#include "src/Plant/Plant.h"
 
-PlantFactory::PlantFactory() {
-	// TODO - implement PlantFactory::PlantFactory
-	throw "Not yet implemented";
+void PlantFactory::addPlantPrototype(Plant* prototype) {
+	if(plantProtoypes.find(prototype->getName()) == plantProtoypes.end()) {
+		plantProtoypes.insert({prototype->getName(), prototype->clone()});
+	}
 }
