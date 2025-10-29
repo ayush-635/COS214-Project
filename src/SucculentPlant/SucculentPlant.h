@@ -12,3 +12,5 @@ public:
 	void accept(CareVisitor& visitor) override;
 	virtual Plant* clone() override;
 };
+
+#endif
