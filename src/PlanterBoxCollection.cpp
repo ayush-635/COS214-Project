@@ -1,14 +1,26 @@
 #include "PlanterBoxCollection.h"
 
+PlanterBoxCollection::PlanterBoxCollection(int depth) : depth(depth) {}
+
 void PlanterBoxCollection::add(PlantableArea* area){
-	if(area != nullptr){
-		if(boxes.size() < 4){
-			boxes.push_back(area);
-		}else{
-			std::cout << "Cannot add more PlanterBoxes to the collection. Maximum capacity of 4 has been reached." << std::endl;
-		}
-		
+	if(area == nullptr){
+		std::cout << "Cannot add null PlanterBox." << std::endl;
+		return;
 	}
+
+	if(boxes.size() >= max_boxes){
+		std::cout << "PlanterBoxCollection has reached maximum capacity of " << max_boxes << " boxes." << std::endl;
+		return;
+	}
+
+	PlanterBoxCollection* collectionArea = dynamic_cast<PlanterBoxCollection*>(area);
+	if(collectionArea != nullptr && collectionArea->getDepth() + 1 > max_depth){
+		std::cout << "Cannot add PlanterBoxCollection. Exceeds maximum depth of " << max_depth << "." << std::endl;
+		return;
+	}
+
+	boxes.push_back(area);
+	std::cout << "Added PlanterBox to collection on level " << depth << std::endl;
 }
 
 void PlanterBoxCollection::remove(PlantableArea* area){
@@ -60,9 +72,10 @@ Plant* PlanterBoxCollection::removePlant(Plant* plant){
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){
 	if (plantBoxIndex >= 0 && plantBoxIndex < boxes.size()) {
-        boxes[plantBoxIndex]->removePlant(plant);
+		return boxes[plantBoxIndex]->removePlant(plant);
     } else {
         std::cout << "Invalid PlanterBox index.\n";
+		return nullptr;
     }
 }
 
@@ -76,4 +89,16 @@ void PlanterBoxCollection::giveMedicine(int units){
 
 void PlanterBoxCollection::giveFertilizer(int units){
 	//TODO: Needs an attribute to change in plant
+}
+
+int PlanterBoxCollection::getDepth() const {
+	return depth;
+}
+
+void PlanterBoxCollection::display() {
+	std::cout << "PlanterBoxCollection at depth " << depth << " contains " << boxes.size() << " boxes." << std::endl;
+	for (size_t i = 0; i < boxes.size(); ++i) {
+		std::cout << " Box " << i + 1 << ":" << std::endl;
+		boxes[i]->display();
+	}
 }

@@ -28,6 +28,26 @@ const std::vector<Plant*> PlanterBox::getPlants() {
 	return plants;
 }
 
+void PlanterBox::add(PlantableArea* area){
+	return;
+}
+
+void PlanterBox::remove(PlantableArea* area){
+	return;
+}
+
+PlantableArea* PlanterBox::getChild(int index){
+	return nullptr;
+}
+
+void PlanterBox::display() {
+	std::cout << "PlanterBox contains " << plants.size() << "/" << max_plant_capacity << " plants." << std::endl;
+	std::cout << "Plants in PlanterBox:" << std::endl;
+	for(const auto& plant : plants) {
+		std::cout << "- " << plant->getName() << std::endl;
+	}
+}
+
 void PlanterBox::water(int unit) {
 	//TODO: Needs an attribute to change in plant
 }

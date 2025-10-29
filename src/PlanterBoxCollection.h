@@ -9,9 +9,12 @@
 class PlanterBoxCollection : PlantableArea {
 private:
 	std::vector<PlantableArea*> boxes; // can store up to 4 PlanterBox objects
+	int depth;
+	int max_depth = 1; // only 1 level of nesting allowed
+	int max_boxes = 4; // max 4 planter boxes in collection
 	
 public:
-	PlanterBoxCollection() = default;
+	PlanterBoxCollection(int depth);
 	~PlanterBoxCollection() override = default;
 
 	// Operations for adding areas/tiles
@@ -30,6 +33,9 @@ public:
 	void water(int units) override;
 	void giveMedicine(int units) override;
 	void giveFertilizer(int units) override;
+
+	void display() override;
+	int getDepth() const;
 };
 
 #endif // PLANTERBOXCOLLECTION_H

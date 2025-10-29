@@ -14,6 +14,11 @@ public:
 	PlanterBox() = default;
 	~PlanterBox() = default;
 
+	void add(PlantableArea* area) override;
+	void remove(PlantableArea* area) override;
+	PlantableArea* getChild(int index) override;
+    void display() override;
+
 	void populate(Plant* plant) override;
 	Plant* removePlant(Plant* plant) override;
 	const std::vector<Plant*> getPlants();
