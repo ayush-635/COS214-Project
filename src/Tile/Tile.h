@@ -1,7 +1,7 @@
 #ifndef TILE_H
 #define TILE_H
 
-#include "PlanterBoxCollection.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 
 class Tile {
     private:

@@ -1,7 +1,7 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include "Plant.h"
+#include "../Plant/Plant.h"
 
 class Iterator { // interface
 public:

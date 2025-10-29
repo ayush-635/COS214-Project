@@ -4,23 +4,36 @@ PlanterBoxCollection::PlanterBoxCollection(int depth) : depth(depth) {}
 
 void PlanterBoxCollection::add(PlantableArea* area){
 	if(area == nullptr){
-		std::cout << "Cannot add null PlanterBox." << std::endl;
-		return;
-	}
+        std::cout << "Cannot add null PlanterBox." << std::endl;
+        return;
+    }
 
-	if(boxes.size() >= max_boxes){
-		std::cout << "PlanterBoxCollection has reached maximum capacity of " << max_boxes << " boxes." << std::endl;
-		return;
-	}
+    if(boxes.size() >= max_boxes){
+        std::cout << "PlanterBoxCollection has reached maximum capacity of " << max_boxes << " boxes." << std::endl;
+        return;
+    }
 
-	PlanterBoxCollection* collectionArea = dynamic_cast<PlanterBoxCollection*>(area);
-	if(collectionArea != nullptr && collectionArea->getDepth() + 1 > max_depth){
-		std::cout << "Cannot add PlanterBoxCollection. Exceeds maximum depth of " << max_depth << "." << std::endl;
-		return;
-	}
+    PlanterBoxCollection* collectionArea = dynamic_cast<PlanterBoxCollection*>(area);
+    if(collectionArea != nullptr){
+        // Child's depth should be exactly parent's depth + 1
+        if(collectionArea->getDepth() != this->depth + 1){
+            std::cout << "Cannot add PlanterBoxCollection. Child must be at depth " 
+                    << (this->depth + 1) << ", but is at depth " 
+                    << collectionArea->getDepth() << std::endl;
+            return;
+        }
+        
+        // Also check if it exceeds maximum allowed depth
+        if(collectionArea->getDepth() > max_depth){
+            std::cout << "Cannot add PlanterBoxCollection. Exceeds maximum depth of " 
+                    << max_depth << "." << std::endl;
+            return;
+        }
+    }
 
-	boxes.push_back(area);
-	std::cout << "Added PlanterBox to collection on level " << depth << std::endl;
+    boxes.push_back(area);
+    std::cout << "Added " << (collectionArea ? "PlanterBoxCollection" : "PlanterBox") 
+            << " to collection on level " << this->depth << std::endl;
 }
 
 void PlanterBoxCollection::remove(PlantableArea* area){
@@ -67,7 +80,12 @@ void PlanterBoxCollection::populate(Plant* plant, int plantBoxIndex){
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant){
 	//TODO: need to find a way to maybe use state of a plant stored to automatically pick the first one thats ready for harvest
-	
+	// Delegate to first available box
+    for(auto box : boxes){
+        Plant* result = box->removePlant(plant);
+        if(result != nullptr) return result;
+    }
+    return nullptr;
 }
 
 Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){

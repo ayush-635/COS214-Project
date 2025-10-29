@@ -1,6 +1,8 @@
 #ifndef DUTY_H
 #define DUTY_H
 
+class PlantableArea;
+
 class Duty {
 
 
