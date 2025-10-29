@@ -1,23 +1,87 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-class Plant : PlantDataFactory, PlantData {
+#include <string>
+#include <memory>
+#include "../PlantData/PlantData.h"
+#include "../PlantState/PlantState.h"
+#include "../Seedling/Seedling.h"
+#include "../Growing/Growing.h"
+#include "../Mature/Mature.h"
+#include "../ReadyToSell/ReadyToSell.h"
+#include "../Dying/Dying.h"
+#include "../Dead/Dead.h"
 
-private:
-	PlantState state;
-	int growthRate;
-	PlantData* plantData;
-	int health;
-	int id;
-	string name;
-	Pot pot;
+class CareVisitor;
+
+class Plant {
+protected:
+
+    std::string id;
+    std::string name;
+    std::shared_ptr<PlantData> plantData;
+    std::unique_ptr<PlantState> state;
+    std::string previousState; // before Dying
+    
+    int waterReceived;
+    int fertilizerReceived;
+    int ticksWithoutWater;
+    int ticksWithoutFertilizer;
 
 public:
-	virtual Plant* clone() = 0;
+    Plant(const std::string& plantId, const std::string& plantName, 
+          std::shared_ptr<PlantData> data);
+    Plant(const Plant& other);
+    virtual ~Plant() = default;
 
-	virtual void setGrowthRate(int std::string_season) = 0;
+    virtual Plant* clone() = 0;
+    
+    virtual void update();
+    void water();
+    void fertilize();
+    
+    void setState(std::unique_ptr<PlantState> newState);
+    std::string getStateName() const;
+    
+    bool shouldEnterDyingState() const;
+    void recoverFromDying();
+    
+    virtual void accept(CareVisitor& visitor) = 0;
+    
+    // Getters
+    std::string getId() const { return id; }
+    std::string getName() const { return name; }
+    std::string getSpeciesName() const { return plantData->getSpeciesName(); }
+    std::string getPreviousState() const { return previousState; }
+    int getWaterReceived() const { return waterReceived; }
+    int getFertilizerReceived() const { return fertilizerReceived; }
+    int getWaterNeededForNextState() const { return plantData->getWaterNeededForNextState(); }
+    int getFertilizerNeededForNextState() const { return plantData->getFertilizerNeededForNextState(); }
+    int getWaterInterval() const { return plantData->getWaterInterval(); }
+    int getFertilizerInterval() const { return plantData->getFertilizerInterval(); }
+    int getWaterDeathTime() const { return plantData->getWaterDeathTime(); }
+    int getFertilizerDeathTime() const { return plantData->getFertilizerDeathTime(); }
+    
+    void setID(std::string newID) { id = newID; }
 
-	void tick();
+    // Condition checkers
+    bool needsWater() const { return ticksWithoutWater >= plantData->getWaterInterval(); }
+    bool needsFertilizer() const { return ticksWithoutFertilizer >= plantData->getFertilizerInterval(); }
+    bool isDead() const { return getStateName() == "Dead"; }
+    bool isDying() const { return getStateName() == "Dying"; }
+    bool isInDanger() const { 
+        return ticksWithoutWater >= plantData->getWaterDeathTime() - 3 || 
+               ticksWithoutFertilizer >= plantData->getFertilizerDeathTime() - 3; 
+    }
+    
+    // Progress calculations
+    int getWaterRemaining() const { return plantData->getWaterNeededForNextState() - waterReceived; }
+    int getFertilizerRemaining() const { return plantData->getFertilizerNeededForNextState() - fertilizerReceived; }
+    
+    // For status
+    int getTicksWithoutWater() const { return ticksWithoutWater; }
+    int getTicksWithoutFertilizer() const { return ticksWithoutFertilizer; }
 };
+
 
 #endif
