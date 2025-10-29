@@ -10,8 +10,5 @@ public:
 	SucculentPlant(const SucculentPlant& other) : Plant(other) { }
 
 	void accept(CareVisitor& visitor) override;
-
 	virtual Plant* clone() override;
 };
-
-#endif

@@ -15,4 +15,8 @@ public:
 };
 
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> origin/feature/plant-state-condition

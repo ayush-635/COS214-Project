@@ -1,11 +1,18 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "iostream": "cpp",
+=======
+>>>>>>> origin/feature/plant-state-condition
         "array": "cpp",
         "atomic": "cpp",
         "bit": "cpp",
         "cctype": "cpp",
+<<<<<<< HEAD
         "charconv": "cpp",
+=======
+        "chrono": "cpp",
+>>>>>>> origin/feature/plant-state-condition
         "clocale": "cpp",
         "cmath": "cpp",
         "compare": "cpp",
@@ -35,7 +42,10 @@
         "memory": "cpp",
         "memory_resource": "cpp",
         "numeric": "cpp",
+<<<<<<< HEAD
         "optional": "cpp",
+=======
+>>>>>>> origin/feature/plant-state-condition
         "random": "cpp",
         "ratio": "cpp",
         "string_view": "cpp",
@@ -43,28 +53,44 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
+<<<<<<< HEAD
         "format": "cpp",
+=======
+>>>>>>> origin/feature/plant-state-condition
         "fstream": "cpp",
         "initializer_list": "cpp",
         "iomanip": "cpp",
         "iosfwd": "cpp",
+<<<<<<< HEAD
+=======
+        "iostream": "cpp",
+>>>>>>> origin/feature/plant-state-condition
         "istream": "cpp",
         "limits": "cpp",
         "mutex": "cpp",
         "new": "cpp",
         "numbers": "cpp",
         "ostream": "cpp",
+<<<<<<< HEAD
         "queue": "cpp",
         "ranges": "cpp",
         "semaphore": "cpp",
         "span": "cpp",
+=======
+        "semaphore": "cpp",
+>>>>>>> origin/feature/plant-state-condition
         "sstream": "cpp",
         "stdexcept": "cpp",
         "stop_token": "cpp",
         "streambuf": "cpp",
+<<<<<<< HEAD
         "text_encoding": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp"
+=======
+        "thread": "cpp",
+        "typeinfo": "cpp"
+>>>>>>> origin/feature/plant-state-condition
     }
 }
