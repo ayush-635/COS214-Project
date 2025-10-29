@@ -24,3 +24,12 @@ void Inventory::updateStock(int name_std::string, int count) {
 	// TODO - implement Inventory::updateStock
 	throw "Not yet implemented";
 }
+
+std::vector<std::string> Inventory::getAllPlantNames() const
+{
+    std::vector<std::string> names;
+    for (auto& pair : protoByName) {
+        names.push_back(pair.first);
+    }
+    return names;
+}

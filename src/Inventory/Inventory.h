@@ -1,5 +1,8 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
+#include <string>
+#include <vector>
+
 
 class Inventory : Subject {
 
@@ -17,6 +20,7 @@ public:
 	int getStock(std::string name);
 
 	void updateStock(int name_std::string, int count);
+	std::vector<std::string> getAllPlantNames() const;
 };
 
 #endif

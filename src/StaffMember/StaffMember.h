@@ -1,7 +1,8 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
+#include "../Colleague/Colleague.h"
 
-class StaffMember : Colleague {
+class StaffMember : public Colleague {
 
 
 public:
@@ -9,11 +10,11 @@ public:
 
 	void tick();
 
-	void receivePreference();
+	
 
 	void browse();
 
-	void sendAdvice();
+	
 };
 
 #endif
