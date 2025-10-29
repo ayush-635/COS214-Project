@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-#include <memory>
 
 #include "../src/Observer/Observer.h"
 #include "../src/Subject/Subject.h"
