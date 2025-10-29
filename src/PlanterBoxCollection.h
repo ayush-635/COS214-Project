@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 
-class PlanterBoxCollection : PlantableArea {
+class PlanterBoxCollection : public PlantableArea {
 private:
 	std::vector<PlantableArea*> boxes; // can store up to 4 PlanterBox objects
 	int depth;
