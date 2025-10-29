@@ -1,11 +1,13 @@
 #ifndef READYTOSELL_H
 #define READYTOSELL_H
 
-class ReadyToSell : PlantState {
+#include "src/PlantState/PlantState.h"
 
-
+class ReadyToSell : public PlantState {
 public:
-	void handle();
+    void handle(Plant* plant) override;
+    std::string getName() const override { return "ReadyToSell"; }
+    bool canProgress(Plant* plant) override;
 };
 
 #endif

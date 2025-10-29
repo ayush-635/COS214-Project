@@ -1,11 +1,16 @@
 #include "Subject.h"
+#include "../Observer/Observer.h"
 
 void Subject::attach(Observer* observer) {
-	// TODO - implement Subject::attach
-	throw "Not yet implemented";
+	if (observer) {
+		observers.push_back(observer);
+	}
 }
 
-Subject::Subject() {
-	// TODO - implement Subject::Subject
-	throw "Not yet implemented";
+void Subject::notifyStockChange(Plant* plant) {
+	for(std::size_t i = 0; i < observers.size(); ++i){
+		if (observers[i]) {
+			observers[i]->onStockChange(plant);
+		} 
+	}
 }
