@@ -1,8 +1,8 @@
 #include "Gardner.h"
 #include <iostream>
 
-void Gardner::tick() {
-    std::cout << "Gardner tick\n";
+void Gardner::tick(int time) {
+    std::cout << "Sales tick +" << time << " Ticks spent alive: " << TimeSpent <<std::endl;
 }
 
 void Gardner::receivePreference() {

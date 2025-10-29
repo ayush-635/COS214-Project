@@ -6,21 +6,20 @@
 class Plant;
 
 class Cashier : public StaffMember {
-public:
-	Cashier(){};
-	virtual ~Cashier(){};
+	public:
+		virtual ~Cashier(){};
 
-	virtual void tick();
+		virtual void tick(int time);
 
-    virtual void receivePreference();
+		virtual void receivePreference();
 
-    virtual void browse();
-	
-	virtual void sendAdvice();
+		virtual void browse();
+		
+		virtual void sendAdvice();
 
-	bool checkStockLevel(Plant* plant);
+		bool checkStockLevel(Plant* plant);
 
-	void requestNewStock(Plant* plant, int qty);
+		void requestNewStock(Plant* plant, int qty);
 };
 
 #endif

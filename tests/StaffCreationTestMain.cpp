@@ -11,7 +11,8 @@ struct Plant {};
 
 static void runScenario(StaffMember& sm, const char* name) {
     std::cout << "== " << name << " doDuty() ==" << std::endl;
-    sm.doDuty();
+    sm.doDuty(15);
+    sm.doDuty(5);
     std::cout << std::endl;
 }
 

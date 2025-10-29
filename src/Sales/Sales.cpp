@@ -1,8 +1,8 @@
 #include "Sales.h"
 #include <iostream>
 
-void Sales::tick() {
-    std::cout << "Sales tick\n";
+void Sales::tick(int time) {;
+    std::cout << "Sales tick +" << time << " Ticks spent alive: " << totalTime() <<std::endl;
 }
 
 void Sales::receivePreference() {

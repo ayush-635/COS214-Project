@@ -1,8 +1,8 @@
 #include "Cashier.h"
 #include <iostream>
 
-void Cashier::tick() {
-    std::cout << "Cashier tick\n";
+void Cashier::tick(int time) {
+    std::cout << "Sales tick +" << time << " Ticks spent alive: " << totalTime() <<std::endl;
 }
 
 void Cashier::receivePreference() {

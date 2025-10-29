@@ -5,9 +5,10 @@
 
 class Pathologist : public StaffMember {
     public:
+        //Pathologist
         virtual ~Pathologist(){};
 
-        virtual void tick();
+        virtual void tick(int time);
 
         virtual void receivePreference();
         

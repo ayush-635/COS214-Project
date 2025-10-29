@@ -7,7 +7,7 @@ class Gardner : public StaffMember {
     public:
         virtual ~Gardner(){};
 
-        virtual void tick();
+        virtual void tick(int time);
 
         virtual void receivePreference();
         

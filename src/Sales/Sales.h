@@ -4,10 +4,11 @@
 #include "../StaffMember/StaffMember.h"
 
 class Sales : public StaffMember {
+
     public:
         virtual ~Sales(){};
 
-        virtual void tick();
+        virtual void tick(int time);
 
         virtual void receivePreference();
         

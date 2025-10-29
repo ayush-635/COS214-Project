@@ -1,8 +1,8 @@
 #include "Pathologist.h"
 #include <iostream>
 
-void Pathologist::tick() {
-    std::cout << "Pathologist tick\n";
+void Pathologist::tick(int time) {
+    std::cout << "Sales tick +" << time << " Ticks spent alive: " << totalTime() <<std::endl;
 }
 
 void Pathologist::receivePreference() {
