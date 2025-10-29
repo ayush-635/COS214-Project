@@ -1,21 +1,20 @@
 #include "OrderItem.h"
+#include <iostream>
+
+OrderItem::OrderItem() {
+    name = "Plant Item";
+    unitPrice = 150.0;  // Default price
+    qty = 1;
+}
 
 double OrderItem::subtotal() {
-	// TODO - implement OrderItem::subtotal
-	throw "Not yet implemented";
+    return unitPrice * qty;
 }
 
 int OrderItem::count() {
-	// TODO - implement OrderItem::count
-	throw "Not yet implemented";
+    return qty;
 }
 
 void OrderItem::list(int itemsOut) {
-	// TODO - implement OrderItem::list
-	throw "Not yet implemented";
-}
-
-OrderItem::OrderItem() {
-	// TODO - implement OrderItem::OrderItem
-	throw "Not yet implemented";
+    std::cout << name << " x" << qty << " @ R" << unitPrice << " = R" << subtotal() << std::endl;
 }
