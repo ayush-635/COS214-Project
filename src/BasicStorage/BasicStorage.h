@@ -1,11 +1,12 @@
 #ifndef BASICSTORAGE_H
 #define BASICSTORAGE_H
 
-class BasicStorage : StorageState {
+#include "StorageState.h"
 
-
+class BasicStorage : public StorageState {
 public:
-	bool refill();
+    bool refill() override;
+    bool upgrade() override;
 };
 
 #endif
