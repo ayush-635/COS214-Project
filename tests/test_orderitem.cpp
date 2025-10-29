@@ -26,6 +26,6 @@ TEST_CASE("OrderItem Information") {
         CHECK(info.find("Apple") != std::string::npos);
         CHECK(info.find("2.5") != std::string::npos);
         CHECK(info.find("4") != std::string::npos);
-        CHECK(info.find("10") != std::string::npos); // subtotal
+        CHECK(info.find("10") != std::string::npos);
     }
 }
