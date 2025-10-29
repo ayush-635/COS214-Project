@@ -1,6 +1,8 @@
 #ifndef NURSERYMANAGER_H
 #define NURSERYMANAGER_H
 
+class SpaceBuilder;
+
 class NurseryManager {
 
 private:
@@ -15,3 +17,4 @@ public:
 };
 
 #endif
+
