@@ -3,7 +3,7 @@
 
 #include "src/PlantFactory/PlantFactory.h"
 
-class FlowerFactory : PlantFactory {
+class FlowerFactory : public PlantFactory {
 public:
 	virtual Plant* createPlant(std::string name) override;
 };

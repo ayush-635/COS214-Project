@@ -14,7 +14,11 @@ Plant::Plant(const std::string& plantId, const std::string& plantName,
 Plant::Plant(const Plant& other) {
       id = "clone"; // change this
       name = other.name;
-      plantData = std::make_unique<PlantData>(*other.plantData);
+      if(other.plantData != nullptr) {
+        plantData = std::make_unique<PlantData>(*other.plantData);
+      } else {
+        plantData = nullptr;
+      }
       previousState = "Seedling";
       waterReceived = 0;
       fertilizerReceived = 0;

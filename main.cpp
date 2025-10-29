@@ -1,4 +1,5 @@
 #include "src/Game/Game.h"
+#include "src/Plant/Plant.h"
 #include "src/PlantData/PlantData.h"
 #include "src/PlantDataFactory/PlantDataFactory.h"
 #include "src/FlowerPlant/FlowerPlant.h"
@@ -17,24 +18,33 @@
 
 #include "src/PlantFactory/PlantFactory.h"
 #include "src/SucculentFactory/SucculentFactory.h"
+#include "src/FlowerFactory/FlowerFactory.h"
 
 int main() {
     // Initialize flyweight factory
-    PlantDataFactory::initializeFactory();
+    // PlantDataFactory::initializeFactory();
     
-    // Get game manager (singleton)
-    Game* game = Game::getInstance();
+    // // Get game manager (singleton)
+    // Game* game = Game::getInstance();
 
-    PlantFactory* succulentFactory = new SucculentFactory();
-    succulentFactory->addPlantPrototype(new SucculentPlant("PrototypeSucculent", "Prototype Succulent", PlantDataFactory::getPlantData("SucculentPlant")));
-    Plant* p = succulentFactory->createPlant("Prototype Succulent");
+    // PlantFactory* flowerFactory = new FlowerFactory();
+    // flowerFactory->addPlantPrototype(new FlowerPlant("Test_Flower_Prototype 1", "Prototype Flower 1", PlantDataFactory::getPlantData("FlowerPlant")));
+    // flowerFactory->addPlantPrototype(new FlowerPlant("Test_Flower_Prototype 2", "Prototype Flower 2", PlantDataFactory::getPlantData("FlowerPlant")));
 
-    // Create plants with different requirements - including 2 of the same type
-    game->addPlant(std::make_unique<FlowerPlant>("F1", "Red Rose", PlantDataFactory::getPlantData("FlowerPlant")));
-    game->addPlant(std::make_unique<FlowerPlant>("F2", "Pink Rose", PlantDataFactory::getPlantData("FlowerPlant"))); // Second rose
-    game->addPlant(std::make_unique<TreePlant>("T1", "Oak Tree", PlantDataFactory::getPlantData("TreePlant")));
-    game->addPlant(std::make_unique<HerbPlant>("H1", "Basil", PlantDataFactory::getPlantData("HerbPlant")));
-    game->addPlant(std::make_unique<GrassPlant>("G1", "Lawn Grass", PlantDataFactory::getPlantData("GrassPlant")));
-    game->addPlant(std::make_unique<SucculentPlant>("C1", "Golden Barrel", PlantDataFactory::getPlantData("SucculentPlant")));
-    game->addPlant(std::unique_ptr<Plant>(p));
+    // Plant* p1 = flowerFactory->createPlant("Prototype Flower 1");
+    // Plant* p2 = flowerFactory->createPlant("Prototype Flower 2");
+
+    // std::cout << p1 << std::endl;
+
+    // game->addPlant(std::unique_ptr<Plant>(p1));
+    // game->addPlant(std::unique_ptr<Plant>(p2));
+
+    // game->displayGameStatus();
+
+    Plant* flowerPrototype = new FlowerPlant("F_Proto", "Flower Prototype", nullptr);
+    Plant* clonedFlower = flowerPrototype->clone();
+    auto data = PlantDataFactory::getPlantData("FlowerPlant");
+    std::cout << data << std::endl;
+
+    return 0;
 }

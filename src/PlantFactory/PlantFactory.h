@@ -11,6 +11,8 @@ private:
 	std::map<std::string, Plant*> plantProtoypes;
 
 public:
+	virtual ~PlantFactory();
+
 	virtual void addPlantPrototype(Plant* prototype);
 
 	std::map<std::string, Plant*>& getPlantPrototypes() {
