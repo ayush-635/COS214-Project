@@ -1,6 +1,15 @@
 #include "BasicStorage.h"
+#include <iostream>
+using namespace std;
 
 bool BasicStorage::refill() {
-	// TODO - implement BasicStorage::refill
-	throw "Not yet implemented";
+    cout << "[BasicStorage] Refilling storage..." << endl;
+    // Basic storage can always be refilled
+    return true;
+}
+
+bool BasicStorage::upgrade() {
+    cout << "[BasicStorage] Upgrading to enhanced capacity..." << endl;
+    // Basic storage can be upgraded
+    return true;
 }
