@@ -1,7 +1,7 @@
 #ifndef READYTOSELL_H
 #define READYTOSELL_H
 
-#include "../PlantState/PlantState.h"
+#include "src/PlantState/PlantState.h"
 
 class ReadyToSell : public PlantState {
 public:

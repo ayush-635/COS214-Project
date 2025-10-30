@@ -1,7 +1,7 @@
 #ifndef MATURE_H
 #define MATURE_H
 
-#include "../PlantState/PlantState.h"
+#include "src/PlantState/PlantState.h"
 
 class Mature : public PlantState {
 public:

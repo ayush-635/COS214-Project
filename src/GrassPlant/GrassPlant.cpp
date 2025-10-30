@@ -4,6 +4,10 @@
 GrassPlant::GrassPlant(const std::string& id, const std::string& name, 
                        std::shared_ptr<PlantData> data) : Plant(id, name, data) {}
 
+Plant* GrassPlant::clone() {
+    return new GrassPlant(*this);
+}
+
 void GrassPlant::accept(CareVisitor& visitor) {
     visitor.visitGrassPlant(this);
 }

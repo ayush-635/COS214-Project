@@ -1,11 +1,11 @@
 #ifndef FLOWERFACTORY_H
 #define FLOWERFACTORY_H
 
-class FlowerFactory : PlantFactory {
+#include "src/PlantFactory/PlantFactory.h"
 
-
+class FlowerFactory : public PlantFactory {
 public:
-	Plant* createPlant();
+	virtual Plant* createPlant(std::string name) override;
 };
 
 #endif

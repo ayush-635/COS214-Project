@@ -31,7 +31,10 @@ protected:
 public:
     Plant(const std::string& plantId, const std::string& plantName, 
           std::shared_ptr<PlantData> data);
+    Plant(const Plant& other);
     virtual ~Plant() = default;
+
+    virtual Plant* clone() = 0;
     
     virtual void update();
     void water();
@@ -59,6 +62,7 @@ public:
     int getWaterDeathTime() const { return plantData->getWaterDeathTime(); }
     int getFertilizerDeathTime() const { return plantData->getFertilizerDeathTime(); }
     
+    void setID(std::string newID) { id = newID; }
 
     // Condition checkers
     bool needsWater() const { return ticksWithoutWater >= plantData->getWaterInterval(); }
@@ -69,8 +73,6 @@ public:
         return ticksWithoutWater >= plantData->getWaterDeathTime() - 3 || 
                ticksWithoutFertilizer >= plantData->getFertilizerDeathTime() - 3; 
     }
-
-    
     
     // Progress calculations
     int getWaterRemaining() const { return plantData->getWaterNeededForNextState() - waterReceived; }

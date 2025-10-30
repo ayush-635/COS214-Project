@@ -1,14 +1,16 @@
 #ifndef POT_H
 #define POT_H
 
+#include <string>
+
 class Pot {
 
 private:
-	string colour;
+	std::string colour;
 	int size;
 
 public:
-	Pot(string c, int size);
+	Pot(std::string c, int size);
 };
 
 #endif
