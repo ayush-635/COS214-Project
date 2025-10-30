@@ -1,4 +1,11 @@
 #include "OrderItem.h"
+#include <iostream>
+
+OrderItem::OrderItem() {
+    name = "Plant Item";
+    unitPrice = 150.0;  // Default price
+    qty = 1;
+}
 
 double OrderItem::subtotal() {
 	return qty * unitPrice;

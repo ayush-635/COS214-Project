@@ -3,8 +3,10 @@
 #include <string>
 #include <sstream>
 
-class OrderItem {
+#include <string>
+using namespace std;
 
+class OrderItem {
 private:
 	
 	double unitPrice;
