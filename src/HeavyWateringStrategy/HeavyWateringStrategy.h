@@ -3,7 +3,7 @@
 
 
 #include "../src/WateringStrategy/WateringStrategy.h"
-
+class PlantableArea;
 
 class HeavyWateringStrategy : public WateringStrategy {
 public:

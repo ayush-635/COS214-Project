@@ -1,7 +1,11 @@
 #ifndef GIVEFERTILIZERCOMMAND_H
 #define GIVEFERTILIZERCOMMAND_H
 
+
 #include "../src/CareForPlantCommand/CareForPlantCommand.h"
+
+class PlanterBoxCollection;
+
 
 
 

@@ -1,4 +1,7 @@
-#include "../src/StaffMember/StaffMember.h
+#include "StaffMember.h"
+#include "../src/Duty/Duty.h"
+#include <iostream>
+
 
 
 

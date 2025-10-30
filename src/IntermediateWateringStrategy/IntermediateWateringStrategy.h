@@ -2,8 +2,9 @@
 #define INTERMEDIATEWATERINGSTRATEGY_H
 
 
-#include "../src/WateringStrategy/WateringStrategy.h"
 
+#include "../src/WateringStrategy/WateringStrategy.h"
+class PlantableArea;
 
 class IntermediateWateringStrategy : public WateringStrategy {
 public:

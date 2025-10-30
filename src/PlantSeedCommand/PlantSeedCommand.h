@@ -1,7 +1,9 @@
 #ifndef PLANTSEEDCOMMAND_H
 #define PLANTSEEDCOMMAND_H
 
-#include "../src/Duty/Duty.h"
+#include "../Duty/Duty.h"
+class PlanterBoxCollection;
+class Plant;
 
 
 

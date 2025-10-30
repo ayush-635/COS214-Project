@@ -1,8 +1,12 @@
-#include "../src/GiveMedicineCommand/GiveMedicineCommand.h"
+#include "GiveMedicineCommand.h"
+#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
+
 
 
 GiveMedicineCommand::GiveMedicineCommand(PlanterBoxCollection* collection, int units, int index)
-    : collection(collection), units(units) , index(index){}
+    : CareForPlantCommand(collection, index), units(units) {}
+
 
  void GiveMedicineCommand::executeDuty() {
 

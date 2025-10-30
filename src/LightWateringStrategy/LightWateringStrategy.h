@@ -3,6 +3,7 @@
 
 
 #include "../src/WateringStrategy/WateringStrategy.h"
+class PlantableArea;
 
 
 

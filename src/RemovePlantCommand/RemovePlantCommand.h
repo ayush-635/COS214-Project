@@ -1,8 +1,9 @@
 #ifndef REMOVEPLANTCOMMAND_H
 #define REMOVEPLANTCOMMAND_H
 
-#include "../src/Duty/Duty.h"
-#include "../src/Plant/Plant.h"
+#include "../Duty/Duty.h"
+class Plant;
+class PlanterBoxCollection;
 
 
 class RemovePlantCommand : public Duty {
