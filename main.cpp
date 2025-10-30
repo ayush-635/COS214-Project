@@ -21,30 +21,30 @@
 #include "src/FlowerFactory/FlowerFactory.h"
 
 int main() {
-    // Initialize flyweight factory
-    // PlantDataFactory::initializeFactory();
+    Plant* flowerPlant = new FlowerPlant("F001", "Rose", PlantDataFactory::getPlantData("FlowerPlant"));
+    Plant* flowerClone = flowerPlant->clone();
+    delete flowerPlant;
+    delete flowerClone;
+
+    Plant* herbPlant = new HerbPlant("H001", "Garlic", PlantDataFactory::getPlantData("HerbPlant"));
+    Plant* herbClone = herbPlant->clone();
+    delete herbPlant;
+    delete herbClone;
+
+    Plant* treePlant = new TreePlant("F001", "Rose", PlantDataFactory::getPlantData("TreePlant"));
+    Plant* treeClone = treePlant->clone();
+    delete treePlant;
+    delete treeClone;
+
+    Plant* grassPlant = new GrassPlant("F001", "Rose", PlantDataFactory::getPlantData("GrassPlant"));
+    Plant* grassClone = grassPlant->clone();
+    delete grassPlant;
+    delete grassClone;
+
+    Plant* succulentPlant = new SucculentPlant("F001", "Rose", PlantDataFactory::getPlantData("SucculentPlant"));
+    Plant* succulentClone = succulentPlant->clone();
+    delete succulentPlant;
+    delete succulentClone;
     
-    // // Get game manager (singleton)
-    // Game* game = Game::getInstance();
-
-    // PlantFactory* flowerFactory = new FlowerFactory();
-    // flowerFactory->addPlantPrototype(new FlowerPlant("Test_Flower_Prototype 1", "Prototype Flower 1", PlantDataFactory::getPlantData("FlowerPlant")));
-    // flowerFactory->addPlantPrototype(new FlowerPlant("Test_Flower_Prototype 2", "Prototype Flower 2", PlantDataFactory::getPlantData("FlowerPlant")));
-
-    // Plant* p1 = flowerFactory->createPlant("Prototype Flower 1");
-    // Plant* p2 = flowerFactory->createPlant("Prototype Flower 2");
-
-    // std::cout << p1 << std::endl;
-
-    // game->addPlant(std::unique_ptr<Plant>(p1));
-    // game->addPlant(std::unique_ptr<Plant>(p2));
-
-    // game->displayGameStatus();
-
-    Plant* flowerPrototype = new FlowerPlant("F_Proto", "Flower Prototype", nullptr);
-    Plant* clonedFlower = flowerPrototype->clone();
-    auto data = PlantDataFactory::getPlantData("FlowerPlant");
-    std::cout << data << std::endl;
-
     return 0;
 }
