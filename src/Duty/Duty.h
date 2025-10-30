@@ -1,34 +1,25 @@
-/**
- * @file Duty.h
- * @brief Defines the Duty interface for all command objects.
- */
-
 #ifndef DUTY_H
 #define DUTY_H
 
-#include "PlantableArea.h"
-#include "Plant.h"
+#include "../src/PlantableArea/PlantableArea.h"
+#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
 
-/**
- * @class Duty
- * @brief Abstract Command interface for all plant-related operations.
- */
+
 class Duty {
-public:
-    /**
-     * @brief Default constructor 
-     */
-    Duty();
 
-    /**
-     * @brief Virtual destructor for safe polymorphic deletion.
-     */
+protected:
+    PlanterBoxCollection* collection;
+    int index;
+
+public:
+   
+    Duty(PlanterBoxCollection* collection, int index);
+
+    
     virtual ~Duty();
 
-    /**
-     * @brief Executes the command on the specified PlantableArea.
-     * @param area Pointer to the PlantableArea on which the command acts.
-     */
+    
     virtual void executeDuty() = 0;
 };
 

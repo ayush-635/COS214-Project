@@ -1,11 +1,16 @@
-#include "GiveFertilizerCommand.h"
-#include <iostream>
+#include "../src/GiveFertilizerCommand/GiveFertilizerCommand.h"
 
-GiveFertilizerCommand::GiveFertilizerCommand(PlanterBoxCollection* collection, int boxIndex, int units)
-    : collection(collection), boxIndex(boxIndex), units(units) {}
+
+GiveFertilizerCommand::GiveFertilizerCommand(PlanterBoxCollection* collection, int units, int index)
+    : collection(collection), units(units), index(index) {}
+
 
 void GiveFertilizerCommand::executeDuty() {
-    if (!collection) return;
 
-    collection->giveFertilizer(units, boxIndex); 
+     if (!collection) {
+        std::cout << " No plant row assigned.\n";
+        return;
+    }
+
+    collection->giveFertilizer(units, index); 
 }

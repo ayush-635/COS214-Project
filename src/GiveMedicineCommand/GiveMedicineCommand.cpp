@@ -1,15 +1,17 @@
-#include "GiveMedicineCommand.h"
+#include "../src/GiveMedicineCommand/GiveMedicineCommand.h"
 
 
-/**
- * @brief Executes the command to give medicine to the PlantableArea.
- */
-
-GiveMedicineCommand::GiveMedicineCommand(PlanterBoxCollection* collection, int boxIndex, int units)
-    : collection(collection), boxIndex(boxIndex), units(units) {}
+GiveMedicineCommand::GiveMedicineCommand(PlanterBoxCollection* collection, int units, int index)
+    : collection(collection), units(units) , index(index){}
 
  void GiveMedicineCommand::executeDuty() {
-    if (!collection) return;
 
-    collection->giveMedicine(units, boxIndex);
+     if (!collection) {
+        std::cout << " No plant row assigned.\n";
+        return;
+    }
+
+
+
+    collection->giveMedicine(units, index);
 }

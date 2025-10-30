@@ -1,11 +1,8 @@
-/**
- * @file Duty.cpp
- * @brief Implementation file for Duty interface.
- */
 
-#include "Duty.h"
+#include "../src/Duty/Duty.h"
 
-Duty::Duty() {}
+Duty::Duty(PlanterBoxCollection* collection, int index)
+        : collection(collection), index(index) {}
 
 
 Duty::~Duty() {}

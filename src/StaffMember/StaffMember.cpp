@@ -1,18 +1,22 @@
-#include "StaffMember.h"
-#include "Duty.h"
-#include "PlantableArea.h"
+#include "../src/StaffMember/StaffMember.h
+
 
 
 StaffMember::StaffMember() : currentDuty(nullptr) {}
 
 void StaffMember::doDuty() {
-	if (!currentDuty) return;
+	if (!currentDuty){ 
+		
+	std::cout<<"No Duty provided\n";
+	return;
 
+	
+	}
         currentDuty->executeDuty();
     
 }
 
-void StaffMember::assignDuty(Duty* duty, PlantableArea* area) {
+void StaffMember::assignDuty(Duty* duty) {
         currentDuty = duty;
         
     }

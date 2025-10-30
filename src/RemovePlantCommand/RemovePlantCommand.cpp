@@ -1,17 +1,23 @@
-#include "RemovePlantCommand.h"
-#include <iostream>
+#include "../src/RemovePlantCommand/RemovePlantCommand.h"
 
-RemovePlantCommand::RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int boxIndex)
-    : collection(collection), targetPlant(targetPlant), boxIndex(boxIndex) {}
+
+RemovePlantCommand::RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int index)
+    : Duty(collection, index), targetPlant(targetPlant) {}
 
 void RemovePlantCommand::executeDuty() {
+   
     if (!collection) {
-       
+        std::cout << " No plant row assigned.\n";
+        return;
+    }
+
+    if (!targetPlant) {
+        std::cout << "Not given a plant to remove.\n";
         return;
     }
 
     
-    collection->removePlant(targetPlant, boxIndex);
+    collection->removePlant(targetPlant, index);
 
     
 }

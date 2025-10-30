@@ -1,5 +1,5 @@
-#include "HeavyWateringStrategy.h"
-#include "PlantableArea.h"
+#include "../src/HeavyWateringStrategy/HeavyWateringStrategy.h"
+
 
 void HeavyWateringStrategy::waterPlant(PlantableArea* area) {
     if (!area) return;

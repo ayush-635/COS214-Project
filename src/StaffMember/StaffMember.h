@@ -1,9 +1,9 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
 
-#include "Colleague.h"
-#include "Duty.h"
-#include "PlantableArea.h"
+#include "../src/Colleague/Colleague.h"
+#include "../src/Duty/Duty.h"
+#include "../src/PlantableArea/PlantableArea.h"
 
 class StaffMember : public Colleague {
 
@@ -25,7 +25,7 @@ public:
 
 	void sendAdvice();
 
-	 void assignDuty(Duty* duty, PlantableArea* area);
+	 void assignDuty(Duty* duty);
 
 	 
 };
