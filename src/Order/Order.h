@@ -5,8 +5,13 @@
 class DeliveryStrategy;
 class OrderItem;
 
-class Order {
+#include <list>
+using namespace std;
 
+class OrderItem;
+class DeliveryStrategy;
+
+class Order {
 private:
 	std::list<OrderItem*> items;
 	//DeliveryStrategy* delivery;
