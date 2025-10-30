@@ -1,69 +1,92 @@
-# Simple Makefile for Plant Game
+# Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
-# Source files with their respective directories
-SRCS = src/PlantData/PlantData.cpp \
-       src/PlantDataFactory/PlantDataFactory.cpp \
-       src/Seedling/Seedling.cpp \
-       src/Growing/Growing.cpp \
-       src/Mature/Mature.cpp \
-       src/ReadyToSell/ReadyToSell.cpp \
-       src/Dying/Dying.cpp \
-       src/Dead/Dead.cpp \
-       src/Plant/Plant.cpp \
-       src/FlowerPlant/FlowerPlant.cpp \
-       src/TreePlant/TreePlant.cpp \
-       src/HerbPlant/HerbPlant.cpp \
-       src/GrassPlant/GrassPlant.cpp \
-       src/SucculentPlant/SucculentPlant.cpp \
-       src/HealthCheckVisitor/HealthCheckVisitor.cpp \
-       src/Game/Game.cpp \
-       src/PlantFactory/PlantFactory.cpp \
-       src/FlowerFactory/FlowerFactory.cpp \
-       src/TreeFactory/TreeFactory.cpp \
-       src/HerbFactory/HerbFactory.cpp \
-       src/GrassFactory/GrassFactory.cpp \
-       src/SucculentFactory/SucculentFactory.cpp \
-       main.cpp
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
 
-OBJS = $(SRCS:.cpp=.o)
-EXEC = plant_game
+# Target executable
+TARGET = $(BIN_DIR)/nursery
 
-all: $(EXEC)
+# Source files - based on your attached files
+SOURCES = main.cpp \
+	$(SRC_DIR)/Plant/Plant.cpp \
+	$(SRC_DIR)/PlantData/PlantData.cpp \
+	$(SRC_DIR)/PlantDataFactory/PlantDataFactory.cpp \
+	$(SRC_DIR)/Inventory/Inventory.cpp \
+	$(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
+	$(SRC_DIR)/TreePlant/TreePlant.cpp \
+	$(SRC_DIR)/HerbPlant/HerbPlant.cpp \
+	$(SRC_DIR)/GrassPlant/GrassPlant.cpp \
+	$(SRC_DIR)/SucculentPlant/SucculentPlant.cpp \
+	$(SRC_DIR)/PlantFactory/PlantFactory.cpp \
+	$(SRC_DIR)/FlowerFactory/FlowerFactory.cpp \
+	$(SRC_DIR)/Game/Game.cpp \
+	$(SRC_DIR)/Subject/Subject.cpp \
+	$(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
+	$(SRC_DIR)/PlantState/PlantState.cpp \
+	$(SRC_DIR)/Seedling/Seedling.cpp \
+	$(SRC_DIR)/Growing/Growing.cpp \
+	$(SRC_DIR)/Mature/Mature.cpp \
+	$(SRC_DIR)/ReadyToSell/ReadyToSell.cpp \
+	$(SRC_DIR)/Dying/Dying.cpp \
+	$(SRC_DIR)/Dead/Dead.cpp
 
-$(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+# Object files
+OBJECTS = $(SOURCES:%.cpp=$(OBJ_DIR)/%.o)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Create necessary directories
+$(shell mkdir -p $(OBJ_DIR))
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR))
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Plant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantData)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantDataFactory)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Inventory)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/FlowerPlant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/TreePlant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/HerbPlant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/GrassPlant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/SucculentPlant)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantFactory)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/FlowerFactory)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Game)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Subject)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/HealthCheckVisitor)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantState)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Seedling)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Growing)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Mature)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/ReadyToSell)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dying)
+$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dead)
+$(shell mkdir -p $(BIN_DIR))
 
-run: $(EXEC)
-	./$(EXEC)
+# Default target
+all: $(TARGET)
 
-clean:
-	rm -f $(EXEC) $(OBJS)
-
-.PHONY: all run clean help
-
-TEST_DIR = tests
-TEST_SRCS = $(wildcard $(TEST_DIR)/*.cpp)
-TEST_OBJS = $(TEST_SRCS:.cpp=.o)
-TEST_EXEC = plant_game_tests
-
-# Build and run tests
-test: $(TEST_EXEC)
-	./$(TEST_EXEC)
-
-$(TEST_EXEC): $(TEST_OBJS) $(filter-out main.o, $(OBJS))
+# Link object files to create executable
+$(TARGET): $(OBJECTS)
+	@echo "Linking..."
 	$(CXX) $(CXXFLAGS) -o $@ $^
+	@echo "Build complete: $(TARGET)"
 
-# Compile test files
-$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
+# Compile source files to object files
+$(OBJ_DIR)/%.o: %.cpp
+	@echo "Compiling $<..."
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean tests too
+# Clean build files
 clean:
-	rm -f $(EXEC) $(TEST_EXEC) $(OBJS) $(TEST_OBJS)
+	@echo "Cleaning..."
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@echo "Clean complete"
 
-.PHONY: all run clean help test
+# Run the program
+run: $(TARGET)
+	@echo "Running nursery system..."
+	./$(TARGET)
+
+# Phony targets
+.PHONY: all clean run

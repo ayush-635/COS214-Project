@@ -1,8 +1,8 @@
 #ifndef PLANTABLEAREA_H
 #define PLANTABLEAREA_H
 
-#include "src/Duty/Duty.h"
-#include "src/Plant/Plant.h"
+#include "../Duty/Duty.h"
+#include "../Plant/Plant.h"
 #include <vector>
 
 class PlantableArea {

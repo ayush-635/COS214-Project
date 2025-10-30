@@ -1,9 +1,9 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
 #include "../Colleague/Colleague.h"
-#include "../src/Colleague/Colleague.h"
-#include "../src/Duty/Duty.h"
-#include "../src/PlantableArea/PlantableArea.h"
+#include "../Colleague/Colleague.h"
+#include "../Duty/Duty.h"
+#include "../PlantableArea/PlantableArea.h"
 
 class StaffMember : public Colleague {
 
