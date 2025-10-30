@@ -1,6 +1,8 @@
-#include "HeavyWateringStrategy.h"
+#include "../src/HeavyWateringStrategy/HeavyWateringStrategy.h"
 
-void HeavyWateringStrategy::waterPlant() {
-	// TODO - implement HeavyWateringStrategy::waterPlant
-	throw "Not yet implemented";
+
+void HeavyWateringStrategy::waterPlant(PlantableArea* area) {
+    if (!area) return;
+	
+	area->water(5);
 }

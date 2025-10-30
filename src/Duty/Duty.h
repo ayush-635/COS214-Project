@@ -2,14 +2,26 @@
 #define DUTY_H
 
 class PlantableArea;
+#include "../src/PlantableArea/PlantableArea.h"
+#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
+
 
 class Duty {
 
+protected:
+    PlanterBoxCollection* collection;
+    int index;
 
 public:
-	virtual void executeDuty(PlantableArea* area) = 0;
+   
+    Duty(PlanterBoxCollection* collection, int index);
 
-	Duty();
+    
+    virtual ~Duty();
+
+    
+    virtual void executeDuty() = 0;
 };
 
-#endif
+#endif 

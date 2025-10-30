@@ -1,6 +1,20 @@
 #include "WaterPlantCommand.h"
 
-void WaterPlantCommand::executeDuty(PlantableArea* area) {
-	// TODO - implement WaterPlantCommand::executeDuty
-	throw "Not yet implemented";
+WaterPlantCommand::WaterPlantCommand(PlanterBoxCollection* collection, WateringStrategy* strategy, int index)
+    : collection(collection), index(index), wateringStrategy(strategy) {}
+
+void WaterPlantCommand::executeDuty() {
+    if (!collection || !wateringStrategy) return;
+
+	
+       PlantableArea* box = collection->getChild(index);
+    if (!box) {
+        
+    std::cout << "Invalid box index: " << index << "\n";
+    
+    return;
+
+    }
+
+    wateringStrategy->waterPlant(box);
 }

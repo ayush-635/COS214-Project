@@ -1,6 +1,8 @@
-#include "Duty.h"
 
-Duty::Duty() {
-	// TODO - implement Duty::Duty
-	throw "Not yet implemented";
-}
+#include "../src/Duty/Duty.h"
+
+Duty::Duty(PlanterBoxCollection* collection, int index)
+        : collection(collection), index(index) {}
+
+
+Duty::~Duty() {}

@@ -1,11 +1,22 @@
 #ifndef GIVEMEDICINECOMMAND_H
 #define GIVEMEDICINECOMMAND_H
 
-class GiveMedicineCommand : CareForPlantCommand {
+#include "../src/CareForPlantCommand/CareForPlantCommand.h"
 
+
+
+class GiveMedicineCommand : public CareForPlantCommand {
+
+private:
+
+    int units;
 
 public:
-	void executeDuty(PlantableArea* area);
+
+GiveMedicineCommand(PlanterBoxCollection* collection, int units, int index);
+
+void executeDuty() override;
 };
 
 #endif
+

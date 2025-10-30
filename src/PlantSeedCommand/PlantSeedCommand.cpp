@@ -1,11 +1,22 @@
-#include "PlantSeedCommand.h"
+#include "../src/PlantSeedCommand/PlantSeedCommand.h"
 
-PlantSeedCommand::PlantSeedCommand(Plant* seed) {
-	// TODO - implement PlantSeedCommand::PlantSeedCommand
-	throw "Not yet implemented";
+
+PlantSeedCommand::PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int index)
+    : Duty(collection, index), seed(seed) {}
+
+void PlantSeedCommand::executeDuty() {
+    if (!collection) {
+        std::cout << "No plant row assigned.\n";
+        return;
+    }
+
+    if (!seed) {
+        std::cout << "No seed provided for planting.\n";
+        return;
+    }
+    
+    collection->populate(seed, index);
+
+    
 }
 
-void PlantSeedCommand::executeDuty(PlantableArea* area) {
-	// TODO - implement PlantSeedCommand::executeDuty
-	throw "Not yet implemented";
-}

@@ -1,11 +1,22 @@
 #ifndef GIVEFERTILIZERCOMMAND_H
 #define GIVEFERTILIZERCOMMAND_H
 
-class GiveFertilizerCommand : CareForPlantCommand {
+#include "../src/CareForPlantCommand/CareForPlantCommand.h"
 
+
+
+class GiveFertilizerCommand : public CareForPlantCommand {
+
+private:
+
+    int units;
 
 public:
-	void executeDuty(PlantableArea* area);
+
+	GiveFertilizerCommand(PlanterBoxCollection* collection, int units, int index);
+
+    
+    void executeDuty() override;
 };
 
 #endif

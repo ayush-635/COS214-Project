@@ -1,11 +1,22 @@
 #ifndef REMOVEPLANTCOMMAND_H
 #define REMOVEPLANTCOMMAND_H
 
-class RemovePlantCommand : Duty {
+#include "../src/Duty/Duty.h"
+#include "../src/Plant/Plant.h"
 
+
+class RemovePlantCommand : public Duty {
+private:
+    
+    Plant* targetPlant;               
+                     
 
 public:
-	void executeDuty(PlantableArea* area);
+   
+    RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int index);
+
+    
+    void executeDuty() override;
 };
 
 #endif

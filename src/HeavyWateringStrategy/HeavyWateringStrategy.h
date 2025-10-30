@@ -1,11 +1,13 @@
 #ifndef HEAVYWATERINGSTRATEGY_H
 #define HEAVYWATERINGSTRATEGY_H
 
-class HeavyWateringStrategy : WateringStrategy {
+
+#include "../src/WateringStrategy/WateringStrategy.h"
 
 
+class HeavyWateringStrategy : public WateringStrategy {
 public:
-	void waterPlant();
+    void waterPlant(PlantableArea* area);
 };
 
 #endif
