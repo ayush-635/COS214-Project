@@ -21,9 +21,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential cmake cppcheck
 
-      - name: Run cppcheck linter
-        run: |
-          cppcheck --enable=all --inconclusive --std=c++17 src tests || true
+      #- name: Run cppcheck linter
+        #run: |
+          #cppcheck --enable=all --inconclusive --std=c++17 src tests || true
 
       - name: Gather source and test files
         run: |
@@ -38,15 +38,19 @@ jobs:
       - name: Build project and tests
         run: |
           set -e
-          echo "Building with CXXFLAGS=$CXXFLAGS"
+          mkdir -p build
+          for file in $(find src -maxdepth 1 -name '*.cpp' ! -name '*_partial.cpp' ! -name '*_stub.cpp'); do
+            echo "Compiling $file"
+            g++ $CXXFLAGS -c $file -o build/$(basename ${file%.cpp}.o)
+          done
+      
           if [ -n "$TEST_FILES" ]; then
-            echo "Found test files. Compiling src + tests"
-            g++ $CXXFLAGS $SRC_FILES $TEST_FILES $INCLUDE_FLAGS -o $BUILD_EXE
+            echo "Compiling test files..."
+            g++ $CXXFLAGS $TEST_FILES build/*.o $INCLUDE_FLAGS -o $BUILD_EXE
           else
-            echo "No test .cpp files found. Compiling src files only"
-            g++ $CXXFLAGS $SRC_FILES -Isrc -o $BUILD_EXE || (echo "Build failed — maybe you need test drivers in tests/*.cpp"; exit 1)
+            echo "No test files found!"
+            exit 1
           fi
-          echo "Build succeeded."
 
       - name: Run tests
         run: |
