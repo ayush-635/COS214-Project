@@ -12,6 +12,17 @@ void Colleague::setMediator(Mediator *m)
 	mediator = m;
 }
 
-Colleague::~Colleague()
-{
+
+Colleague::Colleague(Mediator* m)
+    : mediator(m) {
+}
+
+Colleague::~Colleague(){}
+
+void Colleague::setMediator(Mediator* m){
+	mediator = m;
+}
+
+Mediator* Colleague::getMediator() const {
+	return mediator;
 }

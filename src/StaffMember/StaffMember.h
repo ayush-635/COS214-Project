@@ -8,30 +8,26 @@
 class StaffMember : public Colleague {
 
 	protected:
-    Duty* currentDuty;          
+    void addTime(int time);
+    int TimeSpent;          
     
 
 public:
+    StaffMember();
+    virtual ~StaffMember();
 
-	StaffMember();
+    void doDuty();
+    void doDuty(int time);
+
+    virtual void tick(int time);
+
+    virtual void receivePreference(const std::string& pref);
+
+    virtual void browse();
 	
-	void doDuty();
+    virtual void sendAdvice(const std::string& advice);
 
-	void tick();
-
-	
-
-	void browse();
-
-<<<<<<< HEAD
-	
-=======
-	void sendAdvice();
-
-	 void assignDuty(Duty* duty);
-
-	 
->>>>>>> origin/feature/plantcarecommands-wateringstrategy
+    int totalTime() const;
 };
 
 #endif
