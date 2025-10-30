@@ -1,16 +1,12 @@
-# Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
-# Directories
 SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 
-# Target executable
 TARGET = $(BIN_DIR)/nursery
 
-# Source files - based on your attached files
 SOURCES = main.cpp \
 	$(SRC_DIR)/Plant/Plant.cpp \
 	$(SRC_DIR)/PlantData/PlantData.cpp \
@@ -34,10 +30,8 @@ SOURCES = main.cpp \
 	$(SRC_DIR)/Dying/Dying.cpp \
 	$(SRC_DIR)/Dead/Dead.cpp
 
-# Object files
 OBJECTS = $(SOURCES:%.cpp=$(OBJ_DIR)/%.o)
 
-# Create necessary directories
 $(shell mkdir -p $(OBJ_DIR))
 $(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR))
 $(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Plant)
@@ -63,27 +57,22 @@ $(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dying)
 $(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dead)
 $(shell mkdir -p $(BIN_DIR))
 
-# Default target
 all: $(TARGET)
 
-# Link object files to create executable
 $(TARGET): $(OBJECTS)
 	@echo "Linking..."
 	$(CXX) $(CXXFLAGS) -o $@ $^
 	@echo "Build complete: $(TARGET)"
 
-# Compile source files to object files
 $(OBJ_DIR)/%.o: %.cpp
 	@echo "Compiling $<..."
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean build files
 clean:
 	@echo "Cleaning..."
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
 	@echo "Clean complete"
 
-# Run the program
 run: $(TARGET)
 	@echo "Running nursery system..."
 	./$(TARGET)
