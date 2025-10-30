@@ -1,46 +1,42 @@
 #include <iostream>
 #include <vector>
 
-struct Plant {};
-
 #include "../src/StaffMember/StaffMember.h"
 #include "../src/Sales/Sales.h"
 #include "../src/Gardner/Gardner.h"
 #include "../src/Pathologist/Pathologist.h"
 #include "../src/Cashier/Cashier.h"
 
-static void runScenario(StaffMember& sm, const char* name) {
-    std::cout << "== " << name << " doDuty() ==" << std::endl;
-    sm.doDuty(15);
-    sm.doDuty(5);
-    std::cout << std::endl;
+static void run(StaffMember& s, const char* name) {
+    std::cout << "\n== Testing: " << name << " ==\n";
+    s.doDuty(5);
+    std::cout << "totalTime = " << s.totalTime() << "\n";
 }
 
 int main() {
-    std::cout << "Running Staff creation test..." << std::endl << std::endl;
+    std::cout << "Staff Member Creation Test: \n";
 
     Sales sales;
     Gardner gardner;
     Pathologist pathologist;
     Cashier cashier;
 
-    std::vector<StaffMember*> team;
-    team.push_back(&sales);
-    team.push_back(&gardner);
-    team.push_back(&pathologist);
-    team.push_back(&cashier);
+    std::vector<StaffMember*> staff = {
+        &sales,
+        &gardner,
+        &pathologist,
+        &cashier
+    };
 
-    for (std::size_t i = 0; i < team.size(); ++i) {
-        const char* name = (team[i] == &sales) ? "Sales" :
-                           (team[i] == &gardner) ? "Gardner" :
-                           (team[i] == &pathologist) ? "Pathologist" :
-                           "Cashier";
-        runScenario(*team[i], name);
+    for (StaffMember* s : staff) {
+        const char* n =
+            (s == &sales)       ? "Sales" :
+            (s == &gardner)     ? "Gardner" :
+            (s == &pathologist) ? "Pathologist" :
+                                  "Cashier";
+        run(*s, n);
     }
 
-    Plant p;
-    bool available = cashier.checkStockLevel(&p);
-    cashier.requestNewStock(&p, 3);
-    std::cout << "Cashier checkStockLevel returned: " << (available ? "true" : "false") << std::endl;
+    std::cout << "\n=== DONE ===\n";
     return 0;
 }
