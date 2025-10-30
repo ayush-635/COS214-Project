@@ -2,6 +2,8 @@
 #define SALES_H
 
 #include "../StaffMember/StaffMember.h"
+#include <string>
+#include <vector>
 
 class Sales : public StaffMember {
     private:

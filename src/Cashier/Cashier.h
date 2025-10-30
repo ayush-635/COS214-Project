@@ -17,8 +17,12 @@ class Cashier : public StaffMember {
 		void browse() override {}
 
 		void receivePreference(const std::string& pref) override;
-		
+
 		void sendAdvice(const std::string& advice) override;
+
+		bool checkStockLevel(Plant* plant);
+
+		void requestNewStock(Plant* plant, int qty);
 };
 
 #endif

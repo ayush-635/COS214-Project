@@ -1,6 +1,7 @@
 #include "StaffMember.h"
 
-StaffMember::StaffMember() : TimeSpent(0){}
+StaffMember::StaffMember() : Colleague(), TimeSpent(0){}
+StaffMember::~StaffMember(){}
 
 int StaffMember::totalTime() const{
 	return TimeSpent;
@@ -18,23 +19,18 @@ void StaffMember::doDuty(int time){
 	addTime(time);
 	tick(time);
 	browse();
-	receivePreference();
-	sendAdvice();
+	receivePreference("");
+	sendAdvice("");
 }
 
-virtual void browse(){
+void StaffMember::browse(){
 }
 
-virtual void receivePreference(const std::string& pref){
-	(void)pref;
+void StaffMember::receivePreference(const std::string& /*pref*/){
 }
 
-virtual void sendAdvice(const std::string& advice){
-	if(mediator){
-		mediator->sendAdvice(advice, this);
-	}
+void StaffMember::sendAdvice(const std::string& /*advice*/){
 }
 
-virtual void tick(int time){
-	(void)time;
+void StaffMember::tick(int /*time*/){
 }

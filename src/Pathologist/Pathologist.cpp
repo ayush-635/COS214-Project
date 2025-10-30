@@ -16,7 +16,6 @@ void Pathologist::receivePreference(const std::string& pref) {
 }
 
 void Pathologist::sendAdvice(const std::string& advice) {
-    if(mediator){
-        mediator->notify(this, advice);
-    }
+    std::cout << "[Pathologist advice] " << advice << std::endl;
 }
+
