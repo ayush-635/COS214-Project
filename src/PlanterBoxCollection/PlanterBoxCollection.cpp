@@ -3,37 +3,37 @@
 PlanterBoxCollection::PlanterBoxCollection(int depth) : depth(depth) {}
 
 void PlanterBoxCollection::add(PlantableArea* area){
+
+    // check to make sure area is valid and not null
 	if(area == nullptr){
         std::cout << "Cannot add null PlanterBox." << std::endl;
         return;
     }
 
+    // check that the tile still has space for more boxes/collections
     if(boxes.size() >= max_boxes){
         std::cout << "PlanterBoxCollection has reached maximum capacity of " << max_boxes << " boxes." << std::endl;
         return;
     }
 
+    // cast passed in area to planterBoxCollection to see if its a collection
     PlanterBoxCollection* collectionArea = dynamic_cast<PlanterBoxCollection*>(area);
-    if(collectionArea != nullptr){
+    if(collectionArea != nullptr){ // it's a collection, so check depth constraints
         // Child's depth should be exactly parent's depth + 1
         if(collectionArea->getDepth() != this->depth + 1){
-            std::cout << "Cannot add PlanterBoxCollection. Child must be at depth " 
-                    << (this->depth + 1) << ", but is at depth " 
-                    << collectionArea->getDepth() << std::endl;
+            std::cout << "Cannot add PlanterBoxCollection. Child must be at depth " << (this->depth + 1) << ", but is at depth " << collectionArea->getDepth() << std::endl;
             return;
         }
         
         // Also check if it exceeds maximum allowed depth
         if(collectionArea->getDepth() > max_depth){
-            std::cout << "Cannot add PlanterBoxCollection. Exceeds maximum depth of " 
-                    << max_depth << "." << std::endl;
+            std::cout << "Cannot add PlanterBoxCollection. Exceeds maximum depth of " << max_depth << "." << std::endl;
             return;
         }
     }
 
-    boxes.push_back(area);
-    std::cout << "Added " << (collectionArea ? "PlanterBoxCollection" : "PlanterBox") 
-            << " to collection on level " << this->depth << std::endl;
+    boxes.push_back(area); // all tests passed, add the area
+    std::cout << "Added " << (collectionArea ? "PlanterBoxCollection" : "PlanterBox") << " to collection on level " << this->depth << std::endl;
 }
 
 void PlanterBoxCollection::remove(PlantableArea* area){
