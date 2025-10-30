@@ -4,5 +4,5 @@
 void LightWateringStrategy::waterPlant(PlantableArea* area) {
 	 if (!area) return;
 	 
-	 area->water(1);
+	 area->water(1,0);
 }

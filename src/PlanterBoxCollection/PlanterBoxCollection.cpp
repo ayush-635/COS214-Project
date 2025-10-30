@@ -97,16 +97,18 @@ Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){
     }
 }
 
-void PlanterBoxCollection::water(int units){
+void PlanterBoxCollection::water(int units, int index){
+	//TODO: Needs an attribute to change in plant
+    boxes.at(index)->giveFertilizer(units, 0);
+}
+
+void PlanterBoxCollection::giveMedicine(int units, int index){
 	//TODO: Needs an attribute to change in plant
 }
 
-void PlanterBoxCollection::giveMedicine(int units){
+void PlanterBoxCollection::giveFertilizer(int units, int index){
 	//TODO: Needs an attribute to change in plant
-}
-
-void PlanterBoxCollection::giveFertilizer(int units){
-	//TODO: Needs an attribute to change in plant
+    boxes.at(index)->giveFertilizer(units, 0);
 }
 
 int PlanterBoxCollection::getDepth() const {

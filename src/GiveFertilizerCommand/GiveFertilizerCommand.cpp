@@ -1,8 +1,12 @@
-#include "../src/GiveFertilizerCommand/GiveFertilizerCommand.h"
+#include "GiveFertilizerCommand.h"
 
 
 GiveFertilizerCommand::GiveFertilizerCommand(PlanterBoxCollection* collection, int units, int index)
-    : collection(collection), units(units), index(index) {}
+{
+    this->collection = collection;
+    this->units = units;
+    this->index = index;
+ }
 
 
 void GiveFertilizerCommand::executeDuty() {

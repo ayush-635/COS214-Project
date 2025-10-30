@@ -48,14 +48,24 @@ void PlanterBox::display() {
 	}
 }
 
-void PlanterBox::water(int unit) {
+void PlanterBox::water(int unit, int index) {
+	//TODO: Needs an attribute to change in plant
+	for (auto it = plants.begin(); it != plants.end(); ++it) {
+		for(int i = 0; i<unit; i++){
+			(*it)->water();
+		}
+	}
+}
+
+void PlanterBox::giveMedicine(int units, int index) {
 	//TODO: Needs an attribute to change in plant
 }
 
-void PlanterBox::giveMedicine(int units) {
+void PlanterBox::giveFertilizer(int units, int index){
 	//TODO: Needs an attribute to change in plant
-}
-
-void PlanterBox::giveFertilizer(int units){
-	//TODO: Needs an attribute to change in plant
+		for (auto it = plants.begin(); it != plants.end(); ++it) {
+		for(int i = 0; i<units; i++){
+			(*it)->fertilize();
+		}
+	}
 }

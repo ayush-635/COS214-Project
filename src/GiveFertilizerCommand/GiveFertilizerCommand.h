@@ -1,7 +1,7 @@
 #ifndef GIVEFERTILIZERCOMMAND_H
 #define GIVEFERTILIZERCOMMAND_H
 
-#include "../src/CareForPlantCommand/CareForPlantCommand.h"
+#include "../CareForPlantCommand/CareForPlantCommand.h"
 
 
 
@@ -10,6 +10,10 @@ class GiveFertilizerCommand : public CareForPlantCommand {
 private:
 
     int units;
+
+protected:
+    PlanterBoxCollection* collection;
+    int index;
 
 public:
 

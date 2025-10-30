@@ -1,6 +1,6 @@
-#include "src/FlowerFactory/FlowerFactory.h"
+#include "../FlowerFactory/FlowerFactory.h"
 
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 
 Plant* FlowerFactory::createPlant(std::string name) {
 	auto plantPos = getPlantPrototypes().find(name);

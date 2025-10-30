@@ -23,9 +23,9 @@ public:
 	Plant* removePlant(Plant* plant) override;
 	const std::vector<Plant*> getPlants();
 
-	void water(int units) override;
-	void giveMedicine(int units) override;
-	void giveFertilizer(int units) override;
+	void water(int units, int index) override;
+	void giveMedicine(int units, int index) override;
+	void giveFertilizer(int units, int index) override;
 };
 
 #endif

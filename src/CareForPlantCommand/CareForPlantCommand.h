@@ -1,7 +1,7 @@
 #ifndef CAREFORPLANTCOMMAND_H
 #define CAREFORPLANTCOMMAND_H
 
-#include "../src/Duty/Duty.h"
+#include "../Duty/Duty.h"
 
 
 
@@ -11,7 +11,7 @@ class CareForPlantCommand : public Duty {
 
 public:
    
-
+    CareForPlantCommand();
     virtual void executeDuty() = 0;
 };
 

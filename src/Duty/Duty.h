@@ -2,8 +2,8 @@
 #define DUTY_H
 
 class PlantableArea;
-#include "../src/PlantableArea/PlantableArea.h"
-#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 #include <iostream>
 
 

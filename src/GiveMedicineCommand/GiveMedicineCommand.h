@@ -11,6 +11,10 @@ private:
 
     int units;
 
+protected:
+    PlanterBoxCollection* collection;
+    int index;
+
 public:
 
 GiveMedicineCommand(PlanterBoxCollection* collection, int units, int index);

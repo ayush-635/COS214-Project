@@ -1,4 +1,4 @@
-#ifndef ITERATOR_H
+/* #ifndef ITERATOR_H
 #define ITERATOR_H
 
 #include "../Plant/Plant.h"
@@ -13,3 +13,4 @@ public:
 };
 
 #endif
+ */

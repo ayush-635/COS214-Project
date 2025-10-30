@@ -4,5 +4,5 @@
 void IntermediateWateringStrategy::waterPlant(PlantableArea* area) {
     if (!area) return;
 	
-	area->water(3);
+	area->water(3,0);
 }

@@ -15,9 +15,9 @@ public:
 	virtual void populate(Plant* plant) = 0;
 	virtual Plant* removePlant(Plant* plant) = 0;
 
-	virtual void water(int units) = 0;
-	virtual void giveMedicine(int units) = 0;
-	virtual void giveFertilizer(int units) = 0;
+	virtual void water(int units, int index) = 0;
+	virtual void giveMedicine(int units, int index) = 0;
+	virtual void giveFertilizer(int units, int index) = 0;
 
 	virtual void add(PlantableArea* area) = 0;
 	virtual void remove(PlantableArea* area) = 0;

@@ -1,4 +1,4 @@
-#ifndef HARVESTREADINESSVISITOR_H
+/* #ifndef HARVESTREADINESSVISITOR_H
 #define HARVESTREADINESSVISITOR_H
 
 class HarvestReadinessVisitor : CareVisitor {
@@ -21,3 +21,4 @@ public:
 };
 
 #endif
+ */
