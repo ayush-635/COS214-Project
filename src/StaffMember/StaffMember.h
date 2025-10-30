@@ -14,13 +14,13 @@ public:
 	void doDuty();
 	void doDuty(int time);
 
-	virtual void tick(int time) = 0;
+	virtual void tick(int time);
 
-	virtual void receivePreference() = 0;
+	virtual void receivePreference(const std::string& pref);
 
-	virtual void browse() = 0;
+	virtual void browse();
 
-	virtual void sendAdvice() = 0;
+	virtual void sendAdvice(const std::string& advice);
 
 	int totalTime() const;
 };

@@ -6,20 +6,19 @@
 class Plant;
 
 class Cashier : public StaffMember {
+	private:
+		std::string currPreference;
+		Plant* currPlant;
 	public:
 		virtual ~Cashier(){};
 
-		virtual void tick(int time);
+		void tick(int time) override;
 
-		virtual void receivePreference();
+		void browse() override {}
 
-		virtual void browse();
+		void receivePreference(const std::string& pref) override;
 		
-		virtual void sendAdvice();
-
-		bool checkStockLevel(Plant* plant);
-
-		void requestNewStock(Plant* plant, int qty);
+		void sendAdvice(const std::string& advice) override;
 };
 
 #endif

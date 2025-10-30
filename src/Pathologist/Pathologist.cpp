@@ -2,17 +2,21 @@
 #include <iostream>
 
 void Pathologist::tick(int time) {
-    std::cout << "Sales tick +" << time << " Ticks spent alive: " << totalTime() <<std::endl;
+    std::cout << "Pathologist tick +" << time << " Ticks spent alive: " << totalTime() <<std::endl;
 }
 
-void Pathologist::receivePreference() {
-    std::cout << "Pathologist receivePreference\n";
+void Pathologist::receivePreference(const std::string& pref) {
+    currPreference = pref;
+
+    if(pref.find("disease") != std::string::npos){
+        sendAdvice("Pathologist: The plant shows signs of disease. Recommend treatment.");
+    } else {
+        sendAdvice("Pathologist: The plant appears healthy.");
+    }
 }
 
-void Pathologist::browse() {
-    std::cout << "Pathologist browse\n";
-}
-
-void Pathologist::sendAdvice() {
-    std::cout << "Pathologist sendAdvice\n";
+void Pathologist::sendAdvice(const std::string& advice) {
+    if(mediator){
+        mediator->notify(this, advice);
+    }
 }

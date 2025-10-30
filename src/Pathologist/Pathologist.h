@@ -4,17 +4,16 @@
 #include "../StaffMember/StaffMember.h"
 
 class Pathologist : public StaffMember {
+    private:
+        std::string currPreference;
     public:
-        //Pathologist
-        virtual ~Pathologist(){};
+        void tick(int time) override;
 
-        virtual void tick(int time);
+        void browse() override {}
 
-        virtual void receivePreference();
+        void receivePreference(const std::string& pref) override;
         
-        virtual void browse();
-
-        virtual void sendAdvice();
+        void sendAdvice(const std::string& advice) override;
 };
 
 #endif

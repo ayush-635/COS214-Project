@@ -4,17 +4,25 @@
 #include "../StaffMember/StaffMember.h"
 
 class Sales : public StaffMember {
+    private:
+        std::string currPreference;
 
     public:
+        Sales();
         virtual ~Sales(){};
 
-        virtual void tick(int time);
+        void tick(int time) override;
 
-        virtual void receivePreference();
-        
-        virtual void browse();
+        std::string findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare);
 
-        virtual void sendAdvice();
+        void receivePreference(const std::string& pref) override;
+
+        void browse() override;
+
+        void sendAdvice(const std::string& advice) override;
+
+        std::string handlePurchase(int numPlants);
+
 };
 
 #endif
