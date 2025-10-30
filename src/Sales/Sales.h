@@ -5,6 +5,7 @@
 #include "../Inventory/Inventory.h"
 #include "../Plant/Plant.h"
 #include "../PlantData/PlantData.h"
+#include "../Mediator/Mediator.h"
 
 class Sales : public StaffMember {
     private:

@@ -1,6 +1,7 @@
 #ifndef COLLEAGUE_H
 #define COLLEAGUE_H
 #include <string>
+#include "../Mediator/Mediator.h"
 
 class Mediator;
 

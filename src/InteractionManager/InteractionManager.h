@@ -3,7 +3,8 @@
 #include <string>
 #include "../Mediator/Mediator.h"
 #include <vector>
-#include "../Colleague/Colleague.h"
+#include "../Sales/Sales.h"
+#include "../Customer/Customer.h"
 
 class InteractionManager : public Mediator {
 

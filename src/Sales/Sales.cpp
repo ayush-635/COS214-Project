@@ -18,11 +18,11 @@ std::string Sales::findMatchingPlant(bool outside, bool lowLight, bool lowWater,
 
 		if (outside && data->isOutside()) {
 			matches = true;
-		} else if (lowLight && !data->isOutside()) { // Indoor plants work for low light
+		} else if (lowLight && !data->isOutside()) {
 			matches = true;
 		} else if (lowWater && !data->needsWaterAlot()) {
 			matches = true;
-		} else if (brightColor && data->isBrightColour()) {
+		} else if (brightColour && data->isBrightColour()) {
 			matches = true;
 		} else if (lowCare && !data->needsCare()) {
 			matches = true;
@@ -34,13 +34,12 @@ std::string Sales::findMatchingPlant(bool outside, bool lowLight, bool lowWater,
                 matchingPlants.push_back(plantName);
             }
         }
-
-        if(!matchingPlants.empty()){
+    }
+	if(!matchingPlants.empty()){
             std::string plantName = matchingPlants[0];
             int stock = inv->getStock(plantName);
-            return "We have " + plantName + " which matches your needs! We have " + std::to_string(stock) + " in stock.";
+            return "We have " + plantName + " which matches your needs. We have " + std::to_string(stock) + " in stock.";
         }
-    }
     return "We dont have that plant in stock but we will plant it and notify you once in stock.";
 }
 
@@ -105,7 +104,7 @@ std::string Sales::handlePurchase(int numPlants) {
 	}
 	
 	if (purchased > 0) {
-		ret+="Purchase completed! Sold " + std::to_string(numPlants) + " plant(s).\n";
+		ret+="Purchase completed! Sold " + std::to_string(purchased) + " plant(s).\n";
 	} else {
 		ret+="Sorry, no plants available for purchase at this time.\n";
 	}

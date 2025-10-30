@@ -10,7 +10,7 @@ public:
 	virtual void notify(Colleague* colleague, std::string msg) = 0;
 
 	Mediator();
-	virtual ~Mediator();
+	virtual ~Mediator(){};
 };
 
 #endif
