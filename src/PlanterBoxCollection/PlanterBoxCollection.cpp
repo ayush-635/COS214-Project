@@ -99,7 +99,7 @@ Plant* PlanterBoxCollection::removePlant(Plant* plant, int plantBoxIndex){
 
 void PlanterBoxCollection::water(int units, int index){
 	//TODO: Needs an attribute to change in plant
-    boxes.at(index)->giveFertilizer(units, 0);
+    boxes.at(index)->water(units, 0);
 }
 
 void PlanterBoxCollection::giveMedicine(int units, int index){
