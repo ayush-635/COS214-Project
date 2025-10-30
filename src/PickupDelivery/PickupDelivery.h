@@ -1,11 +1,11 @@
 #ifndef PICKUPDELIVERY_H
 #define PICKUPDELIVERY_H
 
-class PickupDelivery : DeliveryStrategy {
+#include "DeliveryStrategy.h"
 
-
+class PickupDelivery : public DeliveryStrategy {
 public:
-	void deliver(Order o);
+    void deliver(Order o) override;
 };
 
 #endif
