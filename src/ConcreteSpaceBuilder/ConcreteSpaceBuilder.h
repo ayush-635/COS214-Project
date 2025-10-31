@@ -1,14 +1,15 @@
 #ifndef CONCRETESPACEBUILDER_H
 #define CONCRETESPACEBUILDER_H
-
-#include "SpaceBuilder.h"
+#include "../SpaceBuilder/SpaceBuilder.h"
+#include "../PlanterBox/PlanterBox.h"
 
 class ConcreteSpaceBuilder : public SpaceBuilder {
 public:
-    void addDefault();
-    PlantSpace* build();
-    
     ConcreteSpaceBuilder();
+    void addPlanterBox() override;
+    void addSubCollection() override;
+    void addDefault();
+    PlantableArea* build();
 };
 
 #endif

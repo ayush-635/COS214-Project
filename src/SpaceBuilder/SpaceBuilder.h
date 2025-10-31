@@ -3,21 +3,31 @@
 
 #include <string>
 using namespace std;
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 
-class PlantSpace;
 
 class SpaceBuilder {
+protected:
+    PlantableArea* space;
 public:
-    PlantSpace* space;
-
-    void setSize(int width, int length);
-    void reset();
-    void setName(int name);
-    void addSubSpace();
-    PlantSpace* build();
+    PlantableArea* build(){
+        PlantableArea* result = space;
+        space = nullptr;
+        return result;
+    };
     
-    SpaceBuilder();
-    virtual ~SpaceBuilder() {}
+    SpaceBuilder(){space=nullptr;};
+    virtual ~SpaceBuilder()=default;
+    void createNewSpace(){
+        space = new PlanterBoxCollection(0);
+    };
+    PlantableArea* getSpace(){
+        return space;
+    };
+
+    virtual void addPlanterBox()=0;
+    virtual void addSubCollection()=0;
 };
 
 #endif
