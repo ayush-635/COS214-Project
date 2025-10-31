@@ -1,12 +1,13 @@
 #ifndef BASICSTORAGE_H
 #define BASICSTORAGE_H
 
-#include "StorageState.h"
+#include "../State/StorageState.h"
+#include <string>
 
 class BasicStorage : public StorageState {
 public:
-    bool refill() override;
-    bool upgrade() override;
+    std::string refill() override;
+    std::string upgrade() override;
 };
 
 #endif
