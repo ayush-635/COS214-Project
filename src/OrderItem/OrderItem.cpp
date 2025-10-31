@@ -1,5 +1,6 @@
 #include "OrderItem.h"
-#include <iostream>
+#include <string>
+#include <sstream>
 
 OrderItem::OrderItem() {
     name = "Plant Item";
@@ -15,6 +16,8 @@ int OrderItem::count() {
     return qty;
 }
 
-void OrderItem::list(int itemsOut) {
-    std::cout << name << " x" << qty << " @ R" << unitPrice << " = R" << subtotal() << std::endl;
+string OrderItem::list(int itemsOut) {
+    std::ostringstream oss;
+    oss << name << " x" << qty << " @ R" << unitPrice << " = R" << subtotal();
+    return oss.str();
 }
