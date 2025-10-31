@@ -1,4 +1,4 @@
-#ifndef RESOURCEMANAGER_H
+/* #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
 #include <iostream>
@@ -23,3 +23,4 @@ public:
 };
 
 #endif
+ */
