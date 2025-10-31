@@ -1,15 +1,11 @@
 #include "UpgradedStorage.h"
-#include <iostream>
+#include <string>
 using namespace std;
 
-bool UpgradedStorage::refill() {
-    cout << "[UpgradedStorage] Refilling upgraded storage (faster)..." << endl;
-    // Upgraded storage refills faster/more efficiently
-    return true;
+string UpgradedStorage::refill() {
+    return "[UpgradedStorage] Refilling upgraded storage (faster)...";
 }
 
-bool UpgradedStorage::upgrade() {
-    cout << "[UpgradedStorage] Already at maximum upgrade level!" << endl;
-    // Already upgraded - cannot upgrade further
-    return false;
+string UpgradedStorage::upgrade() {
+    return "[UpgradedStorage] Already at maximum upgrade level!";
 }
