@@ -22,3 +22,25 @@ OrderItem::OrderItem(std::string name, double price, int qty) {
 	unitPrice = price;
 	this->qty = qty;
 }
+
+
+void OrderItem::addPot() {
+
+    delete pot;
+    
+    struct PotType {
+        std::string color;
+        double price;
+    };
+    
+    PotType potTypes[] = {
+        {"Red", 25.0},
+        {"Blue", 30.0},
+        {"Green", 35.0}
+    };
+    
+    int randomIndex = rand() % 3; 
+    
+    pot = new Pot(potTypes[randomIndex].color, 1, potTypes[randomIndex].price);
+}
+
