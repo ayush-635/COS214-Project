@@ -1,15 +1,11 @@
 #include "BasicStorage.h"
-#include <iostream>
+#include <string>
 using namespace std;
 
-bool BasicStorage::refill() {
-    cout << "[BasicStorage] Refilling storage..." << endl;
-    // Basic storage can always be refilled
-    return true;
+string BasicStorage::refill() {
+    return "[BasicStorage] Refilling storage...";
 }
 
-bool BasicStorage::upgrade() {
-    cout << "[BasicStorage] Upgrading to enhanced capacity..." << endl;
-    // Basic storage can be upgraded
-    return true;
+string BasicStorage::upgrade() {
+    return "[BasicStorage] Upgrading to enhanced capacity...";
 }
