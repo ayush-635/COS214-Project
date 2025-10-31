@@ -38,6 +38,12 @@ public:
     int getFertilizerInterval() const { return fertilizerInterval; }
     int getWaterDeathTime() const { return waterDeathTime; }
     int getFertilizerDeathTime() const { return fertilizerDeathTime; }
+    bool isOutside() const { return outside; }
+    bool isLowLight() const { return lowLight; }
+    bool isLowWater() const { return lowWater; }
+    bool isBrightColour() const { return brightColour; }
+    bool isLowCare() const { return lowCare; }
+    PlantData* getPlantData(){return this;};
 };
 
 #endif

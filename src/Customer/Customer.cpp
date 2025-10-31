@@ -21,12 +21,13 @@ std::string Customer::purchaseRandomPlants()
 }
 
 std::string Customer::sendPreference() {
-	rand = (std::rand()%preferences.size())+1;
-	std::string msg = preferences.find(rand)->second;
-	if(mediator){
-		mediator->notify(this, msg);
-	}
-	return "Customer: "+msg;
+    rand = (std::rand() % preferences.size()) + 1;
+    std::string msg = preferences.find(rand)->second;
+    lastAdvice = "I asked: " + msg;
+    if(mediator) {
+        mediator->notify(this, msg);
+    }
+    return "Customer: " + msg;
 }
 
 void Customer::storeAdvice(const std::string &advice)

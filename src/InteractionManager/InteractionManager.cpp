@@ -18,7 +18,14 @@ void InteractionManager::notify(Colleague* colleague, std::string msg) {
 				sales->receivePreference(msg);
 			}
 		}
-	}
+	} else if (msg.find("ADVICE:") != std::string::npos) {
+			for(Colleague* c : list) {
+				Customer* customer = dynamic_cast<Customer*>(c);
+				if(customer && c != colleague) {
+					customer->storeAdvice(msg.substr(7));
+				}
+			}
+		}
 }
 
 void InteractionManager::addColleague(Colleague *c)

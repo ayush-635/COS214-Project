@@ -1,46 +1,40 @@
 #include "Sales.h"
 #include <map>
 
-std::string Sales::findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare)
-{
+std::string Sales::findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare) {
     Inventory* inv = Inventory::getInstance();
     std::vector<std::string> matchingPlants;
     std::vector<std::string> names = inv->getAllPlantNames();
 
-    for(const std::string& plantName : names){
+    for(const std::string& plantName : names) {
         Plant* plant = inv->getPrototype(plantName);
-        if(plant==0){continue;}
+        if(!plant) continue;
 
-        PlantData* data = plant->getPlantData();
-        if(!data){ continue;}
+        std::shared_ptr<PlantData> data = plant->getPlantData();
+        if(!data) continue;
+        bool matches = true;
+        
+        if (outside && !data->isOutside()) matches = false;
+        if (lowLight && !data->isLowLight()) matches = false; 
+        if (lowWater && !data->isLowWater()) matches = false;
+        if (brightColour && !data->isBrightColour()) matches = false;
+        if (lowCare && !data->isLowCare()) matches = false;
 
-        bool matches = false;
-
-		if (outside && data->isOutside()) {
-			matches = true;
-		} else if (lowLight && !data->isOutside()) {
-			matches = true;
-		} else if (lowWater && !data->needsWaterAlot()) {
-			matches = true;
-		} else if (brightColour && data->isBrightColour()) {
-			matches = true;
-		} else if (lowCare && !data->needsCare()) {
-			matches = true;
-		}
-
-        if(matches){
+        if(matches) {
             int stock = inv->getStock(plantName);
-            if(stock>0){
+            if(stock > 0) {
                 matchingPlants.push_back(plantName);
             }
         }
     }
-	if(!matchingPlants.empty()){
-            std::string plantName = matchingPlants[0];
-            int stock = inv->getStock(plantName);
-            return "We have " + plantName + " which matches your needs. We have " + std::to_string(stock) + " in stock.";
-        }
-    return "We dont have that plant in stock but we will plant it and notify you once in stock.";
+
+    if(!matchingPlants.empty()) {
+        std::string plantName = matchingPlants[0];
+        int stock = inv->getStock(plantName);
+        return "We have " + plantName + " which matches your needs. We have " + std::to_string(stock) + " in stock.";
+    }
+    
+    return "We don't have that plant in stock but we will plant it and notify you once in stock.";
 }
 
 void Sales::receivePreference(const std::string &pref)
@@ -49,10 +43,9 @@ void Sales::receivePreference(const std::string &pref)
     browse();
 }
 
-void Sales::sendAdvice(const std::string &advice)
-{
-    if(mediator){
-        mediator->notify(this, advice);
+void Sales::sendAdvice(const std::string &advice) {
+    if(mediator) {
+        mediator->notify(this, "ADVICE:" + advice);
     }
 }
 

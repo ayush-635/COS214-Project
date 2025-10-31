@@ -81,6 +81,8 @@ public:
     // For status
     int getTicksWithoutWater() const { return ticksWithoutWater; }
     int getTicksWithoutFertilizer() const { return ticksWithoutFertilizer; }
+
+    std::shared_ptr<PlantData> getPlantData(){return plantData;};
 };
 
 

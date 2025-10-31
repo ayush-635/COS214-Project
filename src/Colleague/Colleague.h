@@ -5,8 +5,6 @@
 
 class Mediator;
 
-class Mediator;
-
 class Colleague {
 
 protected:
@@ -17,7 +15,7 @@ public:
 	virtual std::string receiveAdvice();
 	void setMediator(Mediator* m);
 	virtual ~Colleague();
-	explicit Colleague(Mediator* m = 0);
+	Colleague(Mediator* m);
 	
 	Mediator* getMediator() const;
 };
