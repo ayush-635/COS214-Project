@@ -1,9 +1,6 @@
 #ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
-#include <iostream>
-using namespace std;
-
 class WaterStorage;
 class FertilizerStorage;
 
