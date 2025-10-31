@@ -1,4 +1,10 @@
 #include "StaffMember.h"
+<<<<<<< HEAD
+=======
+#include "../src/Duty/Duty.h"
+#include <iostream>
+
+>>>>>>> origin/feature/plantcarecommands-wateringstrategy
 
 
 StaffMember::StaffMember() : Colleague(), TimeSpent(0){}

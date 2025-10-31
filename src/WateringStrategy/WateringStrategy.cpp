@@ -1,4 +1,4 @@
-#include "../src/WateringStrategy/WateringStrategy.h"
+#include "WateringStrategy.h"
 
 WateringStrategy::WateringStrategy() {}
 

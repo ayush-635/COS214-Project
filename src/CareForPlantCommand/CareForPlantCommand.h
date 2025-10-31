@@ -3,12 +3,7 @@
 
 #include "../Duty/Duty.h"
 
-
-
 class CareForPlantCommand : public Duty {
-
-
-
 public:
    
     CareForPlantCommand();

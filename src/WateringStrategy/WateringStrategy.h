@@ -1,7 +1,7 @@
 #ifndef WATERINGSTRATEGY_H
 #define WATERINGSTRATEGY_H
 
-#include "../src/PlantableArea/PlantableArea.h" 
+class PlantableArea; 
 
 
 class WateringStrategy {

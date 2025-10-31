@@ -5,6 +5,12 @@
 #include "../Duty/Duty.h"
 #include "../PlantableArea/PlantableArea.h"
 
+
+#include "../src/Colleague/Colleague.h"
+class Duty;
+
+
+
 class StaffMember : public Colleague {
 
 	protected:

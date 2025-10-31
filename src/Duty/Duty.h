@@ -1,11 +1,7 @@
 #ifndef DUTY_H
 #define DUTY_H
 
-class PlantableArea;
-#include "../PlantableArea/PlantableArea.h"
-#include "../PlanterBoxCollection/PlanterBoxCollection.h"
-#include <iostream>
-
+#include "../PlanterBoxCollection/PlanterBoxCollection.h" 
 
 class Duty {
 

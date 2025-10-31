@@ -2,9 +2,8 @@
 #define PLANTSEEDCOMMAND_H
 
 #include "../Duty/Duty.h"
-
-
-
+class PlanterBoxCollection;
+class Plant;
 
 class PlantSeedCommand : public Duty {
 private:

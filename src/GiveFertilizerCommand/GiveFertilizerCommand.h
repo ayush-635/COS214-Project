@@ -3,12 +3,11 @@
 
 #include "../CareForPlantCommand/CareForPlantCommand.h"
 
-
+class PlanterBoxCollection;
 
 class GiveFertilizerCommand : public CareForPlantCommand {
 
 private:
-
     int units;
 
 protected:
