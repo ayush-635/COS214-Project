@@ -1,16 +1,14 @@
 #ifndef CONCRETESPACEBUILDER_H
 #define CONCRETESPACEBUILDER_H
 
-class ConcreteSpaceBuilder : SpaceBuilder {
+#include "../Builder/SpaceBuilder.h"
 
+class ConcreteSpaceBuilder : public SpaceBuilder {
 public:
-	PlantSpace* space;
-
-	void addDefault();
-
-	PlantSpace* build();
-
-	ConcreteSpaceBuilder();
+    string addDefault();
+    PlantSpace* build();
+    
+    ConcreteSpaceBuilder();
 };
 
 #endif
