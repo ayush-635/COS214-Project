@@ -1,14 +1,11 @@
 #include "WaterStorage.h"
-#include "StorageState.h"
-#include "BasicStorage.h"
-#include <iostream>
-using namespace std;
+#include "../State/StorageState.h"
+#include "../State/BasicStorage.h"
 
 WaterStorage::WaterStorage(int cap) {
     capacity = cap;
     level = cap;  // Start full
     state = new BasicStorage();  // Start in basic state
-    cout << "WaterStorage initialized: " << level << "/" << capacity << " units" << endl;
 }
 
 WaterStorage::~WaterStorage() {
@@ -18,10 +15,8 @@ WaterStorage::~WaterStorage() {
 bool WaterStorage::use(int amt) {
     if (level >= amt) {
         level -= amt;
-        cout << "Used " << amt << " units of water. Remaining: " << level << "/" << capacity << endl;
         return true;
     } else {
-        cout << "ERROR: Insufficient water! Need " << amt << ", have " << level << endl;
         return false;
     }
 }
@@ -31,7 +26,6 @@ bool WaterStorage::refill() {
         bool result = state->refill();
         if (result) {
             level = capacity;
-            cout << "Water storage refilled to " << capacity << " units" << endl;
         }
         return result;
     }
@@ -45,7 +39,6 @@ bool WaterStorage::upgrade() {
             int upgradeAmount = 500;
             capacity += upgradeAmount;
             level += upgradeAmount;
-            cout << "Water storage upgraded! New capacity: " << capacity << " units" << endl;
         }
         return result;
     }
