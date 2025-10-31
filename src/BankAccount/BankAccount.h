@@ -1,23 +1,28 @@
 #ifndef BANKACCOUNT_H
 #define BANKACCOUNT_H
+#include <vector>
+#include <string>
+#include <sstream>
 
 class BankAccount {
 
 public:
 	double balance;
-	vector<Observer*> observers;
+	std::vector<std::string> transactionLog;
 
-	void deposit(double amt);
+	void deposit(double amt, std::string desc);
 
-	void withdraw(double amt);
+	void withdraw(double amt, std::string desc);
 
-	void addObserver(Observer* o);
+	double getBalance();
+	std::string getLog();
+	static BankAccount* getInstance();
 
-	void removeObserver(Observer* o);
-
-	void notifyObservers();
-
+protected:
 	BankAccount();
+
+private:
+	static BankAccount* onlyInstance;
 };
 
 #endif

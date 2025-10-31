@@ -1,21 +1,17 @@
 #include "OrderItem.h"
 
 double OrderItem::subtotal() {
-	// TODO - implement OrderItem::subtotal
-	throw "Not yet implemented";
+	return qty * unitPrice;
 }
 
-int OrderItem::count() {
-	// TODO - implement OrderItem::count
-	throw "Not yet implemented";
+std::string OrderItem::getInfo() {
+	std::stringstream oss;
+	oss<<"Name: "<<name<<"\nQuantity: "<<qty<<"\nUnit Price: "<<unitPrice<<"\nSubtotal: "<<subtotal()<<"\n";
+	return oss.str();
 }
 
-void OrderItem::list(int itemsOut) {
-	// TODO - implement OrderItem::list
-	throw "Not yet implemented";
-}
-
-OrderItem::OrderItem() {
-	// TODO - implement OrderItem::OrderItem
-	throw "Not yet implemented";
+OrderItem::OrderItem(std::string name, double price, int qty) {
+	this->name = name;
+	unitPrice = price;
+	this->qty = qty;
 }
