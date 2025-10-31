@@ -1,10 +1,22 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
 
-class StaffMember : Colleague {
 
+#include "../src/Colleague/Colleague.h"
+class Duty;
+
+
+
+class StaffMember : public Colleague {
+
+	protected:
+    Duty* currentDuty;          
+    
 
 public:
+
+	StaffMember();
+	
 	void doDuty();
 
 	void tick();
@@ -14,6 +26,10 @@ public:
 	void browse();
 
 	void sendAdvice();
+
+	 void assignDuty(Duty* duty);
+
+	 
 };
 
 #endif
