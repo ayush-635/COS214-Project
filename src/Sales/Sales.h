@@ -13,7 +13,7 @@
 class Sales : public StaffMember {
     private:
         std::string currPreference;
-        std::string findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare);
+        //std::string findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare);
 
     public:
         Sales();

@@ -49,3 +49,15 @@ Customer::Customer() : lastAdvice(""), rand(0) {
 	std::srand(std::time(nullptr));
 }
 
+void Customer::addStockNotification(const std::string& notification) {
+    stockNotifications.push_back(notification);
+    std::cout << "Customer received stock notification: " << notification << std::endl;
+}
+
+std::vector<std::string> Customer::getStockNotifications() const {
+    return stockNotifications;
+}
+
+void Customer::clearStockNotifications() {
+    stockNotifications.clear();
+}

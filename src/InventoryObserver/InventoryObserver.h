@@ -17,6 +17,7 @@ public:
 	virtual void onStockChange(Plant* plant);
 	void printStock(std::ostream& os) const;
 	virtual ~InventoryObserver() {};
+	void notifyCustomersOfNewStock(const std::string& plantName);
 };
 
 #endif
