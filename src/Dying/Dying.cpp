@@ -1,5 +1,5 @@
 #include "Dying.h"
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 #include <iostream>
 
 Dying::Dying(const std::string& prevState) : previousState(prevState) {}

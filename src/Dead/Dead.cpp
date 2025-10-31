@@ -1,5 +1,5 @@
 #include "Dead.h"
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 
 void Dead::handle(Plant* /*plant*/) {
     // Plant is dead

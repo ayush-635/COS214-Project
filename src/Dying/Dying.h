@@ -1,7 +1,7 @@
 #ifndef DYING_H
 #define DYING_H
 
-#include "src/PlantState/PlantState.h"
+#include "../PlantState/PlantState.h"
 
 class Dying : public PlantState {
 private:
