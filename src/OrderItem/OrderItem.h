@@ -13,7 +13,7 @@ private:
 public:
     double subtotal();
     int count();
-    void list(int itemsOut);
+    string list(int itemsOut);
     
     OrderItem();
 };
