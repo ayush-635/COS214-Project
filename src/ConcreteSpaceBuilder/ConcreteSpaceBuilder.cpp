@@ -1,13 +1,12 @@
 #include "ConcreteSpaceBuilder.h"
-#include "PlantSpace.h"
-#include "SpaceComponent.h"
-#include <iostream>
+#include "../Builder/PlantSpace.h"
+#include "../Builder/SpaceComponent.h"
 
 ConcreteSpaceBuilder::ConcreteSpaceBuilder() : SpaceBuilder() {
-    std::cout << "ConcreteSpaceBuilder initialized" << std::endl;
+    // ConcreteSpaceBuilder initialized
 }
 
-void ConcreteSpaceBuilder::addDefault() {
+string ConcreteSpaceBuilder::addDefault() {
     // Add default config for a plant space
     if (space != nullptr) {
         // Add default sized components
@@ -21,12 +20,12 @@ void ConcreteSpaceBuilder::addDefault() {
         defaultComp2->length = 8;
         space->subspaces.push_back(defaultComp2);
         
-        std::cout << "Added default components to space" << std::endl;
+        return "Added default components to space";
     }
+    return "Error: Space is null";
 }
 
 PlantSpace* ConcreteSpaceBuilder::build() {
     // We can override to add specific behavior if we need to here 
-    std::cout << "ConcreteSpaceBuilder building space..." << std::endl;
     return SpaceBuilder::build();
 }
