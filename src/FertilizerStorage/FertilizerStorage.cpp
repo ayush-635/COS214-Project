@@ -1,14 +1,11 @@
 #include "FertilizerStorage.h"
-#include "StorageState.h"
-#include "BasicStorage.h"
-#include <iostream>
-using namespace std;
+#include "../State/StorageState.h"
+#include "../State/BasicStorage.h"
 
 FertilizerStorage::FertilizerStorage(int cap) {
     capacity = cap;
     level = cap;  // Start full
     state = new BasicStorage();  // Start in basic state
-    cout << "FertilizerStorage initialized: " << level << "/" << capacity << " units" << endl;
 }
 
 FertilizerStorage::~FertilizerStorage() {
@@ -18,10 +15,8 @@ FertilizerStorage::~FertilizerStorage() {
 bool FertilizerStorage::use(int amt) {
     if (level >= amt) {
         level -= amt;
-        cout << "Used " << amt << " units of fertilizer. Remaining: " << level << "/" << capacity << endl;
         return true;
     } else {
-        cout << "ERROR: Insufficient fertilizer! Need " << amt << ", have " << level << endl;
         return false;
     }
 }
@@ -31,7 +26,6 @@ bool FertilizerStorage::refill() {
         bool result = state->refill();
         if (result) {
             level = capacity;
-            cout << "Fertilizer storage refilled to " << capacity << " units" << endl;
         }
         return result;
     }
@@ -45,7 +39,6 @@ bool FertilizerStorage::upgrade() {
             int upgradeAmount = 250;
             capacity += upgradeAmount;
             level += upgradeAmount;
-            cout << "Fertilizer storage upgraded! New capacity: " << capacity << " units" << endl;
         }
         return result;
     }
