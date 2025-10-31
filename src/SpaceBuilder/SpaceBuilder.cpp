@@ -1,25 +1,25 @@
 #include "SpaceBuilder.h"
 #include "PlantSpace.h"
 #include "SpaceComponent.h"
-#include <iostream>
 
 SpaceBuilder::SpaceBuilder() {
     space = new PlantSpace();
     space->name = "Unnamed Space";
 }
 
-void SpaceBuilder::setSize(int width, int length) {
+string SpaceBuilder::setSize(int width, int length) {
     // This is to Set the size for the next component to be added
     if (space != nullptr) {
         SpaceComponent* component = new SpaceComponent();
         component->width = width;
         component->length = length;
         space->subspaces.push_back(component);
-        std::cout << "Set space size: " << width << "x" << length << std::endl;
+        return "Set space size: " + std::to_string(width) + "x" + std::to_string(length);
     }
+    return "Error: Space is null";
 }
 
-void SpaceBuilder::reset() {
+string SpaceBuilder::reset() {
     // Delete current space and create a new one
     if (space != nullptr) {
         // Clean up subspaces
@@ -30,28 +30,30 @@ void SpaceBuilder::reset() {
     }
     space = new PlantSpace();
     space->name = "Unnamed Space";
-    std::cout << "Builder reset" << std::endl;
+    return "Builder reset";
 }
 
-void SpaceBuilder::setName(int name) {
+string SpaceBuilder::setName(int name) {
 	// Set the name of the space
     if (space != nullptr) {
         space->name = "Space_" + std::to_string(name);
-        std::cout << "Set space name to: " << space->name << std::endl;
+        return "Set space name to: " + space->name;
     }
+    return "Error: Space is null";
 }
 
-void SpaceBuilder::addSubSpace() {
+string SpaceBuilder::addSubSpace() {
     // Add a default subspace component
     if (space != nullptr) {
         space->addComponent();
+        return "Subspace added";
     }
+    return "Error: Space is null";
 }
 
 PlantSpace* SpaceBuilder::build() {
     // Return the built space and reset for next build
     PlantSpace* result = space;
     space = nullptr;  // Transfer ownership
-    std::cout << "Space built successfully" << std::endl;
     return result;
 }
