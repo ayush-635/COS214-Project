@@ -29,7 +29,25 @@ SOURCES = main.cpp \
           $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
           $(SRC_DIR)/HerbPlant/HerbPlant.cpp \
           $(SRC_DIR)/PlantFactory/PlantFactory.cpp \
-		  $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp
+		  $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
+		  $(SRC_DIR)/WaterPlantCommand/WaterPlantCommand.cpp \
+          $(SRC_DIR)/GiveFertilizerCommand/GiveFertilizerCommand.cpp \
+          $(SRC_DIR)/PlantSeedCommand/PlantSeedCommand.cpp \
+          $(SRC_DIR)/RemovePlantCommand/RemovePlantCommand.cpp \
+          $(SRC_DIR)/LightWateringStrategy/LightWateringStrategy.cpp \
+          $(SRC_DIR)/IntermediateWateringStrategy/IntermediateWateringStrategy.cpp \
+		  $(SRC_DIR)/WateringStrategy/WateringStrategy.cpp \
+          $(SRC_DIR)/HeavyWateringStrategy/HeavyWateringStrategy.cpp \
+          $(SRC_DIR)/CareForPlantCommand/CareForPlantCommand.cpp \
+          $(SRC_DIR)/Duty/Duty.cpp \
+          $(SRC_DIR)/BankAccount/BankAccount.cpp \
+          $(SRC_DIR)/BuyAssetsCommand/BuyAssetsCommand.cpp \
+          $(SRC_DIR)/SaleCommand/SaleCommand.cpp \
+          $(SRC_DIR)/TransactionCommand/TransactionCommand.cpp \
+          $(SRC_DIR)/TransactionManager/TransactionManager.cpp \
+		  $(SRC_DIR)/Order/Order.cpp \
+		  $(SRC_DIR)/OrderItem/OrderItem.cpp \
+		  $(SRC_DIR)/pot/Pot.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)

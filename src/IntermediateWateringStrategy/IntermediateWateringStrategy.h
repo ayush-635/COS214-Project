@@ -4,7 +4,7 @@
 
 
 #include "../WateringStrategy/WateringStrategy.h"
-class PlantableArea;
+
 
 class IntermediateWateringStrategy : public WateringStrategy {
 public:

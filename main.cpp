@@ -10,21 +10,36 @@
 #include "src/GrassPlant/GrassPlant.h"
 #include "src/HerbPlant/HerbPlant.h"
 #include "src/HealthCheckVisitor/HealthCheckVisitor.h"
+#include "src/WaterPlantCommand/WaterPlantCommand.h"
+#include "src/GiveFertilizerCommand/GiveFertilizerCommand.h"
+#include "src/PlantSeedCommand/PlantSeedCommand.h"
+#include "src/RemovePlantCommand/RemovePlantCommand.h"
+#include "src/LightWateringStrategy/LightWateringStrategy.h"
+#include "src/IntermediateWateringStrategy/IntermediateWateringStrategy.h"
+#include "src/HeavyWateringStrategy/HeavyWateringStrategy.h"
+#include "src/BankAccount/BankAccount.h"
+#include "src/BuyAssetsCommand/BuyAssetsCommand.h"
+#include "src/SaleCommand/SaleCommand.h"
+#include "src/TransactionManager/TransactionManager.h"
 #include <iostream>
 #include <memory>
 #include <vector>
 #include <map>
+#include <queue>
 
 class NurseryGame {
 private:
     std::vector<PlantableArea*> spaces;
     std::map<std::string, PlantFactory*> factories;
+    std::queue<Duty*> commandQueue; // Command Pattern: Queue of duties (for plant operations)
+    BankAccount* bankAccount; // Singleton: Bank account
+    TransactionManager transactionManager; // Command Pattern: For financial transactions
     int dayCounter;
-    double money;
     HealthCheckVisitor healthVisitor;
+    WateringStrategy* currentWateringStrategy;
 
 public:
-    NurseryGame() : dayCounter(0), money(1000.0) {
+    NurseryGame() : dayCounter(0), currentWateringStrategy(nullptr) {
         initializeGame();
     }
 
@@ -35,11 +50,20 @@ public:
         for (auto factory : factories) {
             delete factory.second;
         }
+        while (!commandQueue.empty()) {
+            delete commandQueue.front();
+            commandQueue.pop();
+        }
+        delete currentWateringStrategy;
     }
 
 private:
     void initializeGame() {
         std::cout << "🌱 === WELCOME TO NURSERY MANAGER GAME === 🌱\n" << std::endl;
+        
+        // Initialize BankAccount singleton
+        bankAccount = BankAccount::getInstance();
+        bankAccount->deposit(1000.0, "Starting capital");
         
         // Initialize PlantDataFactory (Flyweight)
         PlantDataFactory::initializeFactory();
@@ -49,10 +73,13 @@ private:
         factories["grass"] = new GrassFactory();
         factories["herb"] = new HerbFactory();
         
+        // Set default watering strategy (Strategy Pattern)
+        currentWateringStrategy = new IntermediateWateringStrategy();
+        
         // Create and register plant prototypes
         initializePlantPrototypes();
         
-        std::cout << "Game initialized with $" << money << " starting capital\n" << std::endl;
+        std::cout << "Game initialized with R" << bankAccount->getBalance() << " starting capital\n" << std::endl;
     }
 
     void initializePlantPrototypes() {
@@ -85,134 +112,108 @@ private:
     }
 
     void displayMainMenu() {
-        std::cout << "\n=== DAY " << dayCounter << " | Money: $" << money << " ===" << std::endl;
-        std::cout << "1. Build New Space" << std::endl;
+        std::cout << "\n=== DAY " << dayCounter << " | Balance: R" << bankAccount->getBalance() << " ===" << std::endl;
+        std::cout << "1. Build New Space (Builder + Banking)" << std::endl;
         std::cout << "2. View All Spaces" << std::endl;
-        std::cout << "3. Add Plants to Space" << std::endl;
-        std::cout << "4. Care for Plants" << std::endl;
-        std::cout << "5. Advance Day (Update Plants)" << std::endl;
-        std::cout << "6. Sell Ready Plants" << std::endl;
-        std::cout << "7. Game Status" << std::endl;
-        std::cout << "8. Health Check (Visitor Pattern)" << std::endl;  // NEW
-        std::cout << "9. Exit Game" << std::endl;
+        std::cout << "3. Add Plants to Space (Command)" << std::endl;
+        std::cout << "4. Care for Plants (Command + Strategy)" << std::endl;
+        std::cout << "5. Remove Plants (Command)" << std::endl;
+        std::cout << "6. Execute Plant Command Queue" << std::endl;
+        std::cout << "7. Change Watering Strategy" << std::endl;
+        std::cout << "8. Advance Day (Update Plants)" << std::endl;
+        std::cout << "9. Sell Ready Plants (Banking)" << std::endl;
+        std::cout << "10. Game Status" << std::endl;
+        std::cout << "11. Health Check (Visitor Pattern)" << std::endl;
+        std::cout << "12. View Bank Account Log (Singleton)" << std::endl;
+        std::cout << "13. Execute Financial Transactions (Command)" << std::endl;
+        std::cout << "14. Exit Game" << std::endl;
         std::cout << "Choose an option: ";
     }
 
     void buildNewSpace() {
-        std::cout << "\n=== BUILD NEW SPACE ===" << std::endl;
-        std::cout << "1. Small Space (2 boxes) - $50" << std::endl;
-        std::cout << "2. Medium Space (4 boxes) - $80" << std::endl;
-        std::cout << "3. Big Space (nested) - $120" << std::endl;
+        std::cout << "\n=== BUILD NEW SPACE (Builder + Banking) ===" << std::endl;
+        std::cout << "1. Small Space (2 boxes) - R50" << std::endl;
+        std::cout << "2. Medium Space (4 boxes) - R80" << std::endl;
+        std::cout << "3. Big Space (nested) - R120" << std::endl;
         std::cout << "Choose space type: ";
         
         int choice;
         std::cin >> choice;
         
-        if (money < 50) {
+        double cost = 0;
+        std::string spaceName;
+        
+        switch (choice) {
+            case 1: cost = 50; spaceName = "Small Space"; break;
+            case 2: cost = 80; spaceName = "Medium Space"; break;
+            case 3: cost = 120; spaceName = "Big Space"; break;
+            default:
+                std::cout << "Invalid choice!" << std::endl;
+                return;
+        }
+        
+        if (bankAccount->getBalance() < cost) {
             std::cout << "❌ Not enough money to build space!" << std::endl;
+            std::cout << "Current balance: R" << bankAccount->getBalance() << std::endl;
+            std::cout << "Required: R" << cost << std::endl;
             return;
         }
+        
+        // Create purchase command and add to transaction manager
+        BuyAssetsCommand* purchaseCommand = new BuyAssetsCommand(bankAccount, spaceName, cost);
+        transactionManager.addCommand(purchaseCommand);
+        
+        std::cout << "💰 Transaction queued: Purchase " << spaceName << " for R" << cost << std::endl;
+        std::cout << "Execute financial transactions (option 13) to complete purchase.\n" << std::endl;
         
         NurseryManager manager;
         ConcreteSpaceBuilder* builder = new ConcreteSpaceBuilder();
         manager.setBuilder(builder);
         
         PlantableArea* newSpace = nullptr;
-        int cost = 0;
         
         switch (choice) {
             case 1:
                 newSpace = manager.constructSmallSpace();
-                cost = 50;
                 break;
             case 2:
                 newSpace = manager.constructMediumSpace();
-                cost = 80;
                 break;
             case 3:
                 newSpace = manager.constructBigSpace();
-                cost = 120;
                 break;
-            default:
-                std::cout << "Invalid choice!" << std::endl;
-                delete builder;
-                return;
         }
         
         if (newSpace) {
-            money -= cost;
             spaces.push_back(newSpace);
-            std::cout << "✅ Space built successfully! Cost: $" << cost << std::endl;
+            std::cout << "✅ Space construction planned!" << std::endl;
             newSpace->display();
         }
         
         delete builder;
     }
 
-    void viewAllSpaces() {
-        std::cout << "\n=== YOUR SPACES ===" << std::endl;
-        if (spaces.empty()) {
-            std::cout << "No spaces built yet!" << std::endl;
-            return;
-        }
-        
-        for (size_t i = 0; i < spaces.size(); ++i) {
-            std::cout << "\n--- Space " << (i + 1) << " ---" << std::endl;
-            spaces[i]->display();
-            
-            // Show plant states in this space
-            showPlantStates(spaces[i]);
-        }
-    }
-
-    void showPlantStates(PlantableArea* space) {
-        std::cout << "Plant States in this space:" << std::endl;
-        for (int i = 0; i < 10; ++i) {
-            PlantableArea* child = space->getChild(i);
-            if (!child) break;
-            
-            PlanterBox* box = dynamic_cast<PlanterBox*>(child);
-            if (box) {
-                auto plants = box->getPlants();
-                for (auto plant : plants) {
-                    std::string stateEmoji = "🌱"; // Seedling
-                    if (plant->getStateName() == "Growing") stateEmoji = "🌿";
-                    else if (plant->getStateName() == "Mature") stateEmoji = "🌳";
-                    else if (plant->getStateName() == "ReadyToSell") stateEmoji = "💰";
-                    else if (plant->getStateName() == "Dying") stateEmoji = "⚠️";
-                    else if (plant->getStateName() == "Dead") stateEmoji = "💀";
-                    
-                    std::cout << "  " << stateEmoji << " " << plant->getName() 
-                              << " - " << plant->getStateName() << std::endl;
-                }
-            }
-            
-            PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(child);
-            if (collection) {
-                showPlantStates(collection);
-            }
-        }
-    }
-
-    void addPlantsToSpace() {
+    void addPlantsWithCommand() {
         if (spaces.empty()) {
             std::cout << "❌ No spaces available! Build a space first." << std::endl;
             return;
         }
         
-        std::cout << "\n=== ADD PLANTS ===" << std::endl;
+        std::cout << "\n=== ADD PLANTS (Command Pattern + Banking) ===" << std::endl;
         std::cout << "Available plants:" << std::endl;
-        std::cout << "1. Rose - $15" << std::endl;
-        std::cout << "2. Tulip - $12" << std::endl;
-        std::cout << "3. Lawn Grass - $8" << std::endl;
-        std::cout << "4. Basil - $10" << std::endl;
-        std::cout << "5. Mint - $10" << std::endl;
+        std::cout << "1. Rose - R15" << std::endl;
+        std::cout << "2. Tulip - R12" << std::endl;
+        std::cout << "3. Lawn Grass - R8" << std::endl;
+        std::cout << "4. Basil - R10" << std::endl;
+        std::cout << "5. Mint - R10" << std::endl;
         
-        int plantChoice, spaceChoice;
+        int plantChoice, spaceChoice, boxIndex;
         std::cout << "Choose plant type: ";
         std::cin >> plantChoice;
         std::cout << "Choose space (1-" << spaces.size() << "): ";
         std::cin >> spaceChoice;
+        std::cout << "Choose box index (0-9): ";
+        std::cin >> boxIndex;
         
         if (spaceChoice < 1 || spaceChoice > spaces.size()) {
             std::cout << "Invalid space choice!" << std::endl;
@@ -220,7 +221,7 @@ private:
         }
         
         Plant* newPlant = nullptr;
-        int cost = 0;
+        double cost = 0;
         std::string plantName;
         
         switch (plantChoice) {
@@ -232,85 +233,203 @@ private:
             default: std::cout << "Invalid plant choice!" << std::endl; return;
         }
         
-        if (money < cost) {
+        if (bankAccount->getBalance() < cost) {
             std::cout << "❌ Not enough money to buy " << plantName << "!" << std::endl;
+            std::cout << "Current balance: R" << bankAccount->getBalance() << std::endl;
+            std::cout << "Required: R" << cost << std::endl;
             delete newPlant;
             return;
         }
         
         if (newPlant) {
-            // Set unique ID
             newPlant->setID(plantName + "_" + std::to_string(dayCounter));
             
-            // Add to first available box in the space
-            addPlantToFirstAvailableBox(spaces[spaceChoice - 1], newPlant);
-            money -= cost;
-            std::cout << "✅ " << plantName << " planted successfully! Cost: $" << cost << std::endl;
-            std::cout << "   Initial state: " << newPlant->getStateName() << std::endl;
-        } else {
-            std::cout << "❌ Failed to create plant!" << std::endl;
-        }
-    }
-
-    void addPlantToFirstAvailableBox(PlantableArea* space, Plant* plant) {
-        // Try to find first available planter box
-        for (int i = 0; i < 10; ++i) { // Reasonable limit
-            PlantableArea* child = space->getChild(i);
-            if (!child) break;
+            // Create purchase command for the plant
+            BuyAssetsCommand* plantPurchase = new BuyAssetsCommand(bankAccount, plantName + " seed", cost);
+            transactionManager.addCommand(plantPurchase);
             
-            PlanterBox* box = dynamic_cast<PlanterBox*>(child);
-            if (box) {
-                box->populate(plant);
-                return;
-            }
-            
-            // If it's a collection, search recursively
-            PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(child);
+            // Create and queue plant command
+            PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceChoice - 1]);
             if (collection) {
-                addPlantToFirstAvailableBox(collection, plant);
-                return;
+                PlantSeedCommand* plantCommand = new PlantSeedCommand(collection, newPlant, boxIndex);
+                commandQueue.push(plantCommand);
+                std::cout << "✅ Plant command queued for " << plantName << "!" << std::endl;
+                std::cout << "💰 Purchase transaction queued: R" << cost << std::endl;
+                std::cout << "   Plant commands in queue: " << commandQueue.size() << std::endl;
+            } else {
+                std::cout << "❌ Invalid space type for command!" << std::endl;
+                delete newPlant;
             }
         }
-        
-        std::cout << "❌ No available space for new plant!" << std::endl;
-        delete plant;
     }
 
-    void careForPlants() {
+    void careForPlantsWithCommands() {
         if (spaces.empty()) {
             std::cout << "❌ No spaces with plants!" << std::endl;
             return;
         }
         
-        std::cout << "\n=== PLANT CARE ===" << std::endl;
-        std::cout << "1. Water Plants ($1 per space)" << std::endl;
-        std::cout << "2. Fertilize Plants ($3 per space)" << std::endl;
+        std::cout << "\n=== PLANT CARE (Command + Strategy + Banking) ===" << std::endl;
+        std::cout << "1. Water Plants (Current Strategy) - R1" << std::endl;
+        std::cout << "2. Fertilize Plants - R3" << std::endl;
         std::cout << "Choose action: ";
         
-        int choice, spaceChoice;
+        int choice, spaceChoice, boxIndex;
         std::cin >> choice;
         std::cout << "Choose space (1-" << spaces.size() << "): ";
         std::cin >> spaceChoice;
+        std::cout << "Choose box index (0-9): ";
+        std::cin >> boxIndex;
         
         if (spaceChoice < 1 || spaceChoice > spaces.size()) {
             std::cout << "Invalid space choice!" << std::endl;
             return;
         }
         
-        int cost = (choice == 1) ? 1 : 3;
-        if (money < cost) {
+        double cost = (choice == 1) ? 1 : 3;
+        std::string actionName = (choice == 1) ? "Water" : "Fertilizer";
+        
+        if (bankAccount->getBalance() < cost) {
             std::cout << "❌ Not enough money for this action!" << std::endl;
+            std::cout << "Current balance: R" << bankAccount->getBalance() << std::endl;
+            std::cout << "Required: R" << cost << std::endl;
             return;
         }
         
+        PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceChoice - 1]);
+        if (!collection) {
+            std::cout << "❌ Invalid space type for command!" << std::endl;
+            return;
+        }
+        
+        // Queue purchase transaction
+        BuyAssetsCommand* resourcePurchase = new BuyAssetsCommand(bankAccount, actionName, cost);
+        transactionManager.addCommand(resourcePurchase);
+        
         if (choice == 1) {
-            spaces[spaceChoice - 1]->water(1, 0); // Water all plants in first box
-            money -= cost;
-            std::cout << "💧 Plants watered! Cost: $" << cost << std::endl;
+            // Water command with current strategy
+            WaterPlantCommand* waterCommand = new WaterPlantCommand(collection, currentWateringStrategy, boxIndex);
+            commandQueue.push(waterCommand);
+            std::cout << "💧 Water command queued!" << std::endl;
         } else if (choice == 2) {
-            spaces[spaceChoice - 1]->giveFertilizer(1, 0); // Fertilize all plants in first box
-            money -= cost;
-            std::cout << "🌱 Plants fertilized! Cost: $" << cost << std::endl;
+            // Fertilize command
+            GiveFertilizerCommand* fertilizeCommand = new GiveFertilizerCommand(collection, 1, boxIndex);
+            commandQueue.push(fertilizeCommand);
+            std::cout << "🌱 Fertilize command queued!" << std::endl;
+        }
+        
+        std::cout << "💰 Resource purchase queued: R" << cost << std::endl;
+        std::cout << "   Plant commands in queue: " << commandQueue.size() << std::endl;
+    }
+
+    void removePlantsWithCommand() {
+        if (spaces.empty()) {
+            std::cout << "❌ No spaces with plants!" << std::endl;
+            return;
+        }
+        
+        std::cout << "\n=== REMOVE PLANTS (Command Pattern) ===" << std::endl;
+        std::cout << "Choose space (1-" << spaces.size() << "): ";
+        int spaceChoice, boxIndex;
+        std::cin >> spaceChoice;
+        std::cout << "Choose box index (0-9): ";
+        std::cin >> boxIndex;
+        
+        if (spaceChoice < 1 || spaceChoice > spaces.size()) {
+            std::cout << "Invalid space choice!" << std::endl;
+            return;
+        }
+        
+        // Find a plant to remove
+        PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceChoice - 1]);
+        if (!collection) {
+            std::cout << "❌ Invalid space type for command!" << std::endl;
+            return;
+        }
+        
+        PlantableArea* box = collection->getChild(boxIndex);
+        PlanterBox* planterBox = dynamic_cast<PlanterBox*>(box);
+        if (planterBox && !planterBox->getPlants().empty()) {
+            Plant* plantToRemove = planterBox->getPlants()[0]; // Remove first plant
+            RemovePlantCommand* removeCommand = new RemovePlantCommand(collection, plantToRemove, boxIndex);
+            commandQueue.push(removeCommand);
+            std::cout << "🗑️ Remove plant command queued!" << std::endl;
+            std::cout << "   Commands in queue: " << commandQueue.size() << std::endl;
+        } else {
+            std::cout << "❌ No plants found in selected box!" << std::endl;
+        }
+    }
+
+    void executeCommandQueue() {
+        std::cout << "\n=== EXECUTING PLANT COMMAND QUEUE ===" << std::endl;
+        
+        if (commandQueue.empty()) {
+            std::cout << "No plant commands in queue!" << std::endl;
+            return;
+        }
+        
+        int commandsExecuted = 0;
+        while (!commandQueue.empty()) {
+            Duty* command = commandQueue.front();
+            command->executeDuty();
+            delete command;
+            commandQueue.pop();
+            commandsExecuted++;
+        }
+        
+        std::cout << "✅ Executed " << commandsExecuted << " plant commands!" << std::endl;
+    }
+
+    void executeFinancialTransactions() {
+        std::cout << "\n=== EXECUTING FINANCIAL TRANSACTIONS (Command Pattern) ===" << std::endl;
+        
+        if (transactionManager.commands.empty()) {
+            std::cout << "No pending financial transactions!" << std::endl;
+            return;
+        }
+        
+        int commandCount = transactionManager.commands.size();
+        double balanceBefore = bankAccount->getBalance();
+        
+        std::cout << "Executing " << commandCount << " transaction(s)..." << std::endl;
+        transactionManager.executeCommands();
+        
+        double balanceAfter = bankAccount->getBalance();
+        std::cout << "\n✅ Transactions completed!" << std::endl;
+        std::cout << "Balance before: R" << balanceBefore << std::endl;
+        std::cout << "Balance after: R" << balanceAfter << std::endl;
+        std::cout << "Change: R" << (balanceAfter - balanceBefore) << std::endl;
+    }
+
+    void changeWateringStrategy() {
+        std::cout << "\n=== CHANGE WATERING STRATEGY ===" << std::endl;
+        std::cout << "1. Light Watering (1 unit)" << std::endl;
+        std::cout << "2. Intermediate Watering (3 units)" << std::endl;
+        std::cout << "3. Heavy Watering (5 units)" << std::endl;
+        std::cout << "Choose strategy: ";
+        
+        int choice;
+        std::cin >> choice;
+        
+        delete currentWateringStrategy; // Clean up old strategy
+        
+        switch (choice) {
+            case 1:
+                currentWateringStrategy = new LightWateringStrategy();
+                std::cout << "✅ Set to Light Watering Strategy" << std::endl;
+                break;
+            case 2:
+                currentWateringStrategy = new IntermediateWateringStrategy();
+                std::cout << "✅ Set to Intermediate Watering Strategy" << std::endl;
+                break;
+            case 3:
+                currentWateringStrategy = new HeavyWateringStrategy();
+                std::cout << "✅ Set to Heavy Watering Strategy" << std::endl;
+                break;
+            default:
+                currentWateringStrategy = new IntermediateWateringStrategy();
+                std::cout << "❌ Invalid choice, using Intermediate" << std::endl;
+                break;
         }
     }
 
@@ -336,14 +455,12 @@ private:
             
             PlanterBox* box = dynamic_cast<PlanterBox*>(child);
             if (box) {
-                // Get plants and update them (State Pattern)
                 auto plants = box->getPlants();
                 for (auto plant : plants) {
                     std::string oldState = plant->getStateName();
                     plant->update();
                     std::string newState = plant->getStateName();
                     
-                    // Log state transitions
                     if (oldState != newState) {
                         std::cout << "🔄 " << plant->getName() << " changed from " 
                                   << oldState << " to " << newState << std::endl;
@@ -366,12 +483,12 @@ private:
         }
         
         std::cout << "\n📊 Current Plant States:" << std::endl;
-        std::cout << "🌱  Seedlings: " << seedlings << std::endl;
-        std::cout << "🌿  Growing: " << growing << std::endl;
-        std::cout << "🌳  Mature: " << mature << std::endl;
-        std::cout << "💰  Ready to Sell: " << ready << std::endl;
-        std::cout << "⚠️   Dying: " << dying << std::endl;
-        std::cout << "💀  Dead: " << dead << std::endl;
+        std::cout << "🌱 Seedlings: " << seedlings << std::endl;
+        std::cout << "🌿 Growing: " << growing << std::endl;
+        std::cout << "🌳 Mature: " << mature << std::endl;
+        std::cout << "💰 Ready to Sell: " << ready << std::endl;
+        std::cout << "⚠️  Dying: " << dying << std::endl;
+        std::cout << "💀 Dead: " << dead << std::endl;
     }
 
     void countPlantStates(PlantableArea* space, int& seedlings, int& growing, int& mature, 
@@ -402,24 +519,28 @@ private:
     }
 
     void sellReadyPlants() {
-        std::cout << "\n=== SELL READY PLANTS ===" << std::endl;
-        double totalEarnings = 0;
+        std::cout << "\n=== SELL READY PLANTS (Banking + SaleCommand) ===" << std::endl;
+        
         int plantsSold = 0;
+        double totalRevenue = 0;
         
         for (auto space : spaces) {
-            auto earnings = harvestReadyPlantsFromSpace(space);
-            totalEarnings += earnings.first;
-            plantsSold += earnings.second;
+            sellPlantsInSpace(space, plantsSold, totalRevenue);
         }
         
-        money += totalEarnings;
-        std::cout << "💰 Sold " << plantsSold << " plants for $" << totalEarnings << std::endl;
+        if (plantsSold > 0) {
+            // Note: This would normally create SaleCommand with Order object
+            // For now, just deposit directly
+            bankAccount->deposit(totalRevenue, "Sold " + std::to_string(plantsSold) + " plants");
+            
+            std::cout << "✅ Sold " << plantsSold << " plants for R" << totalRevenue << std::endl;
+            std::cout << "New balance: R" << bankAccount->getBalance() << std::endl;
+        } else {
+            std::cout << "❌ No plants ready to sell!" << std::endl;
+        }
     }
 
-    std::pair<double, int> harvestReadyPlantsFromSpace(PlantableArea* space) {
-        double earnings = 0;
-        int count = 0;
-        
+    void sellPlantsInSpace(PlantableArea* space, int& plantsSold, double& totalRevenue) {
         for (int i = 0; i < 10; ++i) {
             PlantableArea* child = space->getChild(i);
             if (!child) break;
@@ -427,104 +548,79 @@ private:
             PlanterBox* box = dynamic_cast<PlanterBox*>(child);
             if (box) {
                 auto plants = box->getPlants();
+                std::vector<Plant*> toRemove;
+                
                 for (auto plant : plants) {
                     if (plant->getStateName() == "ReadyToSell") {
-                        // Calculate value based on plant type and care
-                        double value = 20.0 + (plant->getWaterReceived() * 0.5) + (plant->getFertilizerReceived() * 0.8);
-                        earnings += value;
-                        count++;
-                        
-                        // Remove plant (in real implementation, you'd actually remove it)
-                        std::cout << "✅ Sold " << plant->getName() << " for $" << value << std::endl;
+                        toRemove.push_back(plant);
+                        plantsSold++;
+                        totalRevenue += 25.0; // Base selling price
                     }
+                }
+                
+                // Remove sold plants
+                for (auto plant : toRemove) {
+                    box->removePlant(plant);
+                    delete plant;
                 }
             }
             
             PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(child);
             if (collection) {
-                auto result = harvestReadyPlantsFromSpace(collection);
-                earnings += result.first;
-                count += result.second;
+                sellPlantsInSpace(collection, plantsSold, totalRevenue);
             }
         }
-        
-        return {earnings, count};
     }
 
     void gameStatus() {
         std::cout << "\n=== GAME STATUS ===" << std::endl;
         std::cout << "Day: " << dayCounter << std::endl;
-        std::cout << "Money: $" << money << std::endl;
-        std::cout << "Spaces: " << spaces.size() << std::endl;
+        std::cout << "Balance: R" << bankAccount->getBalance() << std::endl;
+        std::cout << "Spaces built: " << spaces.size() << std::endl;
+        std::cout << "Pending plant commands: " << commandQueue.size() << std::endl;
+        std::cout << "Pending transactions: " << transactionManager.commands.size() << std::endl;
         
         int totalPlants = 0;
-        int readyPlants = 0;
-        
         for (auto space : spaces) {
-            auto stats = getSpaceStats(space);
-            totalPlants += stats.first;
-            readyPlants += stats.second;
+            totalPlants += countPlantsInSpace(space);
         }
-        
-        std::cout << "Total Plants: " << totalPlants << std::endl;
-        std::cout << "Ready to Sell: " << readyPlants << std::endl;
-        std::cout << "Plants in progress: " << (totalPlants - readyPlants) << std::endl;
-        
-        // Show state distribution
-        showStateChanges();
+        std::cout << "Total plants: " << totalPlants << std::endl;
     }
 
-    std::pair<int, int> getSpaceStats(PlantableArea* space) {
-        int total = 0;
-        int ready = 0;
-        
+    int countPlantsInSpace(PlantableArea* space) {
+        int count = 0;
         for (int i = 0; i < 10; ++i) {
             PlantableArea* child = space->getChild(i);
             if (!child) break;
             
             PlanterBox* box = dynamic_cast<PlanterBox*>(child);
             if (box) {
-                auto plants = box->getPlants();
-                total += plants.size();
-                for (auto plant : plants) {
-                    if (plant->getStateName() == "ReadyToSell") {
-                        ready++;
-                    }
-                }
+                count += box->getPlants().size();
             }
             
             PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(child);
             if (collection) {
-                auto stats = getSpaceStats(collection);
-                total += stats.first;
-                ready += stats.second;
+                count += countPlantsInSpace(collection);
             }
         }
-        
-        return {total, ready};
+        return count;
     }
 
-    // NEW: Health Check using Visitor Pattern
     void healthCheck() {
-        std::cout << "\n=== PLANT HEALTH CHECK (Visitor Pattern) ===" << std::endl;
+        std::cout << "\n=== HEALTH CHECK (Visitor Pattern) ===" << std::endl;
         
         if (spaces.empty()) {
-            std::cout << "No plants to check!" << std::endl;
+            std::cout << "No spaces to check!" << std::endl;
             return;
         }
         
-        healthVisitor.clearReports();
-        
-        // Visit all plants using the Visitor pattern
-        for (auto space : spaces) {
-            visitPlantsInSpace(space);
+        for (size_t i = 0; i < spaces.size(); ++i) {
+            std::cout << "\n--- Checking Space " << (i + 1) << " ---" << std::endl;
+            performHealthCheckOnSpace(spaces[i]);
         }
-        
-        // Print the health report
-        healthVisitor.printReport();
     }
 
-    void visitPlantsInSpace(PlantableArea* space) {
+    void performHealthCheckOnSpace(PlantableArea* space) {
         for (int i = 0; i < 10; ++i) {
             PlantableArea* child = space->getChild(i);
             if (!child) break;
@@ -533,15 +629,39 @@ private:
             if (box) {
                 auto plants = box->getPlants();
                 for (auto plant : plants) {
-                    // Use Visitor pattern to check plant health
                     plant->accept(healthVisitor);
                 }
             }
             
             PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(child);
             if (collection) {
-                visitPlantsInSpace(collection);
+                performHealthCheckOnSpace(collection);
             }
+        }
+    }
+
+    void viewBankLog() {
+        std::cout << "\n=== BANK ACCOUNT LOG (Singleton) ===" << std::endl;
+        std::cout << "Current Balance: R" << bankAccount->getBalance() << "\n" << std::endl;
+        std::cout << "Transaction History:" << std::endl;
+        std::cout << "-------------------" << std::endl;
+        std::cout << bankAccount->getLog() << std::endl;
+    }
+
+    void viewAllSpaces() {
+        std::cout << "\n=== ALL SPACES (Composite Pattern) ===" << std::endl;
+        
+        if (spaces.empty()) {
+            std::cout << "No spaces built yet. Build a space first!" << std::endl;
+            return;
+        }
+        
+        std::cout << "Total spaces: " << spaces.size() << "\n" << std::endl;
+        
+        for (size_t i = 0; i < spaces.size(); ++i) {
+            std::cout << "--- Space " << (i + 1) << " ---" << std::endl;
+            spaces[i]->display();
+            std::cout << std::endl;
         }
     }
 
@@ -556,17 +676,29 @@ public:
             switch (choice) {
                 case 1: buildNewSpace(); break;
                 case 2: viewAllSpaces(); break;
-                case 3: addPlantsToSpace(); break;
-                case 4: careForPlants(); break;
-                case 5: advanceDay(); break;
-                case 6: sellReadyPlants(); break;
-                case 7: gameStatus(); break;
-                case 8: healthCheck(); break;  // NEW
-                case 9: std::cout << "Thanks for playing!" << std::endl; break;
-                default: std::cout << "Invalid choice!" << std::endl;
+                case 3: addPlantsWithCommand(); break;
+                case 4: careForPlantsWithCommands(); break;
+                case 5: removePlantsWithCommand(); break;
+                case 6: executeCommandQueue(); break;
+                case 7: changeWateringStrategy(); break;
+                case 8: advanceDay(); break;
+                case 9: sellReadyPlants(); break;
+                case 10: gameStatus(); break;
+                case 11: healthCheck(); break;
+                case 12: viewBankLog(); break;
+                case 13: executeFinancialTransactions(); break;
+                case 14: 
+                    std::cout << "\n=== FINAL STATISTICS ===" << std::endl;
+                    std::cout << "Days played: " << dayCounter << std::endl;
+                    std::cout << "Final balance: R" << bankAccount->getBalance() << std::endl;
+                    std::cout << "Spaces built: " << spaces.size() << std::endl;
+                    std::cout << "\nThanks for playing!" << std::endl;
+                    break;
+                default: 
+                    std::cout << "Invalid choice!" << std::endl;
             }
             
-        } while (choice != 9);
+        } while (choice != 14);
     }
 };
 

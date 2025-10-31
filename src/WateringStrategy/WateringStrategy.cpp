@@ -1,6 +1,4 @@
 #include "WateringStrategy.h"
 
-WateringStrategy::WateringStrategy() {}
-
-WateringStrategy::~WateringStrategy() {}
-
+WateringStrategy::WateringStrategy() = default;
+WateringStrategy::~WateringStrategy() = default;

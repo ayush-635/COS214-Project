@@ -2,7 +2,7 @@
 #define HEAVYWATERINGSTRATEGY_H
 
 
-#include "../src/WateringStrategy/WateringStrategy.h"
+#include "../WateringStrategy/WateringStrategy.h"
 class PlantableArea;
 
 class HeavyWateringStrategy : public WateringStrategy {

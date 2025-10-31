@@ -1,12 +1,10 @@
 #ifndef WATERPLANTCOMMAND_H
 #define WATERPLANTCOMMAND_H
-
-
+#include "../WateringStrategy/WateringStrategy.h"
 #include "../CareForPlantCommand/CareForPlantCommand.h"
-class WateringStrategy;
-class PlanterBoxCollection;
 
-
+/* class WateringStrategy;
+class PlanterBoxCollection; */
 
 class WaterPlantCommand : public CareForPlantCommand {
 
