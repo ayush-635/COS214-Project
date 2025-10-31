@@ -11,6 +11,7 @@ private:
 	
 	double unitPrice;
 	int qty;
+    Pot* pot;
 
 public:
 	std::string name;
@@ -18,7 +19,12 @@ public:
 
 	std::string getInfo();
 
+    void addPot();
+    bool hasPot() const { return pot != nullptr; }
+    Pot* getPot() const { return pot; }
+
 	OrderItem(std::string name, double price, int qty);
 };
 
 #endif
+
