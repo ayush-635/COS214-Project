@@ -1,11 +1,11 @@
 #ifndef EXPRESSDELIVERY_H
 #define EXPRESSDELIVERY_H
 
-#include "DeliveryStrategy.h"
+#include "../Delivery/DeliveryStrategy.h"
 
 class ExpressDelivery : public DeliveryStrategy {
 public:
-    void deliver(Order o) override;
+    std::string deliver(Order o) override;
 };
 
 #endif
