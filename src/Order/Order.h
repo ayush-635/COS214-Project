@@ -2,11 +2,6 @@
 #define ORDER_H
 #include <string>
 #include <list>
-class DeliveryStrategy;
-class OrderItem;
-
-#include <list>
-using namespace std;
 
 class OrderItem;
 class DeliveryStrategy;

@@ -2,11 +2,11 @@
 #ifndef PLANTITERATOR_H
 #define PLANTITERATOR_H
 
-#include "src/Iterator/Iterator.h"
-#include "src/Plant/Plant.h"
-#include "src/PlanterBox/PlanterBox.h"
-#include "src/PlantableArea/PlantableArea.h"
-#include "src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../Iterator/Iterator.h"
+#include "../Plant/Plant.h"
+#include "../PlanterBox/PlanterBox.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 #include <vector>
 #include <iostream>
 #include <cstddef>
@@ -25,7 +25,7 @@ protected:
 
 public:
 	PlantIterator(PlantableArea* baseArea);
-	~PlantIterator() override = default;
+	~PlantIterator();
 
 	bool hasNext() override;
 	Plant* next() override;

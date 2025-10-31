@@ -8,6 +8,7 @@ public:
    
     CareForPlantCommand(PlanterBoxCollection* collection, int index) : Duty(collection, index){};
     virtual void executeDuty() = 0;
+    CareForPlantCommand(){};
 };
 
 #endif

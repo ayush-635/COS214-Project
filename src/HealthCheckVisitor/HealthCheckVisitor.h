@@ -1,7 +1,7 @@
 #ifndef HEALTHCHECKVISITOR_H
 #define HEALTHCHECKVISITOR_H
 
-#include "src/CareVisitor/CareVisitor.h"
+#include "../CareVisitor/CareVisitor.h"
 #include <vector>
 #include <string>
 

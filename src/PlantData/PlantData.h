@@ -3,12 +3,9 @@
 #define PLANTDATA_H
 #include <string>
 
-#include <string>
-
 class PlantData {
 private:
 	std::string speciesName;
-	std::string texturePath;
 	double basePrice;
 	int wateringNeed;
 	int fertilizerNeed;

@@ -14,7 +14,7 @@ std::shared_ptr<PlantData> PlantDataFactory::getPlantData(const std::string& key
 
 //PlantData(const std::string& name, int waterForState, int fertilizerForState, 
 //          int waterInt, int fertilizerInt, int waterDeath, int fertilizerDeath)
-                     
+
 void PlantDataFactory::initializeFactory() {
     plantDataMap["FlowerPlant"] = std::make_shared<PlantData>("FlowerPlant", 5, 3, 5, 8, 10, 15);
     plantDataMap["TreePlant"] = std::make_shared<PlantData>("TreePlant", 3, 2, 10, 12, 20, 25);

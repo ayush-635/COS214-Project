@@ -1,6 +1,6 @@
 #include "PlantSeedCommand.h"
-#include "../src/Plant/Plant.h"
-#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../Plant/Plant.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 #include <iostream>
 
 PlantSeedCommand::PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int index)

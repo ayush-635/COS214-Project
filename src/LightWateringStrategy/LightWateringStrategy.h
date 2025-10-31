@@ -2,7 +2,7 @@
 #define LIGHTWATERINGSTRATEGY_H
 
 
-#include "../src/WateringStrategy/WateringStrategy.h"
+#include "../WateringStrategy/WateringStrategy.h"
 class PlantableArea;
 
 

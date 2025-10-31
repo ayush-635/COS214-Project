@@ -1,7 +1,7 @@
 #ifndef GIVEMEDICINECOMMAND_H
 #define GIVEMEDICINECOMMAND_H
 
-#include "../src/CareForPlantCommand/CareForPlantCommand.h"
+#include "../CareForPlantCommand/CareForPlantCommand.h"
 class PlanterBoxCollection;
 
 

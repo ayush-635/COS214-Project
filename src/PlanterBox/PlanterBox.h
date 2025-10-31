@@ -1,11 +1,12 @@
 #ifndef PLANTERBOX_H
 #define PLANTERBOX_H
 
-#include "src/PlantableArea/PlantableArea.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../Plant/Plant.h"
 #include <string>
 #include <vector>
 #include <iostream>
-
+class Plant;
 class PlanterBox : public PlantableArea {
 private:
 	std::vector<Plant*> plants; // holds at most 5 plants

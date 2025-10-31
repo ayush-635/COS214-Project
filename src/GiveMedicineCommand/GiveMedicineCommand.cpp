@@ -1,5 +1,5 @@
 #include "GiveMedicineCommand.h"
-#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
 #include <iostream>
 
 

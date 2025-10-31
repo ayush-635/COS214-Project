@@ -12,7 +12,7 @@ protected:
 public:
    
     Duty(PlanterBoxCollection* collection, int index);
-
+    Duty(){};
     
     virtual ~Duty();
 

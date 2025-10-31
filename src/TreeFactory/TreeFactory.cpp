@@ -1,6 +1,5 @@
-#include "src/TreeFactory/TreeFactory.h"
-
-#include "src/Plant/Plant.h"
+#include "../TreeFactory/TreeFactory.h"
+#include "../Plant/Plant.h"
 
 Plant* TreeFactory::createPlant(std::string name) {
 	auto plantPos = getPlantPrototypes().find(name);

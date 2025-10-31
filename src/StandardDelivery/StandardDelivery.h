@@ -1,7 +1,7 @@
 #ifndef STANDARDDELIVERY_H
 #define STANDARDDELIVERY_H
 
-#include "DeliveryStrategy.h"
+#include "../DeliveryStrategy/DeliveryStrategy.h"
 
 class StandardDelivery : public DeliveryStrategy {
 public:

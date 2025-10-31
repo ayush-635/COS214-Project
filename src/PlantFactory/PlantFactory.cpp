@@ -1,6 +1,5 @@
-#include "src/PlantFactory/PlantFactory.h"
-
-#include "src/Plant/Plant.h"
+#include "../PlantFactory/PlantFactory.h"
+#include "../Plant/Plant.h"
 
 PlantFactory::~PlantFactory() {
 	for(auto& prototypePair : plantProtoypes) {

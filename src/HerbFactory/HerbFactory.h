@@ -1,7 +1,7 @@
 #ifndef HERBFACTORY_H
 #define HERBFACTORY_H
 
-#include "src/PlantFactory/PlantFactory.h"
+#include "../PlantFactory/PlantFactory.h"
 
 class HerbFactory : PlantFactory {
 public:

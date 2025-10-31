@@ -1,6 +1,6 @@
 #include "LightWateringStrategy.h"
-#include "../src/PlantableArea/PlantableArea.h"
-#include "../src/PlanterBox/PlanterBox.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBox/PlanterBox.h"
 
 
 void LightWateringStrategy::waterPlant(PlantableArea* area) {

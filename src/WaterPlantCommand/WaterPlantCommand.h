@@ -2,7 +2,7 @@
 #define WATERPLANTCOMMAND_H
 
 
-#include "../src/CareForPlantCommand/CareForPlantCommand.h"
+#include "../CareForPlantCommand/CareForPlantCommand.h"
 class WateringStrategy;
 class PlanterBoxCollection;
 

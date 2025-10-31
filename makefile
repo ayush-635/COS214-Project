@@ -1,81 +1,57 @@
+# Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
+# Directories
 SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
 
-TARGET = $(BIN_DIR)/nursery
-
+# Source files - ADD ALL YOUR CPP FILES
 SOURCES = main.cpp \
-	$(SRC_DIR)/Plant/Plant.cpp \
-	$(SRC_DIR)/PlantData/PlantData.cpp \
-	$(SRC_DIR)/PlantDataFactory/PlantDataFactory.cpp \
-	$(SRC_DIR)/Inventory/Inventory.cpp \
-	$(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
-	$(SRC_DIR)/TreePlant/TreePlant.cpp \
-	$(SRC_DIR)/HerbPlant/HerbPlant.cpp \
-	$(SRC_DIR)/GrassPlant/GrassPlant.cpp \
-	$(SRC_DIR)/SucculentPlant/SucculentPlant.cpp \
-	$(SRC_DIR)/PlantFactory/PlantFactory.cpp \
-	$(SRC_DIR)/FlowerFactory/FlowerFactory.cpp \
-	$(SRC_DIR)/Game/Game.cpp \
-	$(SRC_DIR)/Subject/Subject.cpp \
-	$(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
-	$(SRC_DIR)/PlantState/PlantState.cpp \
-	$(SRC_DIR)/Seedling/Seedling.cpp \
-	$(SRC_DIR)/Growing/Growing.cpp \
-	$(SRC_DIR)/Mature/Mature.cpp \
-	$(SRC_DIR)/ReadyToSell/ReadyToSell.cpp \
-	$(SRC_DIR)/Dying/Dying.cpp \
-	$(SRC_DIR)/Dead/Dead.cpp
+          $(SRC_DIR)/SpaceBuilder/SpaceBuilder.cpp \
+          $(SRC_DIR)/ConcreteSpaceBuilder/ConcreteSpaceBuilder.cpp \
+          $(SRC_DIR)/NurseryManager/NurseryManager.cpp \
+          $(SRC_DIR)/PlanterBox/PlanterBox.cpp \
+          $(SRC_DIR)/PlanterBoxCollection/PlanterBoxCollection.cpp \
+          $(SRC_DIR)/Plant/Plant.cpp \
+          $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
+          $(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
+          $(SRC_DIR)/PlantData/PlantData.cpp \
+          $(SRC_DIR)/PlantState/PlantState.cpp \
+          $(SRC_DIR)/Seedling/Seedling.cpp \
+          $(SRC_DIR)/Growing/Growing.cpp \
+          $(SRC_DIR)/Mature/Mature.cpp \
+          $(SRC_DIR)/ReadyToSell/ReadyToSell.cpp \
+          $(SRC_DIR)/Dying/Dying.cpp \
+          $(SRC_DIR)/Dead/Dead.cpp
 
-OBJECTS = $(SOURCES:%.cpp=$(OBJ_DIR)/%.o)
+# Object files
+OBJECTS = $(SOURCES:.cpp=.o)
 
-$(shell mkdir -p $(OBJ_DIR))
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR))
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Plant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantData)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantDataFactory)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Inventory)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/FlowerPlant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/TreePlant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/HerbPlant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/GrassPlant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/SucculentPlant)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantFactory)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/FlowerFactory)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Game)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Subject)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/HealthCheckVisitor)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/PlantState)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Seedling)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Growing)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Mature)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/ReadyToSell)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dying)
-$(shell mkdir -p $(OBJ_DIR)/$(SRC_DIR)/Dead)
-$(shell mkdir -p $(BIN_DIR))
+# Executable name
+TARGET = nursery_game
 
+# Default target
 all: $(TARGET)
 
+# Link object files to create executable
 $(TARGET): $(OBJECTS)
-	@echo "Linking..."
-	$(CXX) $(CXXFLAGS) -o $@ $^
-	@echo "Build complete: $(TARGET)"
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
+	@echo "Build complete! Run with ./$(TARGET)"
 
-$(OBJ_DIR)/%.o: %.cpp
-	@echo "Compiling $<..."
+# Compile source files to object files
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Clean build artifacts
 clean:
-	@echo "Cleaning..."
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
-	@echo "Clean complete"
+	rm -f $(OBJECTS) $(TARGET)
+	@echo "Clean complete!"
 
+# Rebuild everything
+rebuild: clean all
+
+# Run the program
 run: $(TARGET)
-	@echo "Running nursery system..."
 	./$(TARGET)
 
-# Phony targets
-.PHONY: all clean run
+.PHONY: all clean rebuild run

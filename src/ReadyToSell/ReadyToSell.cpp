@@ -1,5 +1,5 @@
 #include "ReadyToSell.h"
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 
 void ReadyToSell::handle(Plant* /*plant*/) {
     // Plants stay in this state until sold

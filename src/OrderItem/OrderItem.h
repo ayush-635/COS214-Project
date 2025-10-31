@@ -2,8 +2,7 @@
 #define ORDERITEM_H
 #include <string>
 #include <sstream>
-
-#include <string>
+#include "../Pot/Pot.h"
 using namespace std;
 
 class OrderItem {
@@ -16,6 +15,7 @@ private:
 public:
 	std::string name;
 	double subtotal();
+	OrderItem();
 
 	std::string getInfo();
 

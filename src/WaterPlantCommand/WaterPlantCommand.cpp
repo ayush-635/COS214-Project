@@ -1,7 +1,7 @@
 #include "WaterPlantCommand.h"
-#include "../src/WateringStrategy/WateringStrategy.h"
-#include "../src/PlanterBoxCollection/PlanterBoxCollection.h"
-#include "../src/PlantableArea/PlantableArea.h"
+#include "../WateringStrategy/WateringStrategy.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../PlantableArea/PlantableArea.h"
 #include <iostream>
 
 

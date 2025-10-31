@@ -1,9 +1,9 @@
 #ifndef PLANTABLEAREA_H
 #define PLANTABLEAREA_H
-
-#include "../Duty/Duty.h"
-#include "../Plant/Plant.h"
 #include <vector>
+
+class Plant;
+class Duty;
 
 class PlantableArea {
 private:
