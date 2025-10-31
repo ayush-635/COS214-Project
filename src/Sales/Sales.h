@@ -30,7 +30,6 @@ class Sales : public StaffMember {
         void sendAdvice(const std::string& advice);
 
         std::string handlePurchase(int numPlants);
-
 };
 
 #endif

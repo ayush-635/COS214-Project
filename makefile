@@ -5,7 +5,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 # Directories
 SRC_DIR = src
 
-# Source files - ADD ALL YOUR CPP FILES
+# Source files - ALL CPP FILES INCLUDING STAFF/CUSTOMER SYSTEM
 SOURCES = main.cpp \
           $(SRC_DIR)/SpaceBuilder/SpaceBuilder.cpp \
           $(SRC_DIR)/ConcreteSpaceBuilder/ConcreteSpaceBuilder.cpp \
@@ -29,14 +29,14 @@ SOURCES = main.cpp \
           $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
           $(SRC_DIR)/HerbPlant/HerbPlant.cpp \
           $(SRC_DIR)/PlantFactory/PlantFactory.cpp \
-		  $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
-		  $(SRC_DIR)/WaterPlantCommand/WaterPlantCommand.cpp \
+          $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
+          $(SRC_DIR)/WaterPlantCommand/WaterPlantCommand.cpp \
           $(SRC_DIR)/GiveFertilizerCommand/GiveFertilizerCommand.cpp \
           $(SRC_DIR)/PlantSeedCommand/PlantSeedCommand.cpp \
           $(SRC_DIR)/RemovePlantCommand/RemovePlantCommand.cpp \
           $(SRC_DIR)/LightWateringStrategy/LightWateringStrategy.cpp \
           $(SRC_DIR)/IntermediateWateringStrategy/IntermediateWateringStrategy.cpp \
-		  $(SRC_DIR)/WateringStrategy/WateringStrategy.cpp \
+          $(SRC_DIR)/WateringStrategy/WateringStrategy.cpp \
           $(SRC_DIR)/HeavyWateringStrategy/HeavyWateringStrategy.cpp \
           $(SRC_DIR)/CareForPlantCommand/CareForPlantCommand.cpp \
           $(SRC_DIR)/Duty/Duty.cpp \
@@ -45,9 +45,19 @@ SOURCES = main.cpp \
           $(SRC_DIR)/SaleCommand/SaleCommand.cpp \
           $(SRC_DIR)/TransactionCommand/TransactionCommand.cpp \
           $(SRC_DIR)/TransactionManager/TransactionManager.cpp \
-		  $(SRC_DIR)/Order/Order.cpp \
-		  $(SRC_DIR)/OrderItem/OrderItem.cpp \
-		  $(SRC_DIR)/pot/Pot.cpp
+          $(SRC_DIR)/Order/Order.cpp \
+          $(SRC_DIR)/OrderItem/OrderItem.cpp \
+          $(SRC_DIR)/pot/Pot.cpp \
+          $(SRC_DIR)/Mediator/Mediator.cpp \
+          $(SRC_DIR)/Colleague/Colleague.cpp \
+          $(SRC_DIR)/InteractionManager/InteractionManager.cpp \
+          $(SRC_DIR)/StaffMember/StaffMember.cpp \
+          $(SRC_DIR)/Sales/Sales.cpp \
+          $(SRC_DIR)/Cashier/Cashier.cpp \
+          $(SRC_DIR)/Customer/Customer.cpp \
+          $(SRC_DIR)/Inventory/Inventory.cpp \
+          $(SRC_DIR)/Subject/Subject.cpp \
+          $(SRC_DIR)/InventoryObserver/InventoryObserver.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -61,7 +71,14 @@ all: $(TARGET)
 # Link object files to create executable
 $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
+	@echo "============================================"
 	@echo "Build complete! Run with ./$(TARGET)"
+	@echo "Integrated Systems:"
+	@echo "  ✓ Mediator Pattern (Staff Communication)"
+	@echo "  ✓ Observer Pattern (Inventory Updates)"
+	@echo "  ✓ Singleton (Inventory & InteractionManager)"
+	@echo "  ✓ Customer & Staff Integration"
+	@echo "============================================"
 
 # Compile source files to object files
 %.o: %.cpp
@@ -79,4 +96,25 @@ rebuild: clean all
 run: $(TARGET)
 	./$(TARGET)
 
-.PHONY: all clean rebuild run
+# Debug build with symbols
+debug: CXXFLAGS += -g -DDEBUG
+debug: rebuild
+
+# Check for missing source files
+check:
+	@echo "Checking for source files..."
+	@for src in $(SOURCES); do \
+		if [ ! -f $$src ]; then \
+			echo "❌ Missing: $$src"; \
+		fi \
+	done
+	@echo "Check complete!"
+
+# Show all source files
+list:
+	@echo "Source files in build:"
+	@for src in $(SOURCES); do \
+		echo "  - $$src"; \
+	done
+
+.PHONY: all clean rebuild run debug check list

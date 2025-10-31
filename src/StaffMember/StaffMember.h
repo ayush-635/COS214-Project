@@ -6,7 +6,7 @@
 #include "../PlantableArea/PlantableArea.h"
 
 
-#include "../src/Colleague/Colleague.h"
+#include "../Colleague/Colleague.h"
 class Duty;
 
 
@@ -20,12 +20,12 @@ class StaffMember : public Colleague {
 
 public:
     StaffMember();
-    virtual ~StaffMember();
+    virtual ~StaffMember()=default;
 
     void doDuty();
     void doDuty(int time);
 
-    virtual void tick(int time);
+    virtual void tick(int time)=0;
 
     virtual void receivePreference(const std::string& pref);
 
