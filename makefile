@@ -13,8 +13,6 @@ SOURCES = main.cpp \
           $(SRC_DIR)/PlanterBox/PlanterBox.cpp \
           $(SRC_DIR)/PlanterBoxCollection/PlanterBoxCollection.cpp \
           $(SRC_DIR)/Plant/Plant.cpp \
-          $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
-          $(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
           $(SRC_DIR)/PlantData/PlantData.cpp \
           $(SRC_DIR)/PlantState/PlantState.cpp \
           $(SRC_DIR)/Seedling/Seedling.cpp \
@@ -22,7 +20,16 @@ SOURCES = main.cpp \
           $(SRC_DIR)/Mature/Mature.cpp \
           $(SRC_DIR)/ReadyToSell/ReadyToSell.cpp \
           $(SRC_DIR)/Dying/Dying.cpp \
-          $(SRC_DIR)/Dead/Dead.cpp
+          $(SRC_DIR)/Dead/Dead.cpp \
+          $(SRC_DIR)/PlantDataFactory/PlantDataFactory.cpp \
+          $(SRC_DIR)/FlowerFactory/FlowerFactory.cpp \
+          $(SRC_DIR)/GrassFactory/GrassFactory.cpp \
+          $(SRC_DIR)/HerbFactory/HerbFactory.cpp \
+          $(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
+          $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
+          $(SRC_DIR)/HerbPlant/HerbPlant.cpp \
+          $(SRC_DIR)/PlantFactory/PlantFactory.cpp \
+		  $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)
