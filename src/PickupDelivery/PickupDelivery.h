@@ -1,11 +1,12 @@
 #ifndef PICKUPDELIVERY_H
 #define PICKUPDELIVERY_H
 
-#include "DeliveryStrategy.h"
+#include "../Delivery/DeliveryStrategy.h"
 
 class PickupDelivery : public DeliveryStrategy {
 public:
-    void deliver(Order o) override;
+    std::string deliver(Order o) override;
 };
 
 #endif
+
