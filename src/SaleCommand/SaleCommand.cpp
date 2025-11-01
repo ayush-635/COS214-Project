@@ -1,11 +1,11 @@
 #include "SaleCommand.h"
 
 void SaleCommand::execute() {
-	// TODO - implement SaleCommand::execute
-	throw "Not yet implemented";
+	bank->deposit(purchase->total(), purchase->getOrder());
 }
 
-SaleCommand::SaleCommand() {
-	// TODO - implement SaleCommand::SaleCommand
-	throw "Not yet implemented";
+SaleCommand::SaleCommand(BankAccount *bank, Order *pur)
+{
+	this->bank = bank;
+	this->purchase = pur;
 }

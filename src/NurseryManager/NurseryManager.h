@@ -1,5 +1,7 @@
 #ifndef NURSERYMANAGER_H
 #define NURSERYMANAGER_H
+#include "../SpaceBuilder/SpaceBuilder.h"
+#include "../PlantableArea/PlantableArea.h"
 
 class NurseryManager {
 
@@ -7,11 +9,16 @@ private:
 	SpaceBuilder* builder;
 
 public:
-	void constructSmallSpace();
+	NurseryManager() : builder(nullptr){}
 
-	void constructMediumSpace();
+	void setBuilder(SpaceBuilder* b){
+		builder =b;
+	}
 
-	void constructBigSpace();
+	PlantableArea* constructSmallSpace();
+	PlantableArea* constructMediumSpace();
+	PlantableArea* constructBigSpace();
 };
 
 #endif
+

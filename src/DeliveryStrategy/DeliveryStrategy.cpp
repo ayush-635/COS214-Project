@@ -1,6 +1,5 @@
 #include "DeliveryStrategy.h"
 
 DeliveryStrategy::DeliveryStrategy() {
-	// TODO - implement DeliveryStrategy::DeliveryStrategy
-	throw "Not yet implemented";
+    // Constructor implementation (if needed) nothing here to initialize(Base Constructor)
 }

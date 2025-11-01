@@ -1,6 +1,12 @@
-#include "HerbFactory.h"
+#include "../HerbFactory/HerbFactory.h"
 
-Plant* HerbFactory::createPlant() {
-	// TODO - implement HerbFactory::createPlant
-	throw "Not yet implemented";
+#include "../Plant/Plant.h"
+
+Plant* HerbFactory::createPlant(std::string name) {
+	auto plantPos = getPlantPrototypes().find(name);
+	if(plantPos == getPlantPrototypes().end()) {
+		return nullptr;
+	} else {
+		return getPlantPrototypes().find(name)->second->clone();
+	}
 }

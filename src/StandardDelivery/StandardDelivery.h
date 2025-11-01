@@ -1,11 +1,11 @@
 #ifndef STANDARDDELIVERY_H
 #define STANDARDDELIVERY_H
 
-class StandardDelivery : DeliveryStrategy {
+#include "../DeliveryStrategy/DeliveryStrategy.h"
 
-
+class StandardDelivery : public DeliveryStrategy {
 public:
-	void deliver(Order o);
+    void deliver(Order o) override;
 };
 
 #endif

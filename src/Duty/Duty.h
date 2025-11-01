@@ -1,13 +1,23 @@
 #ifndef DUTY_H
 #define DUTY_H
 
+#include "../PlanterBoxCollection/PlanterBoxCollection.h" 
+
 class Duty {
 
+protected:
+    PlanterBoxCollection* collection;
+    int index;
 
 public:
-	virtual void executeDuty(PlantableArea* area) = 0;
+   
+    Duty(PlanterBoxCollection* collection, int index);
+    Duty(){};
+    
+    virtual ~Duty();
 
-	Duty();
+    
+    virtual void executeDuty() = 0;
 };
 
-#endif
+#endif 

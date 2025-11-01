@@ -1,11 +1,15 @@
 #ifndef DEAD_H
 #define DEAD_H
 
-class Dead : PlantState {
+#include "../PlantState/PlantState.h"
 
-
+class Dead : public PlantState {
 public:
-	void handle();
+
+    void handle(Plant* plant) override;
+    std::string getName() const override { return "Dead"; }
+    bool canProgress(Plant* plant) override;
+
 };
 
 #endif

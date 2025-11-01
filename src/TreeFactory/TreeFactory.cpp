@@ -1,6 +1,11 @@
-#include "TreeFactory.h"
+#include "../TreeFactory/TreeFactory.h"
+#include "../Plant/Plant.h"
 
-Plant* TreeFactory::createPlant() {
-	// TODO - implement TreeFactory::createPlant
-	throw "Not yet implemented";
+Plant* TreeFactory::createPlant(std::string name) {
+	auto plantPos = getPlantPrototypes().find(name);
+	if(plantPos == getPlantPrototypes().end()) {
+		return nullptr;
+	} else {
+		return getPlantPrototypes().find(name)->second->clone();
+	}
 }

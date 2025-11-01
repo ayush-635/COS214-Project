@@ -1,17 +1,25 @@
 #ifndef PLANTFACTORY_H
 #define PLANTFACTORY_H
 
-class PlantFactory {
+#include <string>
+#include <map>
 
+class Plant;
+
+class PlantFactory {
 private:
 	std::map<std::string, Plant*> plantProtoypes;
 
 public:
-	virtual Plant* createPlant() = 0;
+	virtual ~PlantFactory();
 
-	void addPlantPrototype(std::string name, std::string idealSeason);
+	virtual void addPlantPrototype(Plant* prototype);
 
-	PlantFactory();
+	std::map<std::string, Plant*>& getPlantPrototypes() {
+		return plantProtoypes;
+	}
+
+	virtual Plant* createPlant(std::string name) = 0;
 };
 
 #endif

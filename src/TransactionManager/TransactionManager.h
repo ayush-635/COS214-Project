@@ -1,12 +1,16 @@
 #ifndef TRANSACTIONMANAGER_H
 #define TRANSACTIONMANAGER_H
+#include <queue>
+#include "../TransactionCommand/TransactionCommand.h"
 
 class TransactionManager {
 
 public:
-	stack<TransactionCommand*> history;
+	std::queue<TransactionCommand*> commands;
 
-	void executeCommand(int cmd);
+	void executeCommands();
+
+	void addCommand(TransactionCommand* cmd);
 
 	TransactionManager();
 };

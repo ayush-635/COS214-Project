@@ -5,9 +5,8 @@ class TransactionCommand {
 
 
 public:
-	void execute();
-
-	TransactionCommand();
+	virtual void execute()=0;
+	virtual ~TransactionCommand()=default;
 };
 
 #endif
