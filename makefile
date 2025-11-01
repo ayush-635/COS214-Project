@@ -57,7 +57,12 @@ SOURCES = main.cpp \
           $(SRC_DIR)/Customer/Customer.cpp \
           $(SRC_DIR)/Inventory/Inventory.cpp \
           $(SRC_DIR)/Subject/Subject.cpp \
-          $(SRC_DIR)/InventoryObserver/InventoryObserver.cpp
+          $(SRC_DIR)/InventoryObserver/InventoryObserver.cpp \
+          $(SRC_DIR)/DeliveryStrategy/DeliveryStrategy.cpp \
+          $(SRC_DIR)/ExpressDelivery/ExpressDelivery.cpp \
+          $(SRC_DIR)/PickupDelivery/PickupDelivery.cpp \
+          $(SRC_DIR)/StandardDelivery/StandardDelivery.cpp \
+          $(SRC_DIR)/Game/Game.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)

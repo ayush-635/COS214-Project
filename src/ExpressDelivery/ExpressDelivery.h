@@ -1,7 +1,7 @@
 #ifndef EXPRESSDELIVERY_H
 #define EXPRESSDELIVERY_H
 
-#include "DeliveryStrategy.h"
+#include "../DeliveryStrategy/DeliveryStrategy.h"
 
 class ExpressDelivery : public DeliveryStrategy {
 public:

@@ -1,7 +1,7 @@
 #ifndef PICKUPDELIVERY_H
 #define PICKUPDELIVERY_H
 
-#include "DeliveryStrategy.h"
+#include "../DeliveryStrategy/DeliveryStrategy.h"
 
 class PickupDelivery : public DeliveryStrategy {
 public:
