@@ -1,12 +1,3 @@
-/**
- * @file test_DeliveryStrategy.cpp
- * @brief Unit tests for Delivery Strategy Pattern
- * @author Zaynab Samir
- * 
- * Comprehensive tests for StandardDelivery, ExpressDelivery, and PickupDelivery
- * strategies with updated interface (const Order&, getDeliveryCost, getDeliveryType).
- */
-
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "../src/Order/Order.h"
@@ -209,7 +200,6 @@ TEST_SUITE("Delivery Strategy Pattern Tests") {
     TEST_CASE("Large Order Handling") {
         Order largeOrder;
         
-        // Add 10 items with various quantities
         for (int i = 0; i < 10; i++) {
             OrderItem* item = new OrderItem("Plant" + std::to_string(i), 50.0, 5);
             largeOrder.addItem(item);
@@ -248,19 +238,16 @@ TEST_SUITE("Delivery Strategy Pattern Tests") {
         SUBCASE("Switch between strategies at runtime") {
             DeliveryStrategy* strategy = nullptr;
             
-            // Start with standard
             strategy = new StandardDelivery();
             CHECK(strategy->getDeliveryType() == "Standard Delivery");
             CHECK_NOTHROW(strategy->deliver(order));
             delete strategy;
             
-            // Switch to express
             strategy = new ExpressDelivery();
             CHECK(strategy->getDeliveryType() == "Express Delivery");
             CHECK_NOTHROW(strategy->deliver(order));
             delete strategy;
             
-            // Switch to pickup
             strategy = new PickupDelivery();
             CHECK(strategy->getDeliveryType() == "Customer Pickup");
             CHECK_NOTHROW(strategy->deliver(order));
@@ -321,7 +308,6 @@ TEST_SUITE("Delivery Strategy Pattern Tests") {
             
             CHECK(order->getItemCount() == 2);
             
-            // Should not crash - Order destructor deletes items
             CHECK_NOTHROW(delete order);
         }
     }
