@@ -1,4 +1,3 @@
-// ../src/Sales/Sales.cpp
 #include "Sales.h"
 #include "../Inventory/Inventory.h"
 #include "../Plant/Plant.h"
@@ -7,48 +6,32 @@
 #include <iostream>
 #include <cstdlib>
 #include <map>
+#include <vector>
+#include <memory>
+
 
 void Sales::tick(int time) {
     std::cout << "Sales tick +" << time
               << " Ticks spent alive: " << totalTime() << std::endl;
 }
 
-// In YOUR Inventory there is no "getAllPlantNames()", so we will
-// just try a few known names that we (will) add in main.
-static const char* CANDIDATE_NAMES[] = {
-    "Rose",
-    "Lily",
-    "Aloe",
-    "Fern",
-    "Succulent"
-};
-static const int NUM_CANDIDATES = sizeof(CANDIDATE_NAMES)/sizeof(CANDIDATE_NAMES[0]);
-
-std::string Sales::findMatchingPlant(bool outside,
-                                     bool lowLight,
-                                     bool lowWater,
-                                     bool brightColour,
-                                     bool lowCare)
-{
+std::string Sales::findMatchingPlant(bool outside, bool lowLight, bool lowWater, bool brightColour, bool lowCare){
     Inventory* inv = Inventory::getInstance();
     std::vector<std::string> matchingPlants;
 
-    // Use candidate names instead of getAllPlantNames()
-    for (int i = 0; i < NUM_CANDIDATES; ++i) {
-        std::string plantName = CANDIDATE_NAMES[i];
+    std::vector<std::string> allPlants = inv->getAllPlantNames();
+    for(const std::string& plantName : allPlants) {
         Plant* plant = inv->getPrototype(plantName);
         if(!plant) continue;
-
         std::shared_ptr<PlantData> data = plant->getPlantData();
         if(!data) continue;
-        
+
         bool matches = true;
-        
-        if (outside && !data->isOutside()) matches = false;
-        if (lowLight && !data->isLowLight()) matches = false; 
-        if (lowWater && !data->isLowWater()) matches = false;
-        if (brightColour && !data->isBrightColour()) matches = false;
-        if (lowCare && !data->isLowCare()) matches = false;
+        if(outside && !data->isOutside()) matches = false;
+        if(lowLight && !data->isLowLight()) matches = false;
+        if(lowWater && !data->isLowWater()) matches = false;
+        if(brightColour && !data->isBrightColour()) matches = false;
+        if(lowCare && !data->isLowCare()) matches = false;
 
         if(matches) {
             int stock = inv->getStock(plantName);
@@ -77,7 +60,6 @@ void Sales::sendAdvice(const std::string &advice) {
     if(mediator) {
         mediator->notify(this, "ADVICE:" + advice);
     } else {
-        // Fallback: your Mediator is only forward-declared, so we just print for now
         std::cout << "[Sales advice] " << advice << std::endl;
     }
 }
@@ -97,29 +79,32 @@ void Sales::browse() {
     bool needsBrightColor = (currPreference.find("bright coloured") != std::string::npos);
     bool needsLowCare     = (currPreference.find("not need much attention") != std::string::npos);
 
-    std::string advice = findMatchingPlant(needsOutside,
-                                           needsLowLight,
-                                           needsLowWater,
-                                           needsBrightColor,
-                                           needsLowCare);
+    std::string advice = findMatchingPlant(needsOutside, needsLowLight, needsLowWater, needsBrightColor, needsLowCare);
     sendAdvice(advice);
 }
 
 std::string Sales::handlePurchase(int numPlants) {
-    // Since we don't have getAllPlantNames, just pick from candidates
     Inventory* inv = Inventory::getInstance();
     std::string ret;
     ret = "Sales staff processing purchase of " + std::to_string(numPlants) + " plant(s)\n";
+    std::vector<std::string> allNames = inv->getAllPlantNames();
 
     int purchased = 0;
-    for (int i = 0; i < numPlants && purchased < numPlants; ++i) {
-        for (int c = 0; c < NUM_CANDIDATES; ++c) {
-            std::string name = CANDIDATE_NAMES[c];
+    while (purchased < numPlants) {
+        bool soldSomethingThisPass = false;
+
+        for (const std::string& name : allNames) {
+            if (purchased >= numPlants) break;
+
             if (inv->trySell(name, 1)) {
                 ret += "Sold: " + name + "\n";
                 purchased++;
-                break;
+                soldSomethingThisPass = true;
             }
+        }
+
+        if (!soldSomethingThisPass) {
+            break;
         }
     }
 

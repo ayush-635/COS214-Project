@@ -3,7 +3,7 @@
 #include <iostream>
 
 StaffMember::StaffMember() : Colleague(), TimeSpent(0){}
-StaffMember::~StaffMember(){}
+//StaffMember::~StaffMember() = default;
 
 int StaffMember::totalTime() const{
 	return TimeSpent;

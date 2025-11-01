@@ -35,7 +35,6 @@ public:
 
 	void addStockType(PlantFactory* f, const std::string name, const std::string idealSeason);
 
-	std::vector<std::string> getAllPlantNames() const;
 	int getStock(const std::string& name) const;
 
 	void updateStock(const std::string& name, int count);
@@ -47,6 +46,8 @@ public:
 	Plant* getPrototype(const std::string& name) const;
 
 	std::string getIdealSeason(const std::string& name) const;
+
+	std::vector<std::string> getAllPlantNames() const;
 };
 
 #endif

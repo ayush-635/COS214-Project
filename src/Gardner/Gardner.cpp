@@ -1,7 +1,10 @@
-// ../src/Gardner/Gardner.cpp
 #include "Gardner.h"
 #include "../Inventory/Inventory.h"
 #include <iostream>
+#include <vector> 
+#include <memory>
+#include "../Plant/Plant.h"
+#include "../PlantData/PlantData.h"
 
 void Gardner::tick(int time) {
     std::cout << "Gardner tick +" << time
@@ -14,34 +17,59 @@ void Gardner::receivePreference(const std::string& pref) {
 }
 
 void Gardner::browse() {
-    if (currPreference.empty()) {
+    if(currPreference.empty()) {
+        sendAdvice("Gardner has no preference to browse.");
         return;
     }
 
-    // same parsing as Sales
-    bool needsOutside     = (currPreference.find("outside") != std::string::npos);
-    bool needsLowLight    = (currPreference.find("without much sunlight") != std::string::npos);
-    bool needsLowWater    = (currPreference.find("not need much water") != std::string::npos);
-    bool needsBrightColor = (currPreference.find("bright coloured") != std::string::npos);
-    bool needsLowCare     = (currPreference.find("not need much attention") != std::string::npos);
+    bool needsOutside = currPreference.find("outside") != std::string::npos;
+    bool needsLowLight = currPreference.find("low light") != std::string::npos;
+    bool needsLowWater = currPreference.find("low water") != std::string::npos;
+    bool needsBrightColour = currPreference.find("bright colour") != std::string::npos;
+    bool needsLowCare = currPreference.find("low care") != std::string::npos;
 
-    // since Inventory has no getAllPlantNames, just look at known ones
     Inventory* inv = Inventory::getInstance();
-    const char* names[] = { "Rose", "Lily", "Aloe", "Fern", "Succulent" };
-    const int N = sizeof(names)/sizeof(names[0]);
+    if(!inv) {
+        sendAdvice("Gardner: Inventory instance not available.");
+        return;
+    } 
 
-    for (int i = 0; i < N; ++i) {
-        std::string name = names[i];
-        if (inv->getStock(name) > 0) {
-            sendAdvice("Gardner: You can use " + name + " — it should be fine.");
-            return;
+    std::vector<std::string> allNames = inv->getAllPlantNames();
+    for(const std::string& name : allNames) {
+        if(inv->getStock(name) <= 0) {
+            continue;
+        }
+
+        Plant* Proto = inv->getPrototype(name);
+        if(!Proto) {
+            continue;
+        }
+
+        std::shared_ptr<PlantData> dataPtr = Proto->getPlantData();
+        if (!dataPtr) {
+            continue;
+        }
+        PlantData* data = dataPtr.get();
+
+        bool matches = true;
+        if(needsOutside && !data->isOutside()) matches = false;
+        if(needsLowLight && !data->isLowLight()) matches = false;
+        if(needsLowWater && !data->isLowWater()) matches = false;
+        if(needsBrightColour && !data->isBrightColour()) matches = false;
+        if(needsLowCare && !data->isLowCare()) matches = false;
+
+        if(matches) {
+            sendAdvice("Gardner found a matching plant: " + name);
         }
     }
 
-    sendAdvice("Gardner: I don't have a good suggestion right now.");
+    sendAdvice("I couldn't find any plants matching your preferences.");
 }
 
 void Gardner::sendAdvice(const std::string& advice) {
-    // print instead of mediator->notify(...)
-    std::cout << "[Gardner advice] " << advice << std::endl;
+    if(mediator) {
+        mediator->notify(this, "ADVICE:" + advice);
+    } else {
+        std::cout << "[Gardner advice] " << advice << std::endl;
+    }
 }

@@ -40,17 +40,18 @@ void Cashier::receivePreference(const std::string& pref) {
 }
 
 void Cashier::sendAdvice(const std::string& message) {
-    // print instead of mediator->notify(...)
-    std::cout << "[Cashier advice] " << message << std::endl;
+    if(mediator) {
+        mediator->notify(this, "ADVICE:" + message);
+    } else {
+        std::cout << "[Cashier advice] " << message << std::endl;
+    }
 }
-
-// keep these if you want to call them from main:
 bool Cashier::checkStockLevel(Plant* plant) {
     if(!plant) return false;
 
     Inventory* inv = Inventory::getInstance();
     int stock = inv->getStock(plant->getName());
-    std::cout << "Cashier checked stock level for" << plant->getName() << ": " << stock << std::endl;
+    std::cout << "Cashier checked stock level for " << plant->getName() << ": " << stock << std::endl;
     return stock > 0;
 }
 
