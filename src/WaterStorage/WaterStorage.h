@@ -1,19 +1,25 @@
-#ifndef WATERSTORAGE_H
+/* #ifndef WATERSTORAGE_H
 #define WATERSTORAGE_H
 
-class WaterStorage : ResourceManager {
+class StorageState;
 
+class WaterStorage {
 private:
-	int capacity;
-	int level;
-	StorageState* state;
+    int capacity;
+    int level;
+    StorageState* state;
 
 public:
-	bool use(int amt);
-
-	bool refill();
-
-	bool upgrade();
+    WaterStorage(int cap = 1000);
+    ~WaterStorage();
+    
+    bool use(int amt);
+    bool refill();
+    bool upgrade();
+    
+    int getLevel() const { return level; }
+    int getCapacity() const { return capacity; }
 };
 
 #endif
+ */

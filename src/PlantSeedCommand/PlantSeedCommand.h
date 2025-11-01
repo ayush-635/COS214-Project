@@ -1,14 +1,22 @@
 #ifndef PLANTSEEDCOMMAND_H
 #define PLANTSEEDCOMMAND_H
 
-class PlantSeedCommand : Duty {
+#include "../Duty/Duty.h"
+class PlanterBoxCollection;
+class Plant;
+
+class PlantSeedCommand : public Duty {
+private:
+  
+Plant* seed;                      
+                      
 
 public:
-	Plant* seed;
+    
+    PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int index);
 
-	PlantSeedCommand(Plant* seed);
-
-	void executeDuty(PlantableArea* area);
+   
+    void executeDuty() override;
 };
 
 #endif

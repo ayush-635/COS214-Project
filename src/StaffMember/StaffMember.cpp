@@ -1,26 +1,38 @@
 #include "StaffMember.h"
+#include "../Duty/Duty.h"
+#include <iostream>
+
+StaffMember::StaffMember() : Colleague(), TimeSpent(0){}
+StaffMember::~StaffMember(){}
+
+int StaffMember::totalTime() const{
+	return TimeSpent;
+}
 
 void StaffMember::doDuty() {
-	// TODO - implement StaffMember::doDuty
-	throw "Not yet implemented";
+	doDuty(1);
 }
 
-void StaffMember::tick() {
-	// TODO - implement StaffMember::tick
-	throw "Not yet implemented";
+void StaffMember::addTime(int time){
+	TimeSpent += time;
 }
 
-void StaffMember::receivePreference() {
-	// TODO - implement StaffMember::receivePreference
-	throw "Not yet implemented";
+void StaffMember::doDuty(int time){
+	addTime(time);
+	tick(time);
+	browse();
+	receivePreference("");
+	sendAdvice("");
 }
 
-void StaffMember::browse() {
-	// TODO - implement StaffMember::browse
-	throw "Not yet implemented";
+void StaffMember::browse(){
 }
 
-void StaffMember::sendAdvice() {
-	// TODO - implement StaffMember::sendAdvice
-	throw "Not yet implemented";
+void StaffMember::receivePreference(const std::string& /*pref*/){
+}
+
+void StaffMember::sendAdvice(const std::string& /*advice*/){
+}
+
+void StaffMember::tick(int /*time*/){
 }

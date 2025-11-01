@@ -1,12 +1,21 @@
 #ifndef WATERPLANTCOMMAND_H
 #define WATERPLANTCOMMAND_H
+#include "../WateringStrategy/WateringStrategy.h"
+#include "../CareForPlantCommand/CareForPlantCommand.h"
 
-class WaterPlantCommand : CareForPlantCommand {
+/* class WateringStrategy;
+class PlanterBoxCollection; */
+
+class WaterPlantCommand : public CareForPlantCommand {
 
 public:
-	WateringStrategy* wateringStrategy;
+    WateringStrategy* wateringStrategy; 
 
-	void executeDuty(PlantableArea* area);
+    
+    WaterPlantCommand(PlanterBoxCollection* collection, WateringStrategy* strategy, int index);
+
+    
+    void executeDuty() override;
 };
 
 #endif

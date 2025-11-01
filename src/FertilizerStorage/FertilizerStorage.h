@@ -1,19 +1,22 @@
-#ifndef FERTILIZERSTORAGE_H
+/* #ifndef FERTILIZERSTORAGE_H
 #define FERTILIZERSTORAGE_H
 
-class FertilizerStorage : ResourceManager {
-
+class FertilizerStorage {
 private:
-	int capacity;
-	int level;
-	StorageState* state;
+    int capacity;
+    int level;
 
 public:
-	bool use(int amt);
-
-	bool refill();
-
-	bool upgrade();
+    FertilizerStorage(int cap = 500);
+    ~FertilizerStorage();
+    
+    bool use(int amt);
+    bool refill();
+    bool upgrade();
+    
+    int getLevel() const { return level; }
+    int getCapacity() const { return capacity; }
 };
 
 #endif
+ */

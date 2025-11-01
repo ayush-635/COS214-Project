@@ -1,19 +1,39 @@
 #ifndef STAFFMEMBER_H
 #define STAFFMEMBER_H
+#include "../Colleague/Colleague.h"
+#include "../Colleague/Colleague.h"
+#include "../Duty/Duty.h"
+#include "../PlantableArea/PlantableArea.h"
 
-class StaffMember : Colleague {
 
+#include "../Colleague/Colleague.h"
+class Duty;
+
+
+
+class StaffMember : public Colleague {
+
+	protected:
+    void addTime(int time);
+    int TimeSpent;          
+    
 
 public:
-	void doDuty();
+    StaffMember();
+    virtual ~StaffMember()=default;
 
-	void tick();
+    void doDuty();
+    void doDuty(int time);
 
-	void receivePreference();
+    virtual void tick(int time)=0;
 
-	void browse();
+    virtual void receivePreference(const std::string& pref);
 
-	void sendAdvice();
+    virtual void browse();
+	
+    virtual void sendAdvice(const std::string& advice);
+
+    int totalTime() const;
 };
 
 #endif

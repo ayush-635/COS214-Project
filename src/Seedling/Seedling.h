@@ -8,7 +8,6 @@ public:
     void handle(Plant* plant) override;
     std::string getName() const override { return "Seedling"; }
     bool canProgress(Plant* plant) override;
-    
 };
 
 #endif

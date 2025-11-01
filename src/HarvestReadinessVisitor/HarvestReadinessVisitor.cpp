@@ -1,4 +1,4 @@
-#include "HarvestReadinessVisitor.h"
+/* #include "HarvestReadinessVisitor.h"
 
 void HarvestReadinessVisitor::visitFlower(Flower* plant) {
 	// TODO - implement HarvestReadinessVisitor::visitFlower
@@ -34,3 +34,4 @@ void HarvestReadinessVisitor::clearReadyPlants() {
 	// TODO - implement HarvestReadinessVisitor::clearReadyPlants
 	throw "Not yet implemented";
 }
+ */

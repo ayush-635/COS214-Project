@@ -1,11 +1,10 @@
 #ifndef LIGHTWATERINGSTRATEGY_H
 #define LIGHTWATERINGSTRATEGY_H
-
-class LightWateringStrategy : WateringStrategy {
-
-
+#include "../WateringStrategy/WateringStrategy.h"
+class LightWateringStrategy : public WateringStrategy {
 public:
-	void waterPlant();
+    void waterPlant(PlantableArea* area);
 };
 
 #endif
+

@@ -10,7 +10,6 @@ class SucculentPlant;
 class CareVisitor {
 public:
     virtual ~CareVisitor() = default;
-    
 
     virtual void visitFlowerPlant(FlowerPlant* flower) = 0;
     virtual void visitTreePlant(TreePlant* tree) = 0;

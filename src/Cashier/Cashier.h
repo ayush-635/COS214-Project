@@ -1,14 +1,28 @@
 #ifndef CASHIER_H
 #define CASHIER_H
 
-class Cashier : StaffMember {
+#include "../StaffMember/StaffMember.h"
 
-public:
-	InventoryObserver* inventoryObserver;
+class Plant;
 
-	boolean checkStockLevel();
+class Cashier : public StaffMember {
+	private:
+		std::string currPreference;
+		Plant* currPlant;
+	public:
+		virtual ~Cashier(){};
 
-	void requestNewStock(Plant* plant);
+		void tick(int time) override;
+
+		void browse() override {}
+
+		void receivePreference(const std::string& pref) override;
+
+		void sendAdvice(const std::string& advice) override;
+
+		bool checkStockLevel(Plant* plant);
+
+		void requestNewStock(Plant* plant, int qty);
 };
 
 #endif
