@@ -22,8 +22,8 @@ private:
         game = Game::getInstance();
         game->initialize();
         
-        std::cout << "\nPress Enter to continue...";
-        std::cin.ignore();
+        std::cout << "\nPress Enter to continue...\n";
+        //std::cin.ignore();
         std::cin.get();
     }
 
@@ -39,24 +39,26 @@ private:
         std::cout << "  1. Build New Space" << std::endl;
         std::cout << "  2. View All Spaces" << std::endl;
         std::cout << "  3. View Inventory Stock" << std::endl;
+        std::cout << "  4. View Order History" << std::endl;
         
         std::cout << "\n🌱 PLANT OPERATIONS" << std::endl;
-        std::cout << "  4. Buy Seeds (Restock)" << std::endl;
-        std::cout << "  5. Plant Seeds in Space" << std::endl;
-        std::cout << "  6. Care for Plants (Water/Fertilize)" << std::endl;
-        std::cout << "  7. Execute All Queued Commands" << std::endl;
-        std::cout << "  8. Change Watering Strategy" << std::endl;
-        std::cout << "  9. Health Check (Visitor)" << std::endl;
+        std::cout << "  5. Buy Seeds (Restock)" << std::endl;
+        std::cout << "  6. Plant Seeds in Space" << std::endl;
+        std::cout << "  7. Care for Plants (Water/Fertilize)" << std::endl;
+        std::cout << "  8. Execute All Queued Commands" << std::endl;
+        std::cout << "  9. Change Watering Strategy" << std::endl;
+        std::cout << " 10. Health Check (Visitor)" << std::endl;
+        std::cout << " 11. Use Plant Iterator" << std::endl;
         
         std::cout << "\n👥 STAFF & CUSTOMERS" << std::endl;
-        std::cout << " 10. Hire New Staff" << std::endl;
-        std::cout << " 11. Trigger Customer Visit" << std::endl;
+        std::cout << " 12. Hire New Staff" << std::endl;
+        std::cout << " 13. Trigger Customer Visit" << std::endl;
         
         std::cout << "\n⏰ TIME & MONEY" << std::endl;
-        std::cout << " 12. Advance Day (Grow Plants!)" << std::endl;
-        std::cout << " 13. View Bank Log" << std::endl;
-        std::cout << " 14. Game Status" << std::endl;
-        std::cout << " 15. Exit Game" << std::endl;
+        std::cout << " 14. Advance Day (Grow Plants!)" << std::endl;
+        std::cout << " 15. View Bank Log" << std::endl;
+        std::cout << " 16. Game Status" << std::endl;
+        std::cout << " 17. Exit Game" << std::endl;
         std::cout << "\nChoice: ";
     }
 
@@ -157,7 +159,7 @@ private:
         }
         
         if (!hasSeeds) {
-            std::cout << "\n❌ No seeds in inventory! Buy seeds first (option 4)." << std::endl;
+            std::cout << "\n❌ No seeds in inventory! Buy seeds first (option 5)." << std::endl;
             return;
         }
         
@@ -173,7 +175,7 @@ private:
         std::string selectedPlant = plantNames[plantChoice - 1];
         
         if (game->getInventoryStock(selectedPlant) <= 0) {
-            std::cout << "❌ " << selectedPlant << " out of stock! Buy more seeds (option 4)." << std::endl;
+            std::cout << "❌ " << selectedPlant << " out of stock! Buy more seeds (option 5)." << std::endl;
             return;
         }
         
@@ -184,7 +186,7 @@ private:
         
         if (game->plantSeed(selectedPlant, spaceChoice - 1, boxIndex)) {
             std::cout << "✅ Plant command queued for " << selectedPlant << "!" << std::endl;
-            std::cout << "   Execute commands with option 7" << std::endl;
+            std::cout << "   Execute commands with option 8" << std::endl;
         } else {
             std::cout << "❌ Failed to plant seed! Check space index and inventory." << std::endl;
         }
@@ -224,7 +226,7 @@ private:
         if (!success) {
             std::cout << "❌ Failed to queue command! Check space index and balance." << std::endl;
         } else {
-            std::cout << "   Execute with option 7" << std::endl;
+            std::cout << "   Execute with option 8" << std::endl;
         }
     }
 
@@ -315,32 +317,34 @@ public:
                 case 1: buildNewSpace(); break;
                 case 2: game->viewAllSpaces(); break;
                 case 3: game->viewInventoryStock(); break;
-                case 4: buySeedsRestock(); break;
-                case 5: plantSeedsInSpace(); break;
-                case 6: careForPlantsWithCommands(); break;
-                case 7: game->executeCommands(); break;
-                case 8: changeWateringStrategy(); break;
-                case 9: game->performHealthCheck(); break;
-                case 10: hireStaff(); break;
-                case 11: game->triggerCustomerVisit(); break;
-                case 12: game->advanceDay(); break;
-                case 13: game->viewBankLog(); break;
-                case 14: game->displayGameStatus(); break;
-                case 15: 
+                case 4: game->viewOrders(); break;
+                case 5: buySeedsRestock(); break;
+                case 6: plantSeedsInSpace(); break;
+                case 7: careForPlantsWithCommands(); break;
+                case 8: game->executeCommands(); break;
+                case 9: changeWateringStrategy(); break;
+                case 10: game->performHealthCheck(); break;
+                case 11: game->useIterator(); break;
+                case 12: hireStaff(); break;
+                case 13: game->triggerCustomerVisit(); break;
+                case 14: game->advanceDay(); break;
+                case 15: game->viewBankLog(); break;
+                case 16: game->displayGameStatus(); break;
+                case 17: 
                     displayFinalStatistics();
                     break;
                 default: 
-                    std::cout << "❌ Invalid choice! Choose 1-15." << std::endl;
+                    std::cout << "❌ Invalid choice! Choose 1-17." << std::endl;
             }
             
             // Add a small pause between actions
-            if (choice != 15) {
+            if (choice != 17) {
                 std::cout << "\nPress Enter to continue...";
                 std::cin.ignore();
                 std::cin.get();
             }
             
-        } while (choice != 15);
+        } while (choice != 17);
     }
 };
 

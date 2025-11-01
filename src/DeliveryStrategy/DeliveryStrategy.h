@@ -8,7 +8,9 @@ class Order;
 
 class DeliveryStrategy {
 public:
-    virtual void deliver(Order o) = 0;
+    virtual void deliver(const Order& order) = 0;
+    virtual double getDeliveryCost() const = 0;
+    virtual std::string getDeliveryType() const = 0;
     virtual ~DeliveryStrategy() {}
     
     DeliveryStrategy();

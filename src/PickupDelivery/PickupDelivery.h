@@ -5,7 +5,9 @@
 
 class PickupDelivery : public DeliveryStrategy {
 public:
-    void deliver(Order o) override;
+    void deliver(const Order& order) override;
+    double getDeliveryCost() const override { return 0.0; }
+    std::string getDeliveryType() const override { return "Customer Pickup"; }
 };
 
 #endif

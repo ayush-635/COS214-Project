@@ -1,16 +1,18 @@
-#include "../StandardDelivery/StandardDelivery.h"
+#include "StandardDelivery.h"
 #include "../Order/Order.h"
 #include <iostream>
-using namespace std;
 
-void StandardDelivery::deliver(Order o) {
-    cout << "=== STANDARD DELIVERY ===" << endl;
-    cout << "Delivery Method: Standard Shipping" << endl;
-    cout << "Estimated Delivery Time: 5-7 business days" << endl;
-    cout << "Order Total: R" << o.total() << endl;
-    cout << "Delivery Cost: R50.00" << endl;
-    cout << "Total Amount: R" << (o.total() + 50.00) << endl;
-    cout << "Package will be shipped via standard courier" << endl;
-    cout << "Tracking information will be sent via email" << endl;
-    cout << "=========================" << endl;
+void StandardDelivery::deliver(const Order& order) {
+    std::cout << "╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║       STANDARD DELIVERY SERVICE        ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝" << std::endl;
+    std::cout << "\n📦 Delivery Method: Standard Shipping" << std::endl;
+    std::cout << "⏰ Estimated Delivery: 3-5 business days" << std::endl;
+    std::cout << "🌱 Order Subtotal: R" << order.total() << std::endl;
+    std::cout << "🚚 Delivery Fee: R" << getDeliveryCost() << std::endl;
+    std::cout << "💰 Total Amount: R" << (order.total() + getDeliveryCost()) << std::endl;
+    std::cout << "\n📋 " << order.getItemCount() << " item(s) in this order" << std::endl;
+    std::cout << "✅ Your plants will be carefully packaged" << std::endl;
+    std::cout << "📍 Delivery to your doorstep" << std::endl;
+    std::cout << "════════════════════════════════════════" << std::endl;
 }

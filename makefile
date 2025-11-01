@@ -28,6 +28,8 @@ SOURCES = main.cpp \
           $(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
           $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
           $(SRC_DIR)/HerbPlant/HerbPlant.cpp \
+          $(SRC_DIR)/Iterator/Iterator.cpp \
+          $(SRC_DIR)/PlantIterator/PlantIterator.cpp \
           $(SRC_DIR)/PlantFactory/PlantFactory.cpp \
           $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
           $(SRC_DIR)/WaterPlantCommand/WaterPlantCommand.cpp \
@@ -47,7 +49,7 @@ SOURCES = main.cpp \
           $(SRC_DIR)/TransactionManager/TransactionManager.cpp \
           $(SRC_DIR)/Order/Order.cpp \
           $(SRC_DIR)/OrderItem/OrderItem.cpp \
-          $(SRC_DIR)/pot/Pot.cpp \
+          $(SRC_DIR)/Pot/Pot.cpp \
           $(SRC_DIR)/Mediator/Mediator.cpp \
           $(SRC_DIR)/Colleague/Colleague.cpp \
           $(SRC_DIR)/InteractionManager/InteractionManager.cpp \

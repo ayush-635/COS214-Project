@@ -7,6 +7,12 @@ PlantIterator::PlantIterator(PlantableArea* rootArea) : plantIndex(0) {
     }
 }
 
+PlantIterator::~PlantIterator() {
+    while(!areaStack.empty()) {
+        areaStack.pop();
+    }
+    plants.clear();
+}
 
 void PlantIterator::loadCurrentBoxPlants() {
 	plants.clear();

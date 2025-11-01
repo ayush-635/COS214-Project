@@ -1,4 +1,3 @@
-// src/Game/Game.cpp - FACADE PATTERN IMPLEMENTATION
 #include "Game.h"
 #include "../ConcreteSpaceBuilder/ConcreteSpaceBuilder.h"
 #include "../PlanterBox/PlanterBox.h"
@@ -26,6 +25,7 @@
 #include "../StandardDelivery/StandardDelivery.h"
 #include "../ExpressDelivery/ExpressDelivery.h"
 #include "../PickupDelivery/PickupDelivery.h"
+#include "../PlantIterator/PlantIterator.h"
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -63,9 +63,9 @@ Game* Game::getInstance() {
 }
 
 void Game::initialize() {
-    std::cout << "\n╔════════════════════════════════════════════════════╗\n";
+    std::cout << "\n╔═══════════════════════════════════════════════════╗\n";
     std::cout << "║     🌱  WELCOME TO NURSERY MANAGER GAME  🌱      ║\n";
-    std::cout << "╚════════════════════════════════════════════════════╝\n";
+    std::cout << "╚═══════════════════════════════════════════════════╝\n";
     std::cout << "\nYou own a new plant nursery!" << std::endl;
     std::cout << "Goal: Build, grow, and sell plants for profit.\n" << std::endl;
     
@@ -355,21 +355,39 @@ void Game::triggerCustomerVisit() {
         Order* order = createOrderFromReadyPlants();
         
         if (order && order->total() > 0) {
-            orders.push_back(order);
+            // Display order summary
+            std::cout << "\n" << order->getOrder() << std::endl;
             
-            // Add pots randomly (50% chance per item)
-            std::cout << "  🏺 Adding decorative pots..." << std::endl;
-            
-            // Process with random delivery strategy
+            // Choose random delivery strategy
             int deliveryType = (rand() % 3) + 1;
-            processOrderWithDelivery(order, deliveryType);
+            DeliveryStrategy* delivery = nullptr;
             
-            // Revenue from sale
-            double revenue = order->total();
-            bankAccount->deposit(revenue, "Plant sales");
-            updateHappiness(true);
+            switch (deliveryType) {
+                case 1: delivery = new StandardDelivery(); break;
+                case 2: delivery = new ExpressDelivery(); break;
+                case 3: delivery = new PickupDelivery(); break;
+                default: delivery = new StandardDelivery(); break;
+            }
             
-            std::cout << "✅ Sale: R" << revenue << std::endl;
+            // Process delivery and show details
+            if (delivery) {
+                delivery->deliver(*order);
+                
+                // Calculate total revenue (order + delivery)
+                double orderTotal = order->total();
+                double deliveryCost = delivery->getDeliveryCost();
+                double totalRevenue = orderTotal + deliveryCost;
+                
+                // Add to bank
+                bankAccount->deposit(totalRevenue, "Plant sales + " + delivery->getDeliveryType());
+                
+                // Store order
+                orders.push_back(order);
+                
+                updateHappiness(true);
+                
+                delete delivery;
+            }
         } else {
             updateHappiness(false);
             std::cout << "😞 No plants available!" << std::endl;
@@ -419,23 +437,6 @@ Order* Game::createOrderFromReadyPlants() {
     return order;
 }
 
-void Game::processOrderWithDelivery(Order* order, int deliveryType) {
-    DeliveryStrategy* delivery = nullptr;
-    
-    switch (deliveryType) {
-        case 1: delivery = new StandardDelivery(); break;
-        case 2: delivery = new ExpressDelivery(); break;
-        case 3: delivery = new PickupDelivery(); break;
-        default: delivery = new StandardDelivery(); break;
-    }
-    
-    if (delivery) {
-        std::cout << "\n";
-        delivery->deliver(*order);
-        delete delivery;
-    }
-}
-
 void Game::updateHappiness(bool satisfied) {
     if (satisfied) {
         happinessScore = std::min(100, happinessScore + 5);
@@ -447,19 +448,17 @@ void Game::updateHappiness(bool satisfied) {
 }
 
 void Game::performHealthCheck() {
-    std::cout << "\n=== 🏥 HEALTH CHECK REPORT ===" << std::endl;
-    
-    // Reset visitor counters before checking
-    //healthVisitor->resetCounters();
+    std::cout << "\n╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║     🏥 HEALTH CHECK REPORT 🏥         ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝\n" << std::endl;
     
     int total = 0;
     for (auto space : spaces) {
         total += performHealthCheckOnSpace(space);
     }
     
-    // Get the report from the visitor
-    //std::cout << "\n" << healthVisitor->getReport() << std::endl;
-    std::cout << "✅ Total plants checked: " << total << std::endl;
+    std::cout << "\n✅ Total plants checked: " << total << std::endl;
+    std::cout << "════════════════════════════════════════" << std::endl;
 }
 
 int Game::performHealthCheckOnSpace(PlantableArea* space) {
@@ -484,6 +483,41 @@ int Game::performHealthCheckOnSpace(PlantableArea* space) {
     return count;
 }
 
+void Game::useIterator() {
+    if (spaces.empty()) {
+        std::cout << "\n⚠️  No spaces built yet!" << std::endl;
+        return;
+    }
+    
+    std::cout << "\n╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║   🔄 PLANT ITERATOR DEMONSTRATION     ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝\n" << std::endl;
+    
+    int spaceNum = 1;
+    for (auto space : spaces) {
+        std::cout << "Space " << spaceNum++ << ":" << std::endl;
+        
+        PlantIterator* iterator = new PlantIterator(space);
+        
+        if (!iterator->hasNext()) {
+            std::cout << "  (Empty - no plants)" << std::endl;
+        } else {
+            int plantNum = 1;
+            Plant* plant = iterator->first();
+            while (plant != nullptr) {
+                std::cout << "  " << plantNum++ << ". " << plant->getName() 
+                         << " (" << plant->getStateName() << ")" << std::endl;
+                plant = iterator->next();
+            }
+        }
+        
+        delete iterator;
+        std::cout << std::endl;
+    }
+    
+    std::cout << "════════════════════════════════════════" << std::endl;
+}
+
 void Game::viewInventoryStock() {
     auto names = inventory->getAllPlantNames();
     std::cout << "\n═══ INVENTORY ═══" << std::endl;
@@ -503,13 +537,32 @@ void Game::viewBankLog() {
     std::cout << "\n═══ BANK LOG ===\n" << bankAccount->getLog() << std::endl;
 }
 
-void Game::displayGameStatus() {
+void Game::viewOrders() {
+    if (orders.empty()) {
+        std::cout << "\n⚠️  No orders yet!" << std::endl;
+        return;
+    }
+    
     std::cout << "\n╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║       📦 ORDER HISTORY 📦              ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝\n" << std::endl;
+    
+    for (size_t i = 0; i < orders.size(); ++i) {
+        std::cout << "Order #" << (i + 1) << ":" << std::endl;
+        std::cout << orders[i]->getOrder() << std::endl;
+    }
+    
+    std::cout << "Total Orders: " << orders.size() << std::endl;
+    std::cout << "════════════════════════════════════════" << std::endl;
+}
+
+void Game::displayGameStatus() {
+    std::cout << "\n╔═══════════════════════════════════════╗" << std::endl;
     std::cout << "║        GAME STATUS - DAY " << std::left << std::setw(3) << dayCounter << "       ║" << std::endl;
-    std::cout << "╚════════════════════════════════════════╝" << std::endl;
+    std::cout << "╚═══════════════════════════════════════╝" << std::endl;
     std::cout << "💰 Balance: R" << bankAccount->getBalance() << std::endl;
     std::cout << "😊 Happiness: " << happinessScore << "/100" << std::endl;
-    std::cout << "🏗️  Spaces: " << spaces.size() << std::endl;
+    std::cout << "🗂️  Spaces: " << spaces.size() << std::endl;
     std::cout << "🌱 Plants: " << getTotalPlants() << std::endl;
     std::cout << "💰 Ready: " << getReadyPlantsCount() << std::endl;
     std::cout << "👥 Staff: " << (salesStaff.size() + cashiers.size()) << std::endl;

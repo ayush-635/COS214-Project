@@ -1,17 +1,20 @@
 #include "ExpressDelivery.h"
 #include "../Order/Order.h"
 #include <iostream>
-using namespace std;
 
-void ExpressDelivery::deliver(Order o) {
-    cout << "=== EXPRESS DELIVERY ===" << endl;
-    cout << "Delivery Method: Express Shipping" << endl;
-    cout << "Estimated Delivery Time: 1-2 business days" << endl;
-    cout << "Order Total: R" << o.total() << endl;
-    cout << "Delivery Cost: R150.00" << endl;
-    cout << "Total Amount: R" << (o.total() + 150.00) << endl;
-    cout << "PRIORITY PACKAGE - Expedited Processing" << endl;
-    cout << "Same-day dispatch if ordered before 2 PM" << endl;
-    cout << "Real-time tracking available" << endl;
-    cout << "========================" << endl;
+void ExpressDelivery::deliver(const Order& order) {
+    std::cout << "╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║    ⚡ EXPRESS DELIVERY SERVICE ⚡      ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝" << std::endl;
+    std::cout << "\n🚀 Delivery Method: Express Shipping" << std::endl;
+    std::cout << "⚡ Estimated Delivery: 1-2 business days" << std::endl;
+    std::cout << "🌱 Order Subtotal: R" << order.total() << std::endl;
+    std::cout << "🚚 Express Fee: R" << getDeliveryCost() << std::endl;
+    std::cout << "💰 Total Amount: R" << (order.total() + getDeliveryCost()) << std::endl;
+    std::cout << "\n📋 " << order.getItemCount() << " item(s) in this order" << std::endl;
+    std::cout << "⭐ PRIORITY PACKAGE - Expedited Processing" << std::endl;
+    std::cout << "📦 Same-day dispatch if ordered before 2 PM" << std::endl;
+    std::cout << "📱 Real-time tracking available" << std::endl;
+    std::cout << "🎁 Premium packaging included" << std::endl;
+    std::cout << "════════════════════════════════════════" << std::endl;
 }

@@ -67,7 +67,6 @@ private:
     double getSeedCost(const std::string& plantName);
     void updateHappiness(bool customerSatisfied);
     Order* createOrderFromReadyPlants();
-    void processOrderWithDelivery(Order* order, int deliveryType);
 
 public:
     // Singleton
@@ -102,9 +101,13 @@ public:
     bool hireStaff(int staffType);
     void triggerCustomerVisit();
     
+    // Iterator demonstration
+    void useIterator();
+    
     // Status & Information
     void displayGameStatus();
     void viewBankLog();
+    void viewOrders();
     int getDayCounter() const { return dayCounter; }
     double getBalance() const;
     int getHappinessScore() const { return happinessScore; }
