@@ -26,6 +26,7 @@
 #include "../ExpressDelivery/ExpressDelivery.h"
 #include "../PickupDelivery/PickupDelivery.h"
 #include "../PlantIterator/PlantIterator.h"
+#include "../ResourceManager/ResourceManager.h"
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
@@ -47,6 +48,7 @@ Game::~Game() {
     }
     delete currentWateringStrategy;
     delete healthVisitor;
+    delete resourceManager;  // NEW: Clean up resource manager
     for (auto customer : customers) delete customer;
     for (auto sales : salesStaff) delete sales;
     for (auto cashier : cashiers) delete cashier;
@@ -78,6 +80,9 @@ void Game::initialize() {
     
     inventoryObserver = new InventoryObserver();
     inventory->attach(inventoryObserver);
+    
+    // NEW: Initialize ResourceManager facade
+    resourceManager = new ResourceManager();
     
     PlantDataFactory::initializeFactory();
     
@@ -216,7 +221,7 @@ bool Game::plantSeed(const std::string& plantName, int spaceIndex, int boxIndex)
     return false;
 }
 
-bool Game::waterPlants(int spaceIndex, int boxIndex) {
+/* bool Game::waterPlants(int spaceIndex, int boxIndex) {
     if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
     if (bankAccount->getBalance() < 1) return false;
     
@@ -240,7 +245,7 @@ bool Game::fertilizePlants(int spaceIndex, int boxIndex) {
     GiveFertilizerCommand* cmd = new GiveFertilizerCommand(collection, 1, boxIndex);
     commandQueue.push(cmd);
     return true;
-}
+} */
 
 void Game::executeCommands() {
     int count = 0;
@@ -341,7 +346,16 @@ void Game::spawnCustomer() {
 
 void Game::triggerCustomerVisit() {
     if (salesStaff.empty()) {
-        std::cout << "⚠️  No sales staff!" << std::endl;
+        std::cout << "\n⚠️  NO SALES STAFF AVAILABLE!" << std::endl;
+        std::cout << "   Customers need help browsing plants" << std::endl;
+        std::cout << "   💡 Hire sales staff first (Option 12)" << std::endl;
+        return;
+    }
+    
+    if (cashiers.empty()) {
+        std::cout << "\n⚠️  NO CASHIERS AVAILABLE!" << std::endl;
+        std::cout << "   Cannot process payments without a cashier" << std::endl;
+        std::cout << "   💡 Hire a cashier first (Option 12)" << std::endl;
         return;
     }
     
@@ -349,6 +363,9 @@ void Game::triggerCustomerVisit() {
     
     if (!customers.empty()) {
         Customer* customer = customers.back();
+        
+        // Sales staff helps customer
+        std::cout << "\n💼 Sales staff assisting customer..." << std::endl;
         customer->purchaseRandomPlants();
         
         // Create order from ready plants
@@ -357,6 +374,9 @@ void Game::triggerCustomerVisit() {
         if (order && order->total() > 0) {
             // Display order summary
             std::cout << "\n" << order->getOrder() << std::endl;
+            
+            // Cashier processes payment
+            std::cout << "💵 Cashier processing payment..." << std::endl;
             
             // Choose random delivery strategy
             int deliveryType = (rand() % 3) + 1;
@@ -378,6 +398,11 @@ void Game::triggerCustomerVisit() {
                 double deliveryCost = delivery->getDeliveryCost();
                 double totalRevenue = orderTotal + deliveryCost;
                 
+                // Staff earn commission (5% of plant sales)
+                double commission = orderTotal * 0.05;
+                std::cout << "\n💰 Staff earned R" << std::fixed << std::setprecision(2) 
+                         << commission << " commission (5%)" << std::endl;
+                
                 // Add to bank
                 bankAccount->deposit(totalRevenue, "Plant sales + " + delivery->getDeliveryType());
                 
@@ -390,7 +415,9 @@ void Game::triggerCustomerVisit() {
             }
         } else {
             updateHappiness(false);
-            std::cout << "😞 No plants available!" << std::endl;
+            std::cout << "\n😞 NO PLANTS AVAILABLE FOR SALE!" << std::endl;
+            std::cout << "   Grow more plants to ReadyToSell state" << std::endl;
+            std::cout << "   💡 Advance days to grow plants (Option 14)" << std::endl;
             if (order) delete order;
         }
     }
@@ -452,13 +479,21 @@ void Game::performHealthCheck() {
     std::cout << "║     🏥 HEALTH CHECK REPORT 🏥         ║" << std::endl;
     std::cout << "╚════════════════════════════════════════╝\n" << std::endl;
     
+    // Reset visitor before checking
+    healthVisitor->reset();
+    
     int total = 0;
+    std::cout << "Checking all plants...\n" << std::endl;
+    
     for (auto space : spaces) {
         total += performHealthCheckOnSpace(space);
     }
     
+    // Display the visitor's summary report
+    std::cout << std::endl;
+    healthVisitor->printReport();
+    
     std::cout << "\n✅ Total plants checked: " << total << std::endl;
-    std::cout << "════════════════════════════════════════" << std::endl;
 }
 
 int Game::performHealthCheckOnSpace(PlantableArea* space) {
@@ -560,13 +595,36 @@ void Game::displayGameStatus() {
     std::cout << "\n╔═══════════════════════════════════════╗" << std::endl;
     std::cout << "║        GAME STATUS - DAY " << std::left << std::setw(3) << dayCounter << "       ║" << std::endl;
     std::cout << "╚═══════════════════════════════════════╝" << std::endl;
-    std::cout << "💰 Balance: R" << bankAccount->getBalance() << std::endl;
-    std::cout << "😊 Happiness: " << happinessScore << "/100" << std::endl;
-    std::cout << "🗂️  Spaces: " << spaces.size() << std::endl;
-    std::cout << "🌱 Plants: " << getTotalPlants() << std::endl;
-    std::cout << "💰 Ready: " << getReadyPlantsCount() << std::endl;
-    std::cout << "👥 Staff: " << (salesStaff.size() + cashiers.size()) << std::endl;
-    std::cout << "🛒 Orders: " << orders.size() << std::endl;
+    
+    std::cout << "\n💰 FINANCES:" << std::endl;
+    std::cout << "   Balance: R" << bankAccount->getBalance() << std::endl;
+    std::cout << "   Orders Completed: " << orders.size() << std::endl;
+    
+    std::cout << "\n😊 NURSERY:" << std::endl;
+    std::cout << "   Happiness: " << happinessScore << "/100" << std::endl;
+    std::cout << "   Spaces Built: " << spaces.size() << std::endl;
+    std::cout << "   Total Plants: " << getTotalPlants() << std::endl;
+    std::cout << "   Ready to Sell: " << getReadyPlantsCount() << std::endl;
+    
+    std::cout << "\n👥 STAFF:" << std::endl;
+    std::cout << "   Sales Staff: " << salesStaff.size() << std::endl;
+    std::cout << "   Cashiers: " << cashiers.size() << std::endl;
+    
+    std::cout << "\n📦 RESOURCES:" << std::endl;
+    int waterPercent = (resourceManager->getWaterLevel() * 100) / resourceManager->getWaterCapacity();
+    int fertPercent = (resourceManager->getFertilizerLevel() * 100) / resourceManager->getFertilizerCapacity();
+    
+    std::cout << "   💧 Water: " << resourceManager->getWaterLevel() 
+              << "/" << resourceManager->getWaterCapacity() 
+              << " (" << waterPercent << "%)";
+    if (waterPercent < 20) std::cout << " ⚠️  LOW!";
+    std::cout << std::endl;
+    
+    std::cout << "   🌿 Fertilizer: " << resourceManager->getFertilizerLevel() 
+              << "/" << resourceManager->getFertilizerCapacity() 
+              << " (" << fertPercent << "%)";
+    if (fertPercent < 20) std::cout << " ⚠️  LOW!";
+    std::cout << std::endl;
 }
 
 double Game::getBalance() const {
@@ -658,4 +716,80 @@ void Game::countPlantStates(PlantableArea* space, int& seedlings, int& growing,
         PlanterBoxCollection* coll = dynamic_cast<PlanterBoxCollection*>(child);
         if (coll) countPlantStates(coll, seedlings, growing, mature, ready, dying, dead);
     }
+}
+
+bool Game::waterPlants(int spaceIndex, int boxIndex) {
+    if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
+    
+    // Determine water needed based on strategy
+    int waterNeeded = 1; // Light
+    if (dynamic_cast<IntermediateWateringStrategy*>(currentWateringStrategy)) {
+        waterNeeded = 3;
+    } else if (dynamic_cast<HeavyWateringStrategy*>(currentWateringStrategy)) {
+        waterNeeded = 5;
+    }
+    
+    // Check water availability FIRST
+    if (!resourceManager->useWater(waterNeeded)) {
+        return false;
+    }
+    
+    // Check money
+    if (bankAccount->getBalance() < 1) {
+        std::cout << "❌ Insufficient funds! Need R1" << std::endl;
+        // Refund water since we didn't complete the operation
+        resourceManager->refillWater(); // Simple refund
+        return false;
+    }
+    
+    PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceIndex]);
+    if (!collection) return false;
+    
+    bankAccount->withdraw(1, "Water");
+    WaterPlantCommand* cmd = new WaterPlantCommand(collection, currentWateringStrategy, boxIndex);
+    commandQueue.push(cmd);
+    return true;
+}
+
+// Update fertilizePlants to use ResourceManager:
+bool Game::fertilizePlants(int spaceIndex, int boxIndex) {
+    if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
+    
+    // Check fertilizer availability FIRST
+    if (!resourceManager->useFertilizer(1)) {
+        return false;
+    }
+    
+    // Check money
+    if (bankAccount->getBalance() < 3) {
+        std::cout << "❌ Insufficient funds! Need R3" << std::endl;
+        return false;
+    }
+    
+    PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceIndex]);
+    if (!collection) return false;
+    
+    bankAccount->withdraw(3, "Fertilizer");
+    GiveFertilizerCommand* cmd = new GiveFertilizerCommand(collection, 1, boxIndex);
+    commandQueue.push(cmd);
+    return true;
+}
+
+void Game::viewResources() {
+    resourceManager->displayStatus();
+}
+
+// NEW: Add method to refill resources
+bool Game::refillResources() {
+    double cost = 50.0;
+    
+    if (bankAccount->getBalance() < cost) {
+        std::cout << "❌ Insufficient funds! Need R" << cost << std::endl;
+        return false;
+    }
+    
+    bankAccount->withdraw(cost, "Refilled resources");
+    resourceManager->refillAll();
+    
+    return true;
 }

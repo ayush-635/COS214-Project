@@ -1,72 +1,74 @@
-/* #include "ResourceManager.h"
-#include "WaterStorage.h"
-#include "FertilizerStorage.h"
-#include <iostream>
-using namespace std;
+#include "ResourceManager.h"
 
-ResourceManager::ResourceManager() {
-    // Initialize both storage subsystems
-    waterStorage = new WaterStorage(1000);     // 1000 units water capacity
-    fertilizerStorage = new FertilizerStorage(500);  // 500 units fertilizer capacity
-    
-    cout << "\n=== RESOURCE MANAGER INITIALIZED ===" << endl;
-    cout << "Facade managing Water and Fertilizer storage" << endl;
-    cout << "===================================\n" << endl;
+ResourceManager::ResourceManager() 
+    : waterLevel(1000), waterCapacity(1000),
+      fertilizerLevel(500), fertilizerCapacity(500) {
+    std::cout << "🏪 Resource Storage Initialized" << std::endl;
+    std::cout << "   💧 Water: " << waterLevel << "/" << waterCapacity << std::endl;
+    std::cout << "   🌿 Fertilizer: " << fertilizerLevel << "/" << fertilizerCapacity << std::endl;
 }
 
 ResourceManager::~ResourceManager() {
-    delete waterStorage;
-    delete fertilizerStorage;
-    cout << "ResourceManager destroyed" << endl;
+    // Cleanup if needed
 }
 
-bool ResourceManager::useWater(int amt) {
-    // Simplified interface - delegates to water storage subsystem
-    cout << "[ResourceManager] Processing water usage request..." << endl;
-    return waterStorage->use(amt);
+bool ResourceManager::useWater(int amount) {
+    if (amount <= 0) return false;
+    
+    if (waterLevel >= amount) {
+        waterLevel -= amount;
+        std::cout << "💧 Used " << amount << " water (Remaining: " 
+                  << waterLevel << "/" << waterCapacity << ")" << std::endl;
+        return true;
+    } else {
+        std::cout << "❌ Insufficient water! Need " << amount 
+                  << ", have " << waterLevel << std::endl;
+        return false;
+    }
 }
 
-bool ResourceManager::useFertilizer(int amt) {
-    // Simplified interface - delegates to fertilizer storage subsystem
-    cout << "[ResourceManager] Processing fertilizer usage request..." << endl;
-    return fertilizerStorage->use(amt);
+bool ResourceManager::useFertilizer(int amount) {
+    if (amount <= 0) return false;
+    
+    if (fertilizerLevel >= amount) {
+        fertilizerLevel -= amount;
+        std::cout << "🌿 Used " << amount << " fertilizer (Remaining: " 
+                  << fertilizerLevel << "/" << fertilizerCapacity << ")" << std::endl;
+        return true;
+    } else {
+        std::cout << "❌ Insufficient fertilizer! Need " << amount 
+                  << ", have " << fertilizerLevel << std::endl;
+        return false;
+    }
+}
+
+bool ResourceManager::refillWater() {
+    waterLevel = waterCapacity;
+    std::cout << "✅ Water storage refilled to " << waterCapacity << " units" << std::endl;
+    return true;
+}
+
+bool ResourceManager::refillFertilizer() {
+    fertilizerLevel = fertilizerCapacity;
+    std::cout << "✅ Fertilizer storage refilled to " << fertilizerCapacity << " units" << std::endl;
+    return true;
 }
 
 bool ResourceManager::refillAll() {
-    // Unified operation across multiple subsystems
-    cout << "\n[ResourceManager] REFILLING ALL RESOURCES" << endl;
-    cout << "========================================" << endl;
-    
-    bool waterRefilled = waterStorage->refill();
-    bool fertilizerRefilled = fertilizerStorage->refill();
-    
-    if (waterRefilled && fertilizerRefilled) {
-        cout << "All resources successfully refilled!" << endl;
-        cout << "========================================\n" << endl;
-        return true;
-    } else {
-        cout << "ERROR: Some resources failed to refill" << endl;
-        cout << "========================================\n" << endl;
-        return false;
-    }
+    std::cout << "\n🔄 REFILLING ALL RESOURCES..." << std::endl;
+    refillWater();
+    refillFertilizer();
+    std::cout << "✅ All resources refilled!\n" << std::endl;
+    return true;
 }
 
-bool ResourceManager::upgradeAll() {
-    // Unified operation across multiple subsystems
-    cout << "\n[ResourceManager] UPGRADING ALL STORAGE" << endl;
-    cout << "=======================================" << endl;
-    
-    bool waterUpgraded = waterStorage->upgrade();
-    bool fertilizerUpgraded = fertilizerStorage->upgrade();
-    
-    if (waterUpgraded && fertilizerUpgraded) {
-        cout << "All storage successfully upgraded!" << endl;
-        cout << "=======================================\n" << endl;
-        return true;
-    } else {
-        cout << "ERROR: Some storage failed to upgrade" << endl;
-        cout << "=======================================\n" << endl;
-        return false;
-    }
+void ResourceManager::displayStatus() const {
+    std::cout << "\n╔════════════════════════════════════════╗" << std::endl;
+    std::cout << "║       📦 RESOURCE STATUS 📦            ║" << std::endl;
+    std::cout << "╚════════════════════════════════════════╝" << std::endl;
+    std::cout << "💧 Water: " << waterLevel << "/" << waterCapacity 
+              << " (" << (waterLevel * 100 / waterCapacity) << "%)" << std::endl;
+    std::cout << "🌿 Fertilizer: " << fertilizerLevel << "/" << fertilizerCapacity 
+              << " (" << (fertilizerLevel * 100 / fertilizerCapacity) << "%)" << std::endl;
+    std::cout << "════════════════════════════════════════" << std::endl;
 }
- */

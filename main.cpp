@@ -22,8 +22,7 @@ private:
         game = Game::getInstance();
         game->initialize();
         
-        std::cout << "\nPress Enter to continue...\n";
-        //std::cin.ignore();
+        std::cout << "\nPress Enter to continue...";
         std::cin.get();
     }
 
@@ -40,25 +39,27 @@ private:
         std::cout << "  2. View All Spaces" << std::endl;
         std::cout << "  3. View Inventory Stock" << std::endl;
         std::cout << "  4. View Order History" << std::endl;
+        std::cout << "  5. View Resources (💧/🌿)" << std::endl;
         
         std::cout << "\n🌱 PLANT OPERATIONS" << std::endl;
-        std::cout << "  5. Buy Seeds (Restock)" << std::endl;
-        std::cout << "  6. Plant Seeds in Space" << std::endl;
-        std::cout << "  7. Care for Plants (Water/Fertilize)" << std::endl;
-        std::cout << "  8. Execute All Queued Commands" << std::endl;
-        std::cout << "  9. Change Watering Strategy" << std::endl;
-        std::cout << " 10. Health Check (Visitor)" << std::endl;
-        std::cout << " 11. Use Plant Iterator" << std::endl;
+        std::cout << "  6. Buy Seeds (Restock)" << std::endl;
+        std::cout << "  7. Plant Seeds in Space" << std::endl;
+        std::cout << "  8. Care for Plants (Water/Fertilize)" << std::endl;
+        std::cout << "  9. Execute All Queued Commands" << std::endl;
+        std::cout << " 10. Change Watering Strategy" << std::endl;
+        std::cout << " 11. Health Check (Visitor)" << std::endl;
+        std::cout << " 12. Use Plant Iterator" << std::endl;
         
         std::cout << "\n👥 STAFF & CUSTOMERS" << std::endl;
-        std::cout << " 12. Hire New Staff" << std::endl;
-        std::cout << " 13. Trigger Customer Visit" << std::endl;
+        std::cout << " 13. Hire New Staff" << std::endl;
+        std::cout << " 14. Trigger Customer Visit" << std::endl;
         
-        std::cout << "\n⏰ TIME & MONEY" << std::endl;
-        std::cout << " 14. Advance Day (Grow Plants!)" << std::endl;
-        std::cout << " 15. View Bank Log" << std::endl;
-        std::cout << " 16. Game Status" << std::endl;
-        std::cout << " 17. Exit Game" << std::endl;
+        std::cout << "\n⏰ TIME & RESOURCES" << std::endl;
+        std::cout << " 15. Refill Resources (R50)" << std::endl;
+        std::cout << " 16. Advance Day (Grow Plants!)" << std::endl;
+        std::cout << " 17. View Bank Log" << std::endl;
+        std::cout << " 18. Game Status" << std::endl;
+        std::cout << " 19. Exit Game" << std::endl;
         std::cout << "\nChoice: ";
     }
 
@@ -93,7 +94,6 @@ private:
     void buySeedsRestock() {
         std::cout << "\n═══ BUY SEEDS (Restock Inventory) ═══" << std::endl;
         
-        // Available plant types
         std::vector<std::string> plantNames = {"Rose", "Tulip", "Lawn Grass", "Basil", "Mint"};
         
         std::cout << "Available seeds to buy:\n" << std::endl;
@@ -145,7 +145,6 @@ private:
     void plantSeedsInSpace() {
         std::cout << "\n═══ PLANT SEEDS ═══" << std::endl;
         
-        // Available plant types
         std::vector<std::string> plantNames = {"Rose", "Tulip", "Lawn Grass", "Basil", "Mint"};
         
         std::cout << "Seeds in inventory:\n" << std::endl;
@@ -159,7 +158,7 @@ private:
         }
         
         if (!hasSeeds) {
-            std::cout << "\n❌ No seeds in inventory! Buy seeds first (option 5)." << std::endl;
+            std::cout << "\n❌ No seeds in inventory! Buy seeds first (option 6)." << std::endl;
             return;
         }
         
@@ -175,7 +174,7 @@ private:
         std::string selectedPlant = plantNames[plantChoice - 1];
         
         if (game->getInventoryStock(selectedPlant) <= 0) {
-            std::cout << "❌ " << selectedPlant << " out of stock! Buy more seeds (option 5)." << std::endl;
+            std::cout << "❌ " << selectedPlant << " out of stock! Buy more seeds (option 6)." << std::endl;
             return;
         }
         
@@ -186,7 +185,7 @@ private:
         
         if (game->plantSeed(selectedPlant, spaceChoice - 1, boxIndex)) {
             std::cout << "✅ Plant command queued for " << selectedPlant << "!" << std::endl;
-            std::cout << "   Execute commands with option 8" << std::endl;
+            std::cout << "   Execute commands with option 9" << std::endl;
         } else {
             std::cout << "❌ Failed to plant seed! Check space index and inventory." << std::endl;
         }
@@ -194,8 +193,9 @@ private:
 
     void careForPlantsWithCommands() {
         std::cout << "\n═══ CARE FOR PLANTS ═══" << std::endl;
-        std::cout << "1. Water Plants - R1 per box" << std::endl;
-        std::cout << "2. Fertilize Plants - R3 per box" << std::endl;
+        std::cout << "💡 Water/Fertilizer resources are required!" << std::endl;
+        std::cout << "1. Water Plants - R1 + uses 💧" << std::endl;
+        std::cout << "2. Fertilize Plants - R3 + uses 🌿" << std::endl;
         std::cout << "Choose: ";
         
         int choice, spaceChoice, boxIndex;
@@ -224,17 +224,18 @@ private:
         }
         
         if (!success) {
-            std::cout << "❌ Failed to queue command! Check space index and balance." << std::endl;
+            std::cout << "❌ Failed to queue command!" << std::endl;
+            std::cout << "   Check: resources, space, and balance" << std::endl;
         } else {
-            std::cout << "   Execute with option 8" << std::endl;
+            std::cout << "   Execute with option 9" << std::endl;
         }
     }
 
     void changeWateringStrategy() {
         std::cout << "\n═══ WATERING STRATEGY ═══" << std::endl;
-        std::cout << "1. Light (1 unit)" << std::endl;
-        std::cout << "2. Intermediate (3 units)" << std::endl;
-        std::cout << "3. Heavy (5 units)" << std::endl;
+        std::cout << "1. Light (1 💧 per water)" << std::endl;
+        std::cout << "2. Intermediate (3 💧 per water)" << std::endl;
+        std::cout << "3. Heavy (5 💧 per water)" << std::endl;
         std::cout << "Choose: ";
         
         int choice;
@@ -243,18 +244,23 @@ private:
         game->changeWateringStrategy(choice);
         
         switch (choice) {
-            case 1: std::cout << "✅ Light Watering" << std::endl; break;
-            case 2: std::cout << "✅ Intermediate Watering" << std::endl; break;
-            case 3: std::cout << "✅ Heavy Watering" << std::endl; break;
-            default: std::cout << "✅ Default Watering (Intermediate)" << std::endl; break;
+            case 1: std::cout << "✅ Light Watering Strategy (1 💧)" << std::endl; break;
+            case 2: std::cout << "✅ Intermediate Watering Strategy (3 💧)" << std::endl; break;
+            case 3: std::cout << "✅ Heavy Watering Strategy (5 💧)" << std::endl; break;
+            default: std::cout << "✅ Default Watering (Intermediate, 3 💧)" << std::endl; break;
         }
     }
 
     void hireStaff() {
         std::cout << "\n═══ HIRE STAFF ═══" << std::endl;
-        std::cout << "1. Sales Staff - R100" << std::endl;
-        std::cout << "2. Cashier - R80" << std::endl;
-        std::cout << "Choose: ";
+        std::cout << "Staff are ESSENTIAL for selling plants!" << std::endl;
+        std::cout << "\n1. Sales Staff - R100" << std::endl;
+        std::cout << "   • Helps customers find plants" << std::endl;
+        std::cout << "   • Earns 5% commission on sales" << std::endl;
+        std::cout << "\n2. Cashier - R80" << std::endl;
+        std::cout << "   • Processes payments" << std::endl;
+        std::cout << "   • Required for all transactions" << std::endl;
+        std::cout << "\nChoose: ";
         
         int choice;
         std::cin >> choice;
@@ -267,6 +273,7 @@ private:
         if (game->hireStaff(choice)) {
             std::string staffType = (choice == 1) ? "Sales Staff" : "Cashier";
             std::cout << "✅ Hired " << staffType << "!" << std::endl;
+            std::cout << "   They can now help with customer sales" << std::endl;
         } else {
             std::cout << "❌ Failed to hire staff! Check your balance." << std::endl;
         }
@@ -282,16 +289,19 @@ private:
         std::cout << "😊 Final happiness: " << game->getHappinessScore() << "/100" << std::endl;
         std::cout << "🌱 Total plants grown: " << game->getTotalPlants() << std::endl;
         std::cout << "💰 Ready to sell: " << game->getReadyPlantsCount() << std::endl;
+        //std::cout << "🛒 Orders completed: " << game->getOrderCount() << std::endl;
         
         double profit = game->getBalance() - 1000.0;
-        std::cout << "\n💵 Profit/Loss: R" << profit << std::endl;
+        std::cout << "\n💵 Profit/Loss: R" << std::fixed << std::setprecision(2) << profit << std::endl;
         
         if (profit > 500) {
-            std::cout << "\n🏆 Excellent work! Your nursery is thriving!" << std::endl;
+            std::cout << "\n🏆 EXCELLENT! Your nursery is thriving!" << std::endl;
         } else if (profit > 0) {
-            std::cout << "\n👍 Good job! You made a profit!" << std::endl;
+            std::cout << "\n👍 GOOD JOB! You made a profit!" << std::endl;
+        } else if (profit > -200) {
+            std::cout << "\n😐 NOT BAD! Almost broke even!" << std::endl;
         } else {
-            std::cout << "\n💪 Keep trying! Better luck next time!" << std::endl;
+            std::cout << "\n💪 KEEP TRYING! Better luck next time!" << std::endl;
         }
         
         std::cout << "\n🌱 Thanks for playing Nursery Manager! 🌱\n" << std::endl;
@@ -305,7 +315,6 @@ public:
             displayMainMenu();
             std::cin >> choice;
             
-            // Clear input buffer
             if (std::cin.fail()) {
                 std::cin.clear();
                 std::cin.ignore(10000, '\n');
@@ -318,33 +327,34 @@ public:
                 case 2: game->viewAllSpaces(); break;
                 case 3: game->viewInventoryStock(); break;
                 case 4: game->viewOrders(); break;
-                case 5: buySeedsRestock(); break;
-                case 6: plantSeedsInSpace(); break;
-                case 7: careForPlantsWithCommands(); break;
-                case 8: game->executeCommands(); break;
-                case 9: changeWateringStrategy(); break;
-                case 10: game->performHealthCheck(); break;
-                case 11: game->useIterator(); break;
-                case 12: hireStaff(); break;
-                case 13: game->triggerCustomerVisit(); break;
-                case 14: game->advanceDay(); break;
-                case 15: game->viewBankLog(); break;
-                case 16: game->displayGameStatus(); break;
-                case 17: 
+                case 5: game->viewResources(); break;
+                case 6: buySeedsRestock(); break;
+                case 7: plantSeedsInSpace(); break;
+                case 8: careForPlantsWithCommands(); break;
+                case 9: game->executeCommands(); break;
+                case 10: changeWateringStrategy(); break;
+                case 11: game->performHealthCheck(); break;
+                case 12: game->useIterator(); break;
+                case 13: hireStaff(); break;
+                case 14: game->triggerCustomerVisit(); break;
+                case 15: game->refillResources(); break;
+                case 16: game->advanceDay(); break;
+                case 17: game->viewBankLog(); break;
+                case 18: game->displayGameStatus(); break;
+                case 19: 
                     displayFinalStatistics();
                     break;
                 default: 
-                    std::cout << "❌ Invalid choice! Choose 1-17." << std::endl;
+                    std::cout << "❌ Invalid choice! Choose 1-19." << std::endl;
             }
             
-            // Add a small pause between actions
-            if (choice != 17) {
+            if (choice != 19) {
                 std::cout << "\nPress Enter to continue...";
                 std::cin.ignore();
                 std::cin.get();
             }
             
-        } while (choice != 17);
+        } while (choice != 19);
     }
 };
 

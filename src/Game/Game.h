@@ -13,6 +13,7 @@
 #include "../PlantFactory/PlantFactory.h"
 #include "../WateringStrategy/WateringStrategy.h"
 #include "../Duty/Duty.h"
+#include "../ResourceManager/ResourceManager.h"
 #include <vector>
 #include <memory>
 #include <map>
@@ -36,6 +37,7 @@ private:
     std::queue<Duty*> commandQueue;
     BankAccount* bankAccount;
     TransactionManager* transactionManager;
+    ResourceManager* resourceManager;  // NEW: Resource facade
     HealthCheckVisitor* healthVisitor;
     WateringStrategy* currentWateringStrategy;
     InteractionManager* mediator;
@@ -86,6 +88,10 @@ public:
     void viewInventoryStock();
     int getInventoryStock(const std::string& plantName);
     
+    // Resource operations (NEW)
+    void viewResources();
+    bool refillResources();
+    
     // Planting operations
     bool plantSeed(const std::string& plantName, int spaceIndex, int boxIndex);
     bool waterPlants(int spaceIndex, int boxIndex);
@@ -113,6 +119,7 @@ public:
     int getHappinessScore() const { return happinessScore; }
     int getTotalPlants();
     int getReadyPlantsCount();
+    //std::string getOrderCount();
 };
 
 #endif

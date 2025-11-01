@@ -14,10 +14,18 @@ class SucculentPlant;
 class HealthCheckVisitor : public CareVisitor {
 private:
     std::vector<std::string> plantReports;
+    int flowerCount;
+    int treeCount;
+    int herbCount;
+    int grassCount;
+    int succulentCount;
+    int healthyCount;
+    int unhealthyCount;
     
     void checkPlantConditions(class Plant* plant, const std::string& emoji);
 
 public:
+    HealthCheckVisitor();
     virtual ~HealthCheckVisitor() = default;
     
     // Concrete visit methods
@@ -29,7 +37,10 @@ public:
     
     // Report methods
     void printReport();
+    void displayReport();
     void clearReports();
+    void reset();
+    std::string getReport() const;
     
     const std::vector<std::string>& getPlantReports() const { return plantReports; }
 };

@@ -1,26 +1,34 @@
-/* #ifndef RESOURCEMANAGER_H
+#ifndef RESOURCEMANAGER_H
 #define RESOURCEMANAGER_H
 
 #include <iostream>
-using namespace std;
-
-class WaterStorage;
-class FertilizerStorage;
+#include <string>
 
 class ResourceManager {
 private:
-    WaterStorage* waterStorage;
-    FertilizerStorage* fertilizerStorage;
+    int waterLevel;
+    int waterCapacity;
+    int fertilizerLevel;
+    int fertilizerCapacity;
 
 public:
-    bool useWater(int amt);
-    bool useFertilizer(int amt);
-    bool refillAll();
-    bool upgradeAll();
-    
     ResourceManager();
     ~ResourceManager();
+    
+    // Simplified facade methods
+    bool useWater(int amount);
+    bool useFertilizer(int amount);
+    bool refillWater();
+    bool refillFertilizer();
+    bool refillAll();
+    
+    // Status methods
+    int getWaterLevel() const { return waterLevel; }
+    int getWaterCapacity() const { return waterCapacity; }
+    int getFertilizerLevel() const { return fertilizerLevel; }
+    int getFertilizerCapacity() const { return fertilizerCapacity; }
+    
+    void displayStatus() const;
 };
 
 #endif
- */

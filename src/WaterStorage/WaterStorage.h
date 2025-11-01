@@ -1,4 +1,4 @@
-/* #ifndef WATERSTORAGE_H
+#ifndef WATERSTORAGE_H
 #define WATERSTORAGE_H
 
 class StorageState;
@@ -22,4 +22,3 @@ public:
 };
 
 #endif
- */
