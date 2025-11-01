@@ -5,7 +5,6 @@
 #include "../InteractionManager/InteractionManager.h"
 
 void InventoryObserver::onStockChange(Plant* plant) {
-	//not done, waiting on singleton
 	if(!plant) {
 		return;
 	}
@@ -45,8 +44,7 @@ void InventoryObserver::printStock(std::ostream& os) const {
 void InventoryObserver::notifyCustomersOfNewStock(const std::string& plantName) {
     
     std::cout << "NEW_STOCK_ALERT: " << plantName << " is now in stock!\n";
-    
-    // Example implementation - you'll need to adapt based on your architecture:
-    InteractionManager* mediator = InteractionManager::getInstance(); // If singleton
+
+    InteractionManager* mediator = InteractionManager::getInstance();
     mediator->notifyAllCustomers("NEW_STOCK:" + plantName);
 }
