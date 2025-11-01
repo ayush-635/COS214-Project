@@ -62,7 +62,7 @@ std::vector<std::string> Inventory::getAllPlantNames() const
     }
     return names;
 }
-void Inventory::addStockType(PlantFactory* f,const std::string name,const std::string idealSeason) {
+void Inventory::addStockType(PlantFactory* f,const std::string& name,const std::string& idealSeason) {
 	if(qtyByName.find(name) == qtyByName.end()){
 		qtyByName[name] = 0;
 	}
