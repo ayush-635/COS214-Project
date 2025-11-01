@@ -47,7 +47,7 @@ SOURCES = main.cpp \
           $(SRC_DIR)/TransactionManager/TransactionManager.cpp \
           $(SRC_DIR)/Order/Order.cpp \
           $(SRC_DIR)/OrderItem/OrderItem.cpp \
-          $(SRC_DIR)/pot/Pot.cpp \
+          $(SRC_DIR)/Pot/Pot.cpp \
           $(SRC_DIR)/Mediator/Mediator.cpp \
           $(SRC_DIR)/Colleague/Colleague.cpp \
           $(SRC_DIR)/InteractionManager/InteractionManager.cpp \
