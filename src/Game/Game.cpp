@@ -447,11 +447,19 @@ void Game::updateHappiness(bool satisfied) {
 }
 
 void Game::performHealthCheck() {
+    std::cout << "\n=== 🏥 HEALTH CHECK REPORT ===" << std::endl;
+    
+    // Reset visitor counters before checking
+    //healthVisitor->resetCounters();
+    
     int total = 0;
     for (auto space : spaces) {
         total += performHealthCheckOnSpace(space);
     }
-    std::cout << "✅ Checked " << total << " plants" << std::endl;
+    
+    // Get the report from the visitor
+    //std::cout << "\n" << healthVisitor->getReport() << std::endl;
+    std::cout << "✅ Total plants checked: " << total << std::endl;
 }
 
 int Game::performHealthCheckOnSpace(PlantableArea* space) {
