@@ -65,7 +65,7 @@ bool PlantIterator::hasNext() {
     return !areaStack.empty(); // see if there are more levels to traverse
 }
 
-Plant* PlantIterator::next() { // returns next plant
+Plant* PlantIterator::next() {
     if(!hasNext()) {
         return nullptr;
     }
@@ -75,7 +75,7 @@ Plant* PlantIterator::next() { // returns next plant
         return plants[plantIndex++];
     }
 
-    // Current box exhausted, move to next area
+    // Current box out of plants move to the next valid box or collection
     advanceToNextValidBox();
     
     if(plantIndex < plants.size()) {
