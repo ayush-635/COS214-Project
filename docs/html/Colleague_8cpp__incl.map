@@ -1,0 +1,10 @@
+<map id="src/Colleague/Colleague.cpp" name="src/Colleague/Colleague.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,212,31"/>
+<area shape="rect" id="Node000002" href="$Colleague_8h.html" title="Header file for the Colleague class." alt="" coords="59,79,158,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,31,111,65,106,65,106,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="79,225,138,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,106,88,127,77,153,75,168,78,184,93,213,88,215,73,186,70,169,71,151,83,124,97,103"/>
+<area shape="rect" id="Node000004" href="$Mediator_8h.html" title="Header file for the Mediator class." alt="" coords="86,152,251,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="121,103,152,140,148,143,117,106"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="161,179,129,217,125,213,157,176"/>
+</map>

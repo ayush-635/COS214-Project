@@ -1,0 +1,12 @@
+<map id="NurseryManager" name="NurseryManager">
+<area shape="rect" id="Node000001" title="Manages the construction of different plantable spaces using the Builder pattern." alt="" coords="5,181,136,207"/>
+<area shape="rect" id="Node000002" href="$classSpaceBuilder.html" title="Abstract builder for constructing plantable space structures." alt="" coords="17,93,124,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,133,73,181,68,181,68,133"/>
+<area shape="rect" id="Node000003" href="$classPlantableArea.html" title="Abstract base class representing a plantable area in the game." alt="" coords="171,5,285,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="196,40,93,95,91,91,194,35"/>
+<area shape="rect" id="Node000005" href="$classPlanterBoxCollection.html" title="Composite class representing a collection of planter boxes." alt="" coords="149,93,307,119"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="231,45,231,93,225,93,225,45"/>
+<area shape="rect" id="Node000004" href="$classDuty.html" title="Abstract base class for all duties that a staff member can perform." alt="" coords="285,181,339,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="329,169,335,157,338,139,335,125,317,95,282,59,246,33,249,29,285,55,321,92,340,123,343,139,340,158,334,171"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="247,128,271,155,299,179,295,183,267,159,243,132"/>
+</map>

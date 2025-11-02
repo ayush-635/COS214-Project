@@ -1,0 +1,7 @@
+<map id="Cashier" name="Cashier">
+<area shape="rect" id="Node000001" title="A staff member specialized in handling sales and inventory checks. The cashier uses the Inventory sin..." alt="" coords="23,152,94,177"/>
+<area shape="rect" id="Node000002" href="$classStaffMember.html" title="Base class for all staff members in the simulation. concrete classes are:" alt="" coords="5,79,112,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,118,61,152,56,152,56,118"/>
+<area shape="rect" id="Node000003" href="$classColleague.html" title="Base class for objects that communicate through a mediator." alt="" coords="15,5,102,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="61,44,61,79,56,79,56,44"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="InteractionManager" name="InteractionManager">
+<area shape="rect" id="Node000001" title="Manages interactions between colleagues using mediator pattern." alt="" coords="5,80,155,105"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="170,85,181,93,173,100,155,102,155,97,171,95,176,93,167,90"/>
+<area shape="rect" id="Node000002" href="$classMediator.html" title="Abstract base class for mediator pattern." alt="" coords="40,5,120,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,45,83,80,77,80,77,45"/>
+</map>

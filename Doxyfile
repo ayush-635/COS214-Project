@@ -1,0 +1,33 @@
+PROJECT_NAME           = "COS214 Final Project"
+PROJECT_NUMBER         = 1.0
+PROJECT_BRIEF          = "Plant Nursery Management System"
+OUTPUT_DIRECTORY       = docs/
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = YES
+
+INPUT                  = src/
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.cpp *.cxx *.cc *.c++ *.c
+EXCLUDE_PATTERNS       = */test/* */build/* */cmake-build-*/*
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_METHODS  = YES
+
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+SEARCH_INCLUDES        = YES
+INCLUDE_PATH           = src/
+INCLUDE_FILE_PATTERNS  = *.h
+
+OPTIMIZE_OUTPUT_FOR_C  = NO
+OPTIMIZE_OUTPUT_JAVA   = NO
+SHOW_NAMESPACES        = NO

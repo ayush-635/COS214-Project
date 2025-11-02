@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classPlantableArea.html" title="Abstract base class representing a plantable area in the game." alt="" coords="5,31,119,56"/>
+<area shape="rect" id="Node000001" href="$classPlanterBox.html" title="Leaf class representing a single planter box." alt="" coords="199,5,293,31"/>
+<area shape="poly" id="edge25_Node000000_Node000001" title=" " alt="" coords="132,31,198,22,199,27,133,36"/>
+<area shape="rect" id="Node000002" href="$classPlanterBoxCollection.html" title="Composite class representing a collection of planter boxes." alt="" coords="167,55,325,80"/>
+<area shape="poly" id="edge26_Node000000_Node000002" title=" " alt="" coords="132,50,167,54,166,60,132,55"/>
+</map>

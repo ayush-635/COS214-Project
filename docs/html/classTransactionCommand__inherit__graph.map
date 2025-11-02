@@ -1,0 +1,7 @@
+<map id="TransactionCommand" name="TransactionCommand">
+<area shape="rect" id="Node000001" title=" " alt="" coords="83,5,245,31"/>
+<area shape="rect" id="Node000002" href="$classBuyAssetsCommand.html" title="Command for buying assets." alt="" coords="5,79,163,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,42,99,80,95,76,139,38"/>
+<area shape="rect" id="Node000003" href="$classSaleCommand.html" title="Command for executing sales transactions." alt="" coords="187,79,304,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,38,234,76,230,80,186,42"/>
+</map>

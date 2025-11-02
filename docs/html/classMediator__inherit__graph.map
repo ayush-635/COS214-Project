@@ -1,0 +1,5 @@
+<map id="Mediator" name="Mediator">
+<area shape="rect" id="Node000001" title="Abstract base class for mediator pattern." alt="" coords="40,5,120,31"/>
+<area shape="rect" id="Node000002" href="$classInteractionManager.html" title="Manages interactions between colleagues using mediator pattern." alt="" coords="5,79,155,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,44,83,79,77,79,77,44"/>
+</map>
