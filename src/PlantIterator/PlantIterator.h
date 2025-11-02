@@ -1,4 +1,8 @@
-
+/**
+ * @file PlantIterator.h
+ * @author ryan Lynn
+ * @brief Header file for the PlantIterator class
+ */
 #ifndef PLANTITERATOR_H
 #define PLANTITERATOR_H
 
@@ -13,6 +17,10 @@
 #include <string>
 #include <stack>
 
+/**
+ * @class PlantIterator
+ * @brief Iterator for traversing through plants in plantable areas and boxes
+ */
 class PlantIterator : public Iterator {
 protected:
 	/**
