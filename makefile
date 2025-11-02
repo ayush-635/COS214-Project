@@ -88,6 +88,8 @@ TEST_SOURCES = $(TEST_DIR)/test_main.cpp \
                $(TEST_DIR)/test_transaction_manager.cpp \
                $(TEST_DIR)/test_Visitors.cpp \
                $(TEST_DIR)/ObserverTestMain.cpp \
+			   $(TEST_DIR)/test_Builder.cpp \
+			   $(TEST_DIR)/test_DeliveryStrategy.cpp \
                $(TEST_DIR)/StaffCreationTestMain.cpp
 
 # Object files
@@ -100,7 +102,7 @@ TEST_BASE_OBJECTS = $(filter-out $(MAIN_OBJ), $(OBJECTS))
 
 # Executable names - CONSISTENT with TEST_SOURCES
 TARGET = nursery_game
-TEST_TARGETS = test_Plants test_bankAccount test_composite_simple test_DyingState test_Game test_order test_orderitem test_PlantData test_PlantStates test_Prototypes test_transaction_manager test_Visitors ObserverTestMain StaffCreationTestMain
+TEST_TARGETS = test_Plants test_bankAccount test_composite_simple test_DyingState test_Game test_order test_orderitem test_PlantData test_PlantStates test_Prototypes test_transaction_manager test_Visitors test_Builder test_DeliveryStrategy ObserverTestMain StaffCreationTestMain
 
 # Doctest configuration
 DOCTEST_HEADER = tests/doctest.h
@@ -181,6 +183,12 @@ test_transaction_manager: $(TEST_DIR)/test_main.o $(TEST_DIR)/test_transaction_m
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 test_Visitors: $(TEST_DIR)/test_main.o $(TEST_DIR)/test_Visitors.o $(TEST_BASE_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+test_Builder: $(TEST_DIR)/test_main.o $(TEST_DIR)/test_Builder.o $(TEST_BASE_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+test_DeliveryStrategy: $(TEST_DIR)/test_main.o $(TEST_DIR)/test_DeliveryStrategy.o $(TEST_BASE_OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 ObserverTestMain: $(TEST_DIR)/ObserverTestMain.o $(TEST_BASE_OBJECTS)
