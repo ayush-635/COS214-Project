@@ -1,5 +1,5 @@
-#include "src/TreePlant/TreePlant.h"
-#include "src/CareVisitor/CareVisitor.h"
+#include "../TreePlant/TreePlant.h"
+#include "../CareVisitor/CareVisitor.h"
 
 TreePlant::TreePlant(const std::string& id, const std::string& name, 
                      std::shared_ptr<PlantData> data) : Plant(id, name, data) {}

@@ -3,12 +3,9 @@
 #define PLANTDATA_H
 #include <string>
 
-#include <string>
-
 class PlantData {
 private:
 	std::string speciesName;
-	std::string texturePath;
 	double basePrice;
 	int wateringNeed;
 	int fertilizerNeed;
@@ -38,6 +35,12 @@ public:
     int getFertilizerInterval() const { return fertilizerInterval; }
     int getWaterDeathTime() const { return waterDeathTime; }
     int getFertilizerDeathTime() const { return fertilizerDeathTime; }
+    bool isOutside() const { return outside; }
+    bool isLowLight() const { return lowLight; }
+    bool isLowWater() const { return lowWater; }
+    bool isBrightColour() const { return brightColour; }
+    bool isLowCare() const { return lowCare; }
+    PlantData* getPlantData(){return this;};
 };
 
 #endif

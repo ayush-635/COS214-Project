@@ -1,13 +1,10 @@
-#ifndef FERTILIZERSTORAGE_H
+/* #ifndef FERTILIZERSTORAGE_H
 #define FERTILIZERSTORAGE_H
-
-class StorageState;
 
 class FertilizerStorage {
 private:
     int capacity;
     int level;
-    StorageState* state;
 
 public:
     FertilizerStorage(int cap = 500);
@@ -22,3 +19,4 @@ public:
 };
 
 #endif
+ */

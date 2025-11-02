@@ -1,7 +1,13 @@
 #include "WaterPlantCommand.h"
+#include "../WateringStrategy/WateringStrategy.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../PlantableArea/PlantableArea.h"
+#include <iostream>
+
+
 
 WaterPlantCommand::WaterPlantCommand(PlanterBoxCollection* collection, WateringStrategy* strategy, int index)
-    : collection(collection), index(index), wateringStrategy(strategy) {}
+    : CareForPlantCommand(collection, index), wateringStrategy(strategy) {}
 
 void WaterPlantCommand::executeDuty() {
     if (!collection || !wateringStrategy) return;

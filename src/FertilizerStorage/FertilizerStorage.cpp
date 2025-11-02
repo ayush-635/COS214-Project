@@ -1,18 +1,14 @@
-#include "FertilizerStorage.h"
-#include "StorageState.h"
-#include "BasicStorage.h"
+/* #include "FertilizerStorage.h"
 #include <iostream>
 using namespace std;
 
 FertilizerStorage::FertilizerStorage(int cap) {
     capacity = cap;
     level = cap;  // Start full
-    state = new BasicStorage();  // Start in basic state
     cout << "FertilizerStorage initialized: " << level << "/" << capacity << " units" << endl;
 }
 
 FertilizerStorage::~FertilizerStorage() {
-    delete state;
 }
 
 bool FertilizerStorage::use(int amt) {
@@ -51,3 +47,4 @@ bool FertilizerStorage::upgrade() {
     }
     return false;
 }
+ */

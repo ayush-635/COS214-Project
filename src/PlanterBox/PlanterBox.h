@@ -1,7 +1,8 @@
 #ifndef PLANTERBOX_H
 #define PLANTERBOX_H
 
-#include "src/PlantableArea/PlantableArea.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../Plant/Plant.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -14,6 +15,7 @@
  * to be performed on the plants within the box.
  */
 
+class Plant;
 class PlanterBox : public PlantableArea {
 private:
 

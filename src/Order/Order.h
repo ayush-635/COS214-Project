@@ -2,28 +2,22 @@
 #define ORDER_H
 #include <string>
 #include <list>
-class DeliveryStrategy;
-class OrderItem;
-
-#include <list>
-using namespace std;
 
 class OrderItem;
-class DeliveryStrategy;
 
 class Order {
 private:
-	std::list<OrderItem*> items;
-	//DeliveryStrategy* delivery;
+    std::list<OrderItem*> items;
 
 public:
-	void addItem(OrderItem* item);
-
-	double total();
-	std::string getOrder();
-
-	//Order(DeliveryStrategy* d);
-	Order();
+    Order();
+    ~Order();
+    
+    void addItem(OrderItem* item);
+    double total() const;
+    std::string getOrder() const;
+    int getItemCount() const;
+    const std::list<OrderItem*>& getItems() const;
 };
 
 #endif

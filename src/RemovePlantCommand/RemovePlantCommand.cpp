@@ -1,4 +1,7 @@
-#include "../src/RemovePlantCommand/RemovePlantCommand.h"
+#include "RemovePlantCommand.h"
+#include "../Plant/Plant.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
 
 
 RemovePlantCommand::RemovePlantCommand(PlanterBoxCollection* collection, Plant* targetPlant, int index)
@@ -16,8 +19,6 @@ void RemovePlantCommand::executeDuty() {
         return;
     }
 
-    
     collection->removePlant(targetPlant, index);
-
     
 }

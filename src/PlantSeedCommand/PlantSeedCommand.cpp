@@ -1,5 +1,7 @@
-#include "../src/PlantSeedCommand/PlantSeedCommand.h"
-
+#include "PlantSeedCommand.h"
+#include "../Plant/Plant.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
 
 PlantSeedCommand::PlantSeedCommand(PlanterBoxCollection* collection, Plant* seed, int index)
     : Duty(collection, index), seed(seed) {}

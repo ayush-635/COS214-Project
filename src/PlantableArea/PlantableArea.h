@@ -1,8 +1,5 @@
 #ifndef PLANTABLEAREA_H
 #define PLANTABLEAREA_H
-
-#include "src/Duty/Duty.h"
-#include "src/Plant/Plant.h"
 #include <vector>
 
 /**
@@ -14,6 +11,8 @@
  * 
  * It also stores a list of children of the component which can be a leaf or a composite
  */
+class Plant;
+class Duty;
 
 class PlantableArea {
 private:

@@ -1,5 +1,5 @@
-#include "src/SucculentPlant/SucculentPlant.h"
-#include "src/CareVisitor/CareVisitor.h"
+#include "../SucculentPlant/SucculentPlant.h"
+#include "../CareVisitor/CareVisitor.h"
 
 SucculentPlant::SucculentPlant(const std::string& id, const std::string& name, 
                                std::shared_ptr<PlantData> data) : Plant(id, name, data) {}

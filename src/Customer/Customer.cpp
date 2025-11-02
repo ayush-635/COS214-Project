@@ -21,12 +21,13 @@ std::string Customer::purchaseRandomPlants()
 }
 
 std::string Customer::sendPreference() {
-	rand = (std::rand()%preferences.size())+1;
-	std::string msg = preferences.find(rand)->second;
-	if(mediator){
-		mediator->notify(this, msg);
-	}
-	return "Customer: "+msg;
+    rand = (std::rand() % preferences.size()) + 1;
+    std::string msg = preferences.find(rand)->second;
+    lastAdvice = "I asked: " + msg;
+    if(mediator) {
+        mediator->notify(this, msg);
+    }
+    return "Customer: " + msg;
 }
 
 void Customer::storeAdvice(const std::string &advice)
@@ -48,3 +49,15 @@ Customer::Customer() : lastAdvice(""), rand(0) {
 	std::srand(std::time(nullptr));
 }
 
+void Customer::addStockNotification(const std::string& notification) {
+    stockNotifications.push_back(notification);
+    std::cout << "Customer received stock notification: " << notification << std::endl;
+}
+
+std::vector<std::string> Customer::getStockNotifications() const {
+    return stockNotifications;
+}
+
+void Customer::clearStockNotifications() {
+    stockNotifications.clear();
+}

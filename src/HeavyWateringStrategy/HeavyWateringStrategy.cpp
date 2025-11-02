@@ -1,4 +1,7 @@
-#include "../src/HeavyWateringStrategy/HeavyWateringStrategy.h"
+#include "HeavyWateringStrategy.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBox/PlanterBox.h"
+
 
 
 void HeavyWateringStrategy::waterPlant(PlantableArea* area) {

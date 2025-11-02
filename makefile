@@ -1,69 +1,128 @@
-# Simple Makefile for Plant Game
+# Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I.
 
-# Source files with their respective directories
-SRCS = src/PlantData/PlantData.cpp \
-       src/PlantDataFactory/PlantDataFactory.cpp \
-       src/Seedling/Seedling.cpp \
-       src/Growing/Growing.cpp \
-       src/Mature/Mature.cpp \
-       src/ReadyToSell/ReadyToSell.cpp \
-       src/Dying/Dying.cpp \
-       src/Dead/Dead.cpp \
-       src/Plant/Plant.cpp \
-       src/FlowerPlant/FlowerPlant.cpp \
-       src/TreePlant/TreePlant.cpp \
-       src/HerbPlant/HerbPlant.cpp \
-       src/GrassPlant/GrassPlant.cpp \
-       src/SucculentPlant/SucculentPlant.cpp \
-       src/HealthCheckVisitor/HealthCheckVisitor.cpp \
-       src/Game/Game.cpp \
-       src/PlantFactory/PlantFactory.cpp \
-       src/FlowerFactory/FlowerFactory.cpp \
-       src/TreeFactory/TreeFactory.cpp \
-       src/HerbFactory/HerbFactory.cpp \
-       src/GrassFactory/GrassFactory.cpp \
-       src/SucculentFactory/SucculentFactory.cpp \
-       main.cpp
+# Directories
+SRC_DIR = src
 
-OBJS = $(SRCS:.cpp=.o)
-EXEC = plant_game
+# Source files - ALL CPP FILES INCLUDING STAFF/CUSTOMER SYSTEM
+SOURCES = main.cpp \
+          $(SRC_DIR)/SpaceBuilder/SpaceBuilder.cpp \
+          $(SRC_DIR)/ConcreteSpaceBuilder/ConcreteSpaceBuilder.cpp \
+          $(SRC_DIR)/NurseryManager/NurseryManager.cpp \
+          $(SRC_DIR)/PlanterBox/PlanterBox.cpp \
+          $(SRC_DIR)/PlanterBoxCollection/PlanterBoxCollection.cpp \
+          $(SRC_DIR)/Plant/Plant.cpp \
+          $(SRC_DIR)/PlantData/PlantData.cpp \
+          $(SRC_DIR)/PlantState/PlantState.cpp \
+          $(SRC_DIR)/Seedling/Seedling.cpp \
+          $(SRC_DIR)/Growing/Growing.cpp \
+          $(SRC_DIR)/Mature/Mature.cpp \
+          $(SRC_DIR)/ReadyToSell/ReadyToSell.cpp \
+          $(SRC_DIR)/Dying/Dying.cpp \
+          $(SRC_DIR)/Dead/Dead.cpp \
+          $(SRC_DIR)/PlantDataFactory/PlantDataFactory.cpp \
+          $(SRC_DIR)/FlowerFactory/FlowerFactory.cpp \
+          $(SRC_DIR)/GrassFactory/GrassFactory.cpp \
+          $(SRC_DIR)/HerbFactory/HerbFactory.cpp \
+          $(SRC_DIR)/FlowerPlant/FlowerPlant.cpp \
+          $(SRC_DIR)/GrassPlant/GrassPlant.cpp \
+          $(SRC_DIR)/HerbPlant/HerbPlant.cpp \
+          $(SRC_DIR)/Iterator/Iterator.cpp \
+          $(SRC_DIR)/PlantIterator/PlantIterator.cpp \
+          $(SRC_DIR)/PlantFactory/PlantFactory.cpp \
+          $(SRC_DIR)/HealthCheckVisitor/HealthCheckVisitor.cpp \
+          $(SRC_DIR)/WaterPlantCommand/WaterPlantCommand.cpp \
+          $(SRC_DIR)/GiveFertilizerCommand/GiveFertilizerCommand.cpp \
+          $(SRC_DIR)/PlantSeedCommand/PlantSeedCommand.cpp \
+          $(SRC_DIR)/RemovePlantCommand/RemovePlantCommand.cpp \
+          $(SRC_DIR)/LightWateringStrategy/LightWateringStrategy.cpp \
+          $(SRC_DIR)/IntermediateWateringStrategy/IntermediateWateringStrategy.cpp \
+          $(SRC_DIR)/WateringStrategy/WateringStrategy.cpp \
+          $(SRC_DIR)/HeavyWateringStrategy/HeavyWateringStrategy.cpp \
+          $(SRC_DIR)/CareForPlantCommand/CareForPlantCommand.cpp \
+          $(SRC_DIR)/Duty/Duty.cpp \
+          $(SRC_DIR)/BankAccount/BankAccount.cpp \
+          $(SRC_DIR)/BuyAssetsCommand/BuyAssetsCommand.cpp \
+          $(SRC_DIR)/SaleCommand/SaleCommand.cpp \
+          $(SRC_DIR)/TransactionCommand/TransactionCommand.cpp \
+          $(SRC_DIR)/TransactionManager/TransactionManager.cpp \
+          $(SRC_DIR)/Order/Order.cpp \
+          $(SRC_DIR)/OrderItem/OrderItem.cpp \
+          $(SRC_DIR)/Pot/Pot.cpp \
+          $(SRC_DIR)/Mediator/Mediator.cpp \
+          $(SRC_DIR)/Colleague/Colleague.cpp \
+          $(SRC_DIR)/InteractionManager/InteractionManager.cpp \
+          $(SRC_DIR)/StaffMember/StaffMember.cpp \
+          $(SRC_DIR)/Sales/Sales.cpp \
+          $(SRC_DIR)/Cashier/Cashier.cpp \
+          $(SRC_DIR)/Customer/Customer.cpp \
+          $(SRC_DIR)/Inventory/Inventory.cpp \
+          $(SRC_DIR)/Subject/Subject.cpp \
+          $(SRC_DIR)/InventoryObserver/InventoryObserver.cpp \
+          $(SRC_DIR)/DeliveryStrategy/DeliveryStrategy.cpp \
+          $(SRC_DIR)/ExpressDelivery/ExpressDelivery.cpp \
+          $(SRC_DIR)/PickupDelivery/PickupDelivery.cpp \
+          $(SRC_DIR)/StandardDelivery/StandardDelivery.cpp \
+          $(SRC_DIR)/ResourceManager/ResourceManager.cpp \
+          $(SRC_DIR)/Game/Game.cpp
 
-all: $(EXEC)
+# Object files
+OBJECTS = $(SOURCES:.cpp=.o)
 
-$(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJS)
+# Executable name
+TARGET = nursery_game
 
+# Default target
+all: $(TARGET)
+
+# Link object files to create executable
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
+	@echo "============================================"
+	@echo "Build complete! Run with ./$(TARGET)"
+	@echo "Integrated Systems:"
+	@echo "  ✓ Mediator Pattern (Staff Communication)"
+	@echo "  ✓ Observer Pattern (Inventory Updates)"
+	@echo "  ✓ Singleton (Inventory & InteractionManager)"
+	@echo "  ✓ Customer & Staff Integration"
+	@echo "============================================"
+
+# Compile source files to object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-run: $(EXEC)
-	./$(EXEC)
-
+# Clean build artifacts
 clean:
-	rm -f $(EXEC) $(OBJS)
+	rm -f $(OBJECTS) $(TARGET)
+	@echo "Clean complete!"
 
-.PHONY: all run clean help
+# Rebuild everything
+rebuild: clean all
 
-TEST_DIR = tests
-TEST_SRCS = $(wildcard $(TEST_DIR)/*.cpp)
-TEST_OBJS = $(TEST_SRCS:.cpp=.o)
-TEST_EXEC = plant_game_tests
+# Run the program
+run: $(TARGET)
+	./$(TARGET)
 
-# Build and run tests
-test: $(TEST_EXEC)
-	./$(TEST_EXEC)
+# Debug build with symbols
+debug: CXXFLAGS += -g -DDEBUG
+debug: rebuild
 
-$(TEST_EXEC): $(TEST_OBJS) $(filter-out main.o, $(OBJS))
-	$(CXX) $(CXXFLAGS) -o $@ $^
+# Check for missing source files
+check:
+	@echo "Checking for source files..."
+	@for src in $(SOURCES); do \
+		if [ ! -f $$src ]; then \
+			echo "❌ Missing: $$src"; \
+		fi \
+	done
+	@echo "Check complete!"
 
-# Compile test files
-$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Show all source files
+list:
+	@echo "Source files in build:"
+	@for src in $(SOURCES); do \
+		echo "  - $$src"; \
+	done
 
-# Clean tests too
-clean:
-	rm -f $(EXEC) $(TEST_EXEC) $(OBJS) $(TEST_OBJS)
-
-.PHONY: all run clean help test
+.PHONY: all clean rebuild run debug check list

@@ -1,9 +1,9 @@
 #ifndef HERBFACTORY_H
 #define HERBFACTORY_H
 
-#include "src/PlantFactory/PlantFactory.h"
+#include "../PlantFactory/PlantFactory.h"
 
-class HerbFactory : PlantFactory {
+class HerbFactory : public PlantFactory {
 public:
 	virtual Plant* createPlant(std::string name) override;
 };

@@ -1,8 +1,9 @@
 #include "StaffMember.h"
-
+#include "../Duty/Duty.h"
+#include <iostream>
 
 StaffMember::StaffMember() : Colleague(), TimeSpent(0){}
-StaffMember::~StaffMember(){}
+//StaffMember::~StaffMember(){}
 
 int StaffMember::totalTime() const{
 	return TimeSpent;

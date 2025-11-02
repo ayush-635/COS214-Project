@@ -1,6 +1,6 @@
-#include "src/SucculentFactory/SucculentFactory.h"
+#include "../SucculentFactory/SucculentFactory.h"
 
-#include "src/Plant/Plant.h"
+#include "../Plant/Plant.h"
 
 Plant* SucculentFactory::createPlant(std::string name) {
 	auto plantPos = getPlantPrototypes().find(name);

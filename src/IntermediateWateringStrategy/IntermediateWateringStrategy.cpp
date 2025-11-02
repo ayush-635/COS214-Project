@@ -1,4 +1,7 @@
-#include "../src/IntermediateWateringStrategy/IntermediateWateringStrategy.h"
+#include "IntermediateWateringStrategy.h"
+#include "../PlantableArea/PlantableArea.h"
+#include "../PlanterBox/PlanterBox.h"
+
 
 
 void IntermediateWateringStrategy::waterPlant(PlantableArea* area) {

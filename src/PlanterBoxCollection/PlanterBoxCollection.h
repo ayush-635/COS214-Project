@@ -2,6 +2,7 @@
 #define PLANTERBOXCOLLECTION_H
 
 #include "../PlantableArea/PlantableArea.h"
+#include "../Plant/Plant.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -16,6 +17,7 @@
  * Stores a depth variable to see nesting of the composites in the collections
  * Stores a maximum depth and maximum number of boxes allowed
  */
+class Plant;
 
 class PlanterBoxCollection : public PlantableArea {
 private:
