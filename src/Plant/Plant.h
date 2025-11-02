@@ -34,6 +34,13 @@ public:
     Plant(const Plant& other);
     virtual ~Plant() = default;
 
+    /*
+     * @brief Creates and returns a deep copy of the Plant instance.
+     *
+     * @return Pointer to the newly cloned Plant instance.
+     *
+     * @note This is a pure virtual function that must be implemented by derived classes.
+     */
     virtual Plant* clone() = 0;
     
     virtual void update();
