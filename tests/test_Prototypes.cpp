@@ -1,4 +1,4 @@
-#include "../tests/doctest.h"
+#include "doctest.h"
 
 #include "../src/Plant/Plant.h"
 #include "../src/FlowerPlant/FlowerPlant.h"
