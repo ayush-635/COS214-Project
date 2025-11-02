@@ -7,7 +7,7 @@
 #ifndef SUCCULENTFACTORY_H
 #define SUCCULENTFACTORY_H
 
-#include "src/PlantFactory/PlantFactory.h"
+#include "../PlantFactory/PlantFactory.h"
 
 class Plant;
 

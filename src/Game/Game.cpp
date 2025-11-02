@@ -48,7 +48,7 @@ Game::~Game() {
     }
     delete currentWateringStrategy;
     delete healthVisitor;
-    delete resourceManager;  // NEW: Clean up resource manager
+    delete resourceManager;
     for (auto customer : customers) delete customer;
     for (auto sales : salesStaff) delete sales;
     for (auto cashier : cashiers) delete cashier;
@@ -80,8 +80,6 @@ void Game::initialize() {
     
     inventoryObserver = new InventoryObserver();
     inventory->attach(inventoryObserver);
-    
-    // NEW: Initialize ResourceManager facade
     resourceManager = new ResourceManager();
     
     PlantDataFactory::initializeFactory();
@@ -221,32 +219,6 @@ bool Game::plantSeed(const std::string& plantName, int spaceIndex, int boxIndex)
     return false;
 }
 
-/* bool Game::waterPlants(int spaceIndex, int boxIndex) {
-    if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
-    if (bankAccount->getBalance() < 1) return false;
-    
-    PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceIndex]);
-    if (!collection) return false;
-    
-    bankAccount->withdraw(1, "Water");
-    WaterPlantCommand* cmd = new WaterPlantCommand(collection, currentWateringStrategy, boxIndex);
-    commandQueue.push(cmd);
-    return true;
-}
-
-bool Game::fertilizePlants(int spaceIndex, int boxIndex) {
-    if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
-    if (bankAccount->getBalance() < 3) return false;
-    
-    PlanterBoxCollection* collection = dynamic_cast<PlanterBoxCollection*>(spaces[spaceIndex]);
-    if (!collection) return false;
-    
-    bankAccount->withdraw(3, "Fertilizer");
-    GiveFertilizerCommand* cmd = new GiveFertilizerCommand(collection, 1, boxIndex);
-    commandQueue.push(cmd);
-    return true;
-} */
-
 void Game::executeCommands() {
     int count = 0;
     while (!commandQueue.empty()) {
@@ -363,22 +335,13 @@ void Game::triggerCustomerVisit() {
     
     if (!customers.empty()) {
         Customer* customer = customers.back();
-        
-        // Sales staff helps customer
         std::cout << "\n💼 Sales staff assisting customer..." << std::endl;
         customer->purchaseRandomPlants();
-        
-        // Create order from ready plants
         Order* order = createOrderFromReadyPlants();
         
         if (order && order->total() > 0) {
-            // Display order summary
             std::cout << "\n" << order->getOrder() << std::endl;
-            
-            // Cashier processes payment
             std::cout << "💵 Cashier processing payment..." << std::endl;
-            
-            // Choose random delivery strategy
             int deliveryType = (rand() % 3) + 1;
             DeliveryStrategy* delivery = nullptr;
             
@@ -389,24 +352,17 @@ void Game::triggerCustomerVisit() {
                 default: delivery = new StandardDelivery(); break;
             }
             
-            // Process delivery and show details
             if (delivery) {
                 delivery->deliver(*order);
-                
-                // Calculate total revenue (order + delivery)
                 double orderTotal = order->total();
                 double deliveryCost = delivery->getDeliveryCost();
                 double totalRevenue = orderTotal + deliveryCost;
-                
-                // Staff earn commission (5% of plant sales)
                 double commission = orderTotal * 0.05;
                 std::cout << "\n💰 Staff earned R" << std::fixed << std::setprecision(2) 
                          << commission << " commission (5%)" << std::endl;
                 
-                // Add to bank
                 bankAccount->deposit(totalRevenue, "Plant sales + " + delivery->getDeliveryType());
                 
-                // Store order
                 orders.push_back(order);
                 
                 updateHappiness(true);
@@ -440,17 +396,14 @@ Order* Game::createOrderFromReadyPlants() {
                 auto plants = box->getPlants();
                 for (auto plant : plants) {
                     if (plant->getStateName() == "ReadyToSell" && plantsAdded < maxPlants) {
-                        double price = 25.0 + (rand() % 26); // R25-R50
+                        double price = 25.0 + (rand() % 26);
                         OrderItem* item = new OrderItem(plant->getName(), price, 1);
-                        
-                        // Add pot with 50% chance (Decorator pattern)
+                    
                         if (rand() % 100 < 50) {
                             item->addPot();
                         }
                         
                         order->addItem(item);
-                        
-                        // Remove sold plant
                         box->removePlant(plant);
                         delete plant;
                         plantsAdded++;
@@ -479,7 +432,6 @@ void Game::performHealthCheck() {
     std::cout << "║     🏥 HEALTH CHECK REPORT 🏥         ║" << std::endl;
     std::cout << "╚════════════════════════════════════════╝\n" << std::endl;
     
-    // Reset visitor before checking
     healthVisitor->reset();
     
     int total = 0;
@@ -489,7 +441,6 @@ void Game::performHealthCheck() {
         total += performHealthCheckOnSpace(space);
     }
     
-    // Display the visitor's summary report
     std::cout << std::endl;
     healthVisitor->printReport();
     
@@ -720,8 +671,6 @@ void Game::countPlantStates(PlantableArea* space, int& seedlings, int& growing,
 
 bool Game::waterPlants(int spaceIndex, int boxIndex) {
     if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
-    
-    // Determine water needed based on strategy
     int waterNeeded = 1; // Light
     if (dynamic_cast<IntermediateWateringStrategy*>(currentWateringStrategy)) {
         waterNeeded = 3;
@@ -729,16 +678,13 @@ bool Game::waterPlants(int spaceIndex, int boxIndex) {
         waterNeeded = 5;
     }
     
-    // Check water availability FIRST
     if (!resourceManager->useWater(waterNeeded)) {
         return false;
     }
     
-    // Check money
     if (bankAccount->getBalance() < 1) {
         std::cout << "❌ Insufficient funds! Need R1" << std::endl;
-        // Refund water since we didn't complete the operation
-        resourceManager->refillWater(); // Simple refund
+        resourceManager->refillWater();
         return false;
     }
     
@@ -751,16 +697,13 @@ bool Game::waterPlants(int spaceIndex, int boxIndex) {
     return true;
 }
 
-// Update fertilizePlants to use ResourceManager:
 bool Game::fertilizePlants(int spaceIndex, int boxIndex) {
     if (spaceIndex < 0 || spaceIndex >= (int)spaces.size()) return false;
     
-    // Check fertilizer availability FIRST
     if (!resourceManager->useFertilizer(1)) {
         return false;
     }
     
-    // Check money
     if (bankAccount->getBalance() < 3) {
         std::cout << "❌ Insufficient funds! Need R3" << std::endl;
         return false;
@@ -779,7 +722,6 @@ void Game::viewResources() {
     resourceManager->displayStatus();
 }
 
-// NEW: Add method to refill resources
 bool Game::refillResources() {
     double cost = 50.0;
     
