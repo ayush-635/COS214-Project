@@ -1,4 +1,4 @@
-/* #ifndef ITERATOR_H
+#ifndef ITERATOR_H
 #define ITERATOR_H
 
 #include "../Plant/Plant.h"
@@ -12,5 +12,4 @@ public:
 	virtual Plant* currItem() = 0;
 };
 
-#endif
- */
+#endif // ITERATOR_H
