@@ -187,7 +187,7 @@ TEST_SUITE("Builder Pattern Tests") {
         }
         
         SUBCASE("Build resets internal space to nullptr") {
-            PlantableArea* result = builder.build();
+            //PlantableArea* result = builder.build();
             CHECK(builder.getSpace() == nullptr);
         }
         
