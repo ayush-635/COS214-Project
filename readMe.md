@@ -42,6 +42,7 @@ This project demonstrates:
   - Iterator
   - State
   - Visitor
+  - Façade
 - **Boost Libraries** for filesystem and utilities  
 - **Doctest Framework** for testing  
 - **Makefile Build System** for streamlined compilation  
