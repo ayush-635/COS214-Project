@@ -121,7 +121,7 @@ Team Members
 | <img src="Data Files/member3.png" width="100"> | **Jano Venter** <br> Factory Method, Prototype |
 | <img src="Data Files/member4.png" width="100"> | **Kwaku Asiedu** <br> Command, Strategy
 | <img src="Data Files/member4.png" width="100"> | **Heinrich Romer** <br> Singleton, Observer, Template |
-| <img src="Data Files/member4.png" width="100"> | **Member 6** <br> |
+| <img src="Data Files/member4.png" width="100"> | **Zaynab Samir** <br> Builder, Strategy |
 | <img src="Data Files/member4.png" width="100"> | **Member 7** <br> |
 
 
