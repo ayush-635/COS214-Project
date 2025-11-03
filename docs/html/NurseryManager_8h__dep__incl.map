@@ -1,0 +1,9 @@
+<map id="src/NurseryManager/NurseryManager.h" name="src/NurseryManager/NurseryManager.h">
+<area shape="rect" id="Node000001" title="Header file for the NurseryManager class." alt="" coords="93,5,246,45"/>
+<area shape="rect" id="Node000002" href="$Game_8h.html" title="Header file for the Game class &#45; FACADE PATTERN." alt="" coords="13,101,152,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,57,97,102,93,98,138,53"/>
+<area shape="rect" id="Node000004" href="$NurseryManager_8cpp.html" title=" " alt="" coords="176,93,336,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="200,53,239,91,235,95,196,57"/>
+<area shape="rect" id="Node000003" href="$Game_8cpp.html" title=" " alt="" coords="5,181,160,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,140,85,181,80,181,80,140"/>
+</map>

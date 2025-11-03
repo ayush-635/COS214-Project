@@ -48,17 +48,6 @@ cmake_install.cmake
 *.DS_Store
 Thumbs.db
 
-/docs/html/
-/docs/latex/
-/docs/xml/
-/docs/man/
-/docs/rtf/
-/docs/rtfd/
-/docs/latex/
-/docs/doxygen/
-/docs/output/
-/Doxyfile
-
 /tests/bin/
 /tests/build/
 /tests/*.exe

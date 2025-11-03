@@ -1,0 +1,5 @@
+<map id="RemovePlantCommand" name="RemovePlantCommand">
+<area shape="rect" id="Node000001" title="Command that removes a specified plant from the planter box collection." alt="" coords="5,79,181,104"/>
+<area shape="rect" id="Node000002" href="$classDuty.html" title="Abstract base class for all duties that a staff member can perform." alt="" coords="67,5,120,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,44,96,79,91,79,91,44"/>
+</map>

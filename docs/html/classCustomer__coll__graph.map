@@ -1,0 +1,7 @@
+<map id="Customer" name="Customer">
+<area shape="rect" id="Node000001" title="Represents a customer in the nursery system." alt="" coords="6,168,91,193"/>
+<area shape="rect" id="Node000002" href="$classColleague.html" title="Base class for objects that communicate through a mediator." alt="" coords="5,93,92,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="51,133,51,168,46,168,46,133"/>
+<area shape="rect" id="Node000003" href="$classMediator.html" title="Abstract base class for mediator pattern." alt="" coords="9,5,89,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="51,45,51,93,46,93,46,45"/>
+</map>

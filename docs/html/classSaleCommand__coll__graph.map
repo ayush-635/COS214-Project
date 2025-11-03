@@ -1,0 +1,10 @@
+<map id="SaleCommand" name="SaleCommand">
+<area shape="rect" id="Node000001" title="Command for executing sales transactions." alt="" coords="187,93,304,119"/>
+<area shape="rect" id="Node000002" href="$classTransactionCommand.html" title=" " alt="" coords="5,5,168,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,35,225,91,223,95,119,40"/>
+<area shape="rect" id="Node000003" href="$classBankAccount.html" title="Manages the bank account and transaction logging." alt="" coords="192,5,299,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,45,248,93,243,93,243,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="314,9,325,18,317,26,299,29,298,23,315,21,320,18,311,14"/>
+<area shape="rect" id="Node000004" href="$classOrder.html" title="Represents a customer order containing multiple order items." alt="" coords="435,5,493,31"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="423,38,276,96,274,91,421,33"/>
+</map>

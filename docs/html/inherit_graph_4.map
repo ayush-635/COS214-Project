@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classDuty.html" title="Abstract base class for all duties that a staff member can perform." alt="" coords="5,104,59,129"/>
+<area shape="rect" id="Node000001" href="$classCareForPlantCommand.html" title="Abstract base class for commands that care for plants (e.g., watering, fertilizing,..." alt="" coords="109,55,281,80"/>
+<area shape="poly" id="edge11_Node000000_Node000001" title=" " alt="" coords="71,100,106,89,145,77,146,83,107,94,73,105"/>
+<area shape="rect" id="Node000005" href="$classPlantSeedCommand.html" title="A concrete command that plants a seed in a specified planter box within a collection." alt="" coords="117,104,272,129"/>
+<area shape="poly" id="edge15_Node000000_Node000005" title=" " alt="" coords="72,114,117,114,117,119,72,119"/>
+<area shape="rect" id="Node000006" href="$classRemovePlantCommand.html" title="Command that removes a specified plant from the planter box collection." alt="" coords="107,153,283,179"/>
+<area shape="poly" id="edge16_Node000000_Node000006" title=" " alt="" coords="73,128,107,139,146,151,145,156,106,145,71,133"/>
+<area shape="rect" id="Node000002" href="$classGiveFertilizerCommand.html" title="Command that applies fertilizer to a specific plant in a planter box." alt="" coords="332,5,508,31"/>
+<area shape="poly" id="edge12_Node000001_Node000002" title=" " alt="" coords="266,49,361,28,362,33,267,54"/>
+<area shape="rect" id="Node000003" href="$classGiveMedicineCommand.html" title="Command that administers medicine to a specific plant in a planter box." alt="" coords="331,55,509,80"/>
+<area shape="poly" id="edge13_Node000001_Node000003" title=" " alt="" coords="294,65,330,65,330,70,294,70"/>
+<area shape="rect" id="Node000004" href="$classWaterPlantCommand.html" title="Command that waters a plant according to a specified watering strategy." alt="" coords="340,104,500,129"/>
+<area shape="poly" id="edge14_Node000001_Node000004" title=" " alt="" coords="267,80,362,101,361,107,266,86"/>
+</map>

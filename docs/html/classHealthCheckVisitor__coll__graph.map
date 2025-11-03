@@ -1,0 +1,5 @@
+<map id="HealthCheckVisitor" name="HealthCheckVisitor">
+<area shape="rect" id="Node000001" title="Concrete visitor for checking plant health conditions." alt="" coords="5,79,152,104"/>
+<area shape="rect" id="Node000002" href="$classCareVisitor.html" title="Abstract visitor interface for plant care operations." alt="" coords="31,5,126,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,44,81,79,76,79,76,44"/>
+</map>

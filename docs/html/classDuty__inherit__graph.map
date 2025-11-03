@@ -1,0 +1,15 @@
+<map id="Duty" name="Duty">
+<area shape="rect" id="Node000001" title="Abstract base class for all duties that a staff member can perform." alt="" coords="456,5,509,31"/>
+<area shape="rect" id="Node000002" href="$classCareForPlantCommand.html" title="Abstract base class for commands that care for plants (e.g., watering, fertilizing,..." alt="" coords="209,79,381,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="444,37,326,81,324,76,442,32"/>
+<area shape="rect" id="Node000006" href="$classPlantSeedCommand.html" title="A concrete command that plants a seed in a specified planter box within a collection." alt="" coords="405,79,560,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="485,44,485,79,480,79,480,44"/>
+<area shape="rect" id="Node000007" href="$classRemovePlantCommand.html" title="Command that removes a specified plant from the planter box collection." alt="" coords="584,79,760,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="523,32,642,76,640,81,521,37"/>
+<area shape="rect" id="Node000003" href="$classGiveFertilizerCommand.html" title="Command that applies fertilizer to a specific plant in a planter box." alt="" coords="5,152,181,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="250,111,127,154,125,149,248,106"/>
+<area shape="rect" id="Node000004" href="$classGiveMedicineCommand.html" title="Command that administers medicine to a specific plant in a planter box." alt="" coords="205,152,384,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="297,118,297,152,292,152,292,118"/>
+<area shape="rect" id="Node000005" href="$classWaterPlantCommand.html" title="Command that waters a plant according to a specified watering strategy." alt="" coords="408,152,568,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="339,106,457,149,455,154,337,111"/>
+</map>

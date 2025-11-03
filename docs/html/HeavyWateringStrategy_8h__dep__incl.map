@@ -1,0 +1,7 @@
+<map id="src/HeavyWateringStrategy/HeavyWateringStrategy.h" name="src/HeavyWateringStrategy/HeavyWateringStrategy.h">
+<area shape="rect" id="Node000001" title="Declares the HeavyWateringStrategy class, which implements a deep watering approach." alt="" coords="85,5,285,45"/>
+<area shape="rect" id="Node000002" href="$Game_8cpp.html" title=" " alt="" coords="5,101,160,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,56,99,102,95,98,150,52"/>
+<area shape="rect" id="Node000003" href="$HeavyWateringStrategy_8cpp.html" title=" " alt="" coords="185,93,391,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="220,52,267,91,264,95,217,56"/>
+</map>

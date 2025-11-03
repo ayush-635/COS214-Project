@@ -1,7 +1,6 @@
 #include "Seedling.h"
 #include "../Plant/Plant.h"
 #include <iostream>
-#include <memory>
 
 void Seedling::handle(Plant* plant) {
     if (canProgress(plant)) {

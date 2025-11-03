@@ -11,6 +11,39 @@ Plant::Plant(const std::string& plantId, const std::string& plantName,
     state = std::make_unique<Seedling>();
 }
 
+Plant::Plant(const Plant& other) {
+      id = "clone"; // change this
+      name = other.name;
+      if(other.plantData != nullptr) {
+        plantData = std::make_unique<PlantData>(*other.plantData);
+      } else {
+        plantData = nullptr;
+      }
+      previousState = "Seedling";
+      waterReceived = 0;
+      fertilizerReceived = 0;
+      ticksWithoutWater = 0;
+      ticksWithoutFertilizer = 0;
+    
+    // Deep copy of the state
+    if (other.state) {
+        std::string stateName = other.state->getName();
+        if (stateName == "Seedling") {
+            state = std::make_unique<Seedling>();
+        } else if (stateName == "Growing") {
+            state = std::make_unique<Growing>();
+        } else if (stateName == "Mature") {
+            state = std::make_unique<Mature>();
+        } else if (stateName == "ReadyToSell") {
+            state = std::make_unique<ReadyToSell>();
+        } else if (stateName == "Dying") {
+            state = std::make_unique<Dying>(other.previousState);
+        } else if (stateName == "Dead") {
+            state = std::make_unique<Dead>();
+        }
+    }
+}
+
 bool Plant::shouldEnterDyingState() const {
     // Enter dying state if plant needs water OR fertilizer OR both
     // And it's not already dying or dead
