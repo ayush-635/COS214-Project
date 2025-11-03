@@ -20,6 +20,8 @@
 #include "../WateringStrategy/WateringStrategy.h"
 #include "../Duty/Duty.h"
 #include "../ResourceManager/ResourceManager.h"
+#include "../PlanterBox/PlanterBox.h"
+#include "../PlantIterator/PlantIterator.h"
 #include <vector>
 #include <memory>
 #include <map>
@@ -38,6 +40,8 @@ class TransactionManager;
  */
 class Game {
 private:
+    void countHealthInSpace(PlantableArea* space, int& healthy, int& unhealthy, 
+                        std::map<std::string, int>& plantTypes) const;
     static Game* instance; /**< Singleton instance */
     
     // All subsystems (hidden from user)
@@ -87,6 +91,70 @@ private:
     Order* createOrderFromReadyPlants();
 
 public:
+struct SpaceInfo {
+    int index;
+    int plantCount;
+};
+
+struct HealthCheckData {
+    int totalPlants;
+    int healthyCount;
+    int unhealthyCount;
+    std::map<std::string, int> plantTypes;
+};
+
+std::vector<SpaceInfo> getSpacesInfo() const {
+    std::vector<SpaceInfo> result;
+    for (size_t i = 0; i < spaces.size(); ++i) {
+        SpaceInfo info;
+        info.index = i + 1;
+        //info.plantCount = countPlantsInSpace(spaces[i]);
+        result.push_back(info);
+    }
+    return result;
+}
+
+HealthCheckData getHealthCheckData() {
+    HealthCheckData data;
+    data.totalPlants = 0;
+    data.healthyCount = 0;
+    data.unhealthyCount = 0;
+    
+    // Count plant types
+    for (auto space : spaces) {
+        countPlantTypesInSpace(space, data);
+    }
+    
+    return data;
+}
+
+// Helper method for counting plant types
+void countPlantTypesInSpace(PlantableArea* space, HealthCheckData& data) {
+    for (int i = 0; i < 10; ++i) {
+        PlantableArea* child = space->getChild(i);
+        if (!child) break;
+        
+        PlanterBox* box = dynamic_cast<PlanterBox*>(child);
+        if (box) {
+            for (auto plant : box->getPlants()) {
+                data.totalPlants++;
+                data.plantTypes[plant->getName()]++;
+                
+                // Check health based on state
+                std::string state = plant->getStateName();
+                if (state == "Dying" || state == "Dead") {
+                    data.unhealthyCount++;
+                } else {
+                    data.healthyCount++;
+                }
+            }
+        }
+        
+        PlanterBoxCollection* coll = dynamic_cast<PlanterBoxCollection*>(child);
+        if (coll) countPlantTypesInSpace(coll, data);
+    }
+}
+
     /**
      * @brief Get singleton instance
      * @return Pointer to Game instance
@@ -259,6 +327,32 @@ public:
      * @return Ready plants count
      */
     int getReadyPlantsCount();
+
+int getWaterLevel() const { 
+    return resourceManager ? resourceManager->getWaterLevel() : 1000; 
+}
+
+int getWaterCapacity() const { 
+    return resourceManager ? resourceManager->getWaterCapacity() : 1000; 
+}
+
+int getFertilizerLevel() const { 
+    return resourceManager ? resourceManager->getFertilizerLevel() : 500; 
+}
+
+int getFertilizerCapacity() const { 
+    return resourceManager ? resourceManager->getFertilizerCapacity() : 500; 
+}
+
+int getOrderCount() const {
+    return orders.size();
+}
+
+std::string getSpacesAsString() const;
+std::string getHealthCheckAsString();
+std::string getIteratorAsString();
+std::string getInventoryAsString();
+std::string getOrdersAsString();
 };
 
 #endif

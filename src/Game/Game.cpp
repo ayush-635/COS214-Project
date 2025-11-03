@@ -34,7 +34,19 @@
 
 Game* Game::instance = nullptr;
 
-Game::Game() : dayCounter(0), customerSpawnCounter(0), happinessScore(100) {
+Game::Game() : 
+    dayCounter(0), 
+    customerSpawnCounter(0), 
+    happinessScore(100),
+    bankAccount(nullptr),
+    transactionManager(nullptr),
+    resourceManager(nullptr),
+    healthVisitor(nullptr),
+    currentWateringStrategy(nullptr),
+    mediator(nullptr),
+    inventory(nullptr),
+    inventoryObserver(nullptr) {
+    
     std::srand(std::time(nullptr));
     transactionManager = new TransactionManager();
 }
@@ -65,22 +77,26 @@ Game* Game::getInstance() {
 }
 
 void Game::initialize() {
-    std::cout << "\n╔═══════════════════════════════════════════════════╗\n";
+    std::cout << "\n╔══════════════════════════════════════════════════╗\n";
     std::cout << "║     🌱  WELCOME TO NURSERY MANAGER GAME  🌱      ║\n";
-    std::cout << "╚═══════════════════════════════════════════════════╝\n";
+    std::cout << "╚══════════════════════════════════════════════════╝\n";
     std::cout << "\nYou own a new plant nursery!" << std::endl;
     std::cout << "Goal: Build, grow, and sell plants for profit.\n" << std::endl;
     
-    // Initialize all subsystems
+    // Initialize all subsystems in correct order
     bankAccount = BankAccount::getInstance();
     bankAccount->deposit(1000.0, "Starting capital");
     
     inventory = Inventory::getInstance();
     mediator = InteractionManager::getInstance();
     
+    // IMPORTANT: Initialize ResourceManager BEFORE creating observer
+    if (!resourceManager) {
+        resourceManager = new ResourceManager();
+    }
+    
     inventoryObserver = new InventoryObserver();
     inventory->attach(inventoryObserver);
-    resourceManager = new ResourceManager();
     
     PlantDataFactory::initializeFactory();
     
@@ -90,7 +106,10 @@ void Game::initialize() {
     
     inventory->setFactory(factories["flower"]);
     currentWateringStrategy = new IntermediateWateringStrategy();
-    healthVisitor = new HealthCheckVisitor();
+    
+    if (!healthVisitor) {
+        healthVisitor = new HealthCheckVisitor();
+    }
     
     initializePlantPrototypes();
     initializeStaff();
@@ -734,4 +753,132 @@ bool Game::refillResources() {
     resourceManager->refillAll();
     
     return true;
+}
+
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include "../PlantIterator/PlantIterator.h"
+
+std::string Game::getSpacesAsString() const {
+    std::string result = "SPACES (" + std::to_string(spaces.size()) + ")\n\n";
+/*     for (size_t i = 0; i < spaces.size(); ++i) {
+        result += "Space " + std::to_string(i + 1) + ": " + 
+                  std::to_string(countPlantsInSpace(spaces[i])) + " plants\n";
+    } */
+    return result;
+}
+
+std::string Game::getHealthCheckAsString() {
+    std::string result = "🏥 HEALTH CHECK REPORT\n\n";
+    result += "Checking all plants...\n\n";
+    
+    // Perform actual health check
+    healthVisitor->reset();
+    int total = 0;
+    for (auto space : spaces) {
+        total += performHealthCheckOnSpace(space);
+    }
+    
+    // Count plant states manually
+    int healthy = 0, unhealthy = 0;
+    std::map<std::string, int> plantTypes;
+    
+    for (auto space : spaces) {
+        countHealthInSpace(space, healthy, unhealthy, plantTypes);
+    }
+    
+    result += "📊 HEALTH SUMMARY\n\n";
+    result += "✅ Healthy: " + std::to_string(healthy) + "\n";
+    result += "❌ Unhealthy: " + std::to_string(unhealthy) + "\n";
+    
+    if (!plantTypes.empty()) {
+        result += "\n🌱 PLANT TYPES:\n";
+        for (const auto& pair : plantTypes) {
+            result += "  • " + pair.first + ": " + std::to_string(pair.second) + "\n";
+        }
+    }
+    
+    result += "\nTotal plants checked: " + std::to_string(total);
+    
+    return result;
+}
+
+std::string Game::getIteratorAsString() {
+    if (spaces.empty()) {
+        return "⚠️ No spaces built yet!";
+    }
+    
+    std::string result = "🔄 PLANT ITERATOR DEMONSTRATION\n\n";
+    
+    int spaceNum = 1;
+    for (auto space : spaces) {
+        result += "Space " + std::to_string(spaceNum++) + ":\n";
+        
+        PlantIterator* iterator = new PlantIterator(space);
+        
+        if (!iterator->hasNext()) {
+            result += "  (Empty - no plants)\n";
+        } else {
+            int plantNum = 1;
+            Plant* plant = iterator->first();
+            while (plant != nullptr) {
+                result += "  " + std::to_string(plantNum++) + ". " + 
+                         plant->getName() + " (" + plant->getStateName() + ")\n";
+                plant = iterator->next();
+            }
+        }
+        
+        delete iterator;
+        result += "\n";
+    }
+    
+    return result;
+}
+
+std::string Game::getInventoryAsString() {
+    auto names = inventory->getAllPlantNames();
+    std::string result = "📦 INVENTORY\n\n";
+    for (const auto& name : names) {
+        result += "  " + name + ": " + std::to_string(inventory->getStock(name)) + " seeds\n";
+    }
+    return result;
+}
+
+std::string Game::getOrdersAsString() {
+    if (orders.empty()) {
+        return "⚠️ No orders yet!";
+    }
+    
+    std::string result = "📦 ORDER HISTORY\n\n";
+    
+    for (size_t i = 0; i < orders.size(); ++i) {
+        result += "Order #" + std::to_string(i + 1) + ":\n";
+        result += orders[i]->getOrder() + "\n\n";
+    }
+    
+    result += "Total Orders: " + std::to_string(orders.size());
+    return result;
+}
+
+void Game::countHealthInSpace(PlantableArea* space, int& healthy, int& unhealthy, 
+                               std::map<std::string, int>& plantTypes) const {
+    for (int i = 0; i < 10; ++i) {
+        PlantableArea* child = space->getChild(i);
+        if (!child) break;
+        
+        PlanterBox* box = dynamic_cast<PlanterBox*>(child);
+        if (box) {
+            for (auto plant : box->getPlants()) {
+                plantTypes[plant->getName()]++;
+                std::string state = plant->getStateName();
+                if (state == "Dying" || state == "Dead") {
+                    unhealthy++;
+                } else {
+                    healthy++;
+                }
+            }
+        }
+        
+        PlanterBoxCollection* coll = dynamic_cast<PlanterBoxCollection*>(child);
+        if (coll) countHealthInSpace(coll, healthy, unhealthy, plantTypes);
+    }
 }

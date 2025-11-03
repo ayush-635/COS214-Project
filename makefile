@@ -1,6 +1,7 @@
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -I. -Itests
+WEB_LDFLAGS = -lboost_system -lboost_json -pthread
 
 # Directories
 SRC_DIR = src
@@ -88,39 +89,46 @@ TEST_SOURCES = $(TEST_DIR)/test_main.cpp \
                $(TEST_DIR)/test_transaction_manager.cpp \
                $(TEST_DIR)/test_Visitors.cpp \
                $(TEST_DIR)/ObserverTestMain.cpp \
-			   $(TEST_DIR)/test_Builder.cpp \
-			   $(TEST_DIR)/test_DeliveryStrategy.cpp \
+               $(TEST_DIR)/test_Builder.cpp \
+               $(TEST_DIR)/test_DeliveryStrategy.cpp \
                $(TEST_DIR)/StaffCreationTestMain.cpp
 
 # Object files
 OBJECTS = $(SOURCES:.cpp=.o)
 TEST_OBJECTS = $(TEST_SOURCES:.cpp=.o)
 
-# Filter out main.o for tests (we don't want the main function from main.cpp)
+# Filter out main.o for tests and web server
 MAIN_OBJ = main.o
-TEST_BASE_OBJECTS = $(filter-out $(MAIN_OBJ), $(OBJECTS))
+BASE_OBJECTS = $(filter-out $(MAIN_OBJ), $(OBJECTS))
+TEST_BASE_OBJECTS = $(BASE_OBJECTS)
 
-# Executable names - CONSISTENT with TEST_SOURCES
+# Executable names
 TARGET = nursery_game
+WEB_TARGET = webserver
 TEST_TARGETS = test_Plants test_bankAccount test_composite_simple test_DyingState test_Game test_order test_orderitem test_PlantData test_PlantStates test_Prototypes test_transaction_manager test_Visitors test_Builder test_DeliveryStrategy ObserverTestMain StaffCreationTestMain
 
 # Doctest configuration
 DOCTEST_HEADER = tests/doctest.h
 
-# Default target
-all: $(TARGET)
+# Default target - build both console and web versions
+all: $(TARGET) $(WEB_TARGET)
+	@echo "============================================"
+	@echo "Build complete!"
+	@echo "  Console version: ./$(TARGET)"
+	@echo "  Web version: ./$(WEB_TARGET)"
+	@echo "============================================"
 
-# Link object files to create executable
+# Link object files to create console executable
 $(TARGET): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJECTS)
-	@echo "============================================"
-	@echo "Build complete! Run with ./$(TARGET)"
-	@echo "Integrated Systems:"
-	@echo "  ✓ Mediator Pattern (Staff Communication)"
-	@echo "  ✓ Observer Pattern (Inventory Updates)"
-	@echo "  ✓ Singleton (Inventory & InteractionManager)"
-	@echo "  ✓ Customer & Staff Integration"
-	@echo "============================================"
+	@echo "✅ Console version built: ./$(TARGET)"
+
+# Build web server executable
+$(WEB_TARGET): WebServer.cpp $(BASE_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $(WEB_TARGET) WebServer.cpp $(BASE_OBJECTS) $(WEB_LDFLAGS)
+	@echo "✅ Web version built: ./$(WEB_TARGET)"
+	@echo "   Run with: ./$(WEB_TARGET)"
+	@echo "   Then open: http://localhost:8080"
 
 # Compile source files to object files
 %.o: %.cpp
@@ -129,6 +137,26 @@ $(TARGET): $(OBJECTS)
 # Compile test files from tests directory
 $(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp $(DOCTEST_HEADER)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Build only console version
+console: $(TARGET)
+	@echo "Console version ready: ./$(TARGET)"
+
+# Build only web version
+web: $(WEB_TARGET)
+	@echo "Web version ready: ./$(WEB_TARGET)"
+	@echo "Run with: ./$(WEB_TARGET)"
+	@echo "Then open: http://localhost:8080"
+
+# Run console version
+run: $(TARGET)
+	./$(TARGET)
+
+# Run web server
+run-web: $(WEB_TARGET)
+	@echo "Starting web server on http://localhost:8080"
+	@echo "Press Ctrl+C to stop"
+	./$(WEB_TARGET)
 
 # Test targets
 test: $(TEST_TARGETS)
@@ -148,7 +176,7 @@ test: $(TEST_TARGETS)
 	@echo "Test run completed!"
 	@echo "============================================"
 
-# Individual test executables - CONSISTENT with actual file names
+# Individual test executables
 test_Plants: $(TEST_DIR)/test_main.o $(TEST_DIR)/test_Plants.o $(TEST_BASE_OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
@@ -197,7 +225,7 @@ ObserverTestMain: $(TEST_DIR)/ObserverTestMain.o $(TEST_BASE_OBJECTS)
 StaffCreationTestMain: $(TEST_DIR)/StaffCreationTestMain.o $(TEST_BASE_OBJECTS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Test categories - UPDATED with consistent names
+# Test categories
 test_plants: test_Plants test_PlantData test_PlantStates test_Prototypes
 	@echo "=== Running Plant Tests ==="
 	@for test in $^; do \
@@ -227,15 +255,11 @@ test_integration: test_Game test_DyingState ObserverTestMain StaffCreationTestMa
 
 # Clean build artifacts
 clean:
-	rm -f $(OBJECTS) $(TARGET) $(TEST_OBJECTS) $(TEST_TARGETS)
+	rm -f $(OBJECTS) $(TARGET) $(WEB_TARGET) $(TEST_OBJECTS) $(TEST_TARGETS)
 	@echo "Clean complete! All objects and executables removed."
 
 # Rebuild everything
 rebuild: clean all
-
-# Run the program
-run: $(TARGET)
-	./$(TARGET)
 
 # Debug build with symbols
 debug: CXXFLAGS += -g -DDEBUG
@@ -249,7 +273,19 @@ check:
 			echo "❌ Missing: $$src"; \
 		fi \
 	done
+	@if [ -f "WebServer.cpp" ]; then \
+		echo "✅ WebServer.cpp found"; \
+	else \
+		echo "❌ Missing: WebServer.cpp"; \
+	fi
 	@echo "Check complete!"
+
+# Check for Boost libraries
+check-boost:
+	@echo "Checking for Boost libraries..."
+	@$(CXX) -x c++ -c - -o /dev/null -lboost_system -lboost_json 2>/dev/null <<< 'int main(){}' \
+		&& echo "✅ Boost libraries found" \
+		|| echo "❌ Boost libraries not found. Install with: sudo apt-get install libboost-all-dev"
 
 # Show all source files
 list:
@@ -257,6 +293,8 @@ list:
 	@for src in $(SOURCES); do \
 		echo "  - $$src"; \
 	done
+	@echo "Web server:"
+	@echo "  - WebServer.cpp"
 
 # Documentation
 doc:
@@ -284,4 +322,30 @@ test-quick: clean
 		fi \
 	done
 
-.PHONY: all clean rebuild run debug check list test test_plants test_patterns test_integration doc check-doctest test-quick
+# Help target
+help:
+	@echo "Nursery Manager - Build System"
+	@echo "=============================="
+	@echo ""
+	@echo "Main targets:"
+	@echo "  all          - Build both console and web versions (default)"
+	@echo "  console      - Build only console version"
+	@echo "  web          - Build only web server"
+	@echo "  run          - Run console version"
+	@echo "  run-web      - Run web server (http://localhost:8080)"
+	@echo ""
+	@echo "Testing:"
+	@echo "  test         - Run all tests"
+	@echo "  test_plants  - Run plant-related tests"
+	@echo "  test_patterns- Run design pattern tests"
+	@echo "  test_integration - Run integration tests"
+	@echo ""
+	@echo "Utilities:"
+	@echo "  clean        - Remove all build artifacts"
+	@echo "  rebuild      - Clean and build everything"
+	@echo "  check        - Check for missing source files"
+	@echo "  check-boost  - Check if Boost libraries are installed"
+	@echo "  list         - List all source files"
+	@echo "  help         - Show this help message"
+
+.PHONY: all clean rebuild run run-web debug check check-boost list test test_plants test_patterns test_integration doc check-doctest test-quick console web help

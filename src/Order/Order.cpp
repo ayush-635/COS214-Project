@@ -6,9 +6,6 @@ Order::Order() {
 }
 
 Order::~Order() {
-    for (auto item : items) {
-        delete item;
-    }
     items.clear();
 }
 
