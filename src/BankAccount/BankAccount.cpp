@@ -1,31 +1,39 @@
 #include "BankAccount.h"
 
-void BankAccount::deposit(double amt) {
-	// TODO - implement BankAccount::deposit
-	throw "Not yet implemented";
+BankAccount* BankAccount::onlyInstance = 0;
+void BankAccount::deposit(double amt, std::string desc) {
+	balance+=amt;
+	std::ostringstream oss;
+	oss<< "Deposit\nAmount: R"<<amt<<"\nDescription: "<<desc<<"\n";
+	transactionLog.push_back(oss.str());
 }
 
-void BankAccount::withdraw(double amt) {
-	// TODO - implement BankAccount::withdraw
-	throw "Not yet implemented";
-}
-
-void BankAccount::addObserver(Observer* o) {
-	// TODO - implement BankAccount::addObserver
-	throw "Not yet implemented";
-}
-
-void BankAccount::removeObserver(Observer* o) {
-	// TODO - implement BankAccount::removeObserver
-	throw "Not yet implemented";
-}
-
-void BankAccount::notifyObservers() {
-	// TODO - implement BankAccount::notifyObservers
-	throw "Not yet implemented";
+void BankAccount::withdraw(double amt, std::string desc) {
+	balance-=amt;
+	std::ostringstream oss;
+	oss<< "Withdrawal\nAmount: R"<<amt<<"\nDescription: "<<desc<<"\n";
+	transactionLog.push_back(oss.str());
 }
 
 BankAccount::BankAccount() {
-	// TODO - implement BankAccount::BankAccount
-	throw "Not yet implemented";
+	balance = 0;
+}
+
+double BankAccount::getBalance()
+{
+    return balance;
+}
+
+std::string BankAccount::getLog()
+{
+	std::string ret = "";
+    for(std::vector<std::string>::reverse_iterator it=transactionLog.rbegin(); it!=transactionLog.rend(); ++it){
+		ret+=*it+"\n";
+	}
+	return ret;
+}
+
+BankAccount* BankAccount::getInstance() {
+    static BankAccount instance;
+    return &instance;
 }

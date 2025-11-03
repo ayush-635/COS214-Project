@@ -1,21 +1,22 @@
 #ifndef ORDERITEM_H
 #define ORDERITEM_H
+#include <string>
+#include <sstream>
 
 class OrderItem {
 
 private:
-	string name;
+	
 	double unitPrice;
 	int qty;
 
 public:
+	std::string name;
 	double subtotal();
 
-	int count();
+	std::string getInfo();
 
-	void list(int itemsOut);
-
-	OrderItem();
+	OrderItem(std::string name, double price, int qty);
 };
 
 #endif
