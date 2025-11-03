@@ -64,18 +64,18 @@ NurseryManager/
  Prerequisites
 
 Make sure you are using WSL (Ubuntu) and install the required packages:<br>
-```sudo apt update<br>
-sudo apt install build-essential make g++ git<br>
-sudo apt install libboost-all-dev<br>
-sudo apt install doctest-dev<br>
+```sudo apt update
+sudo apt install build-essential make g++ git
+sudo apt install libboost-all-dev
+sudo apt install doctest-dev
 ```
 
 </details>
 
 <details> <summary><b>Build & Run Instructions</b></summary>
 Clone the Repository
-git clone https://github.com/ayush-635/COS214-Project
-cd NurseryManager
+`git clone https://github.com/ayush-635/COS214-Project`
+`cd COS214-Project`
 
 Build Options
 | Command                 | Description                                                      |
