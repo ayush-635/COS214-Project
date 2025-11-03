@@ -1,4 +1,4 @@
-/* #include "doctest.h"
+#include "doctest.h"
 #include "../src/Order/Order.h"
 #include "../src/OrderItem/OrderItem.h"
 #include <sstream>
@@ -11,12 +11,10 @@ TEST_CASE("Order Constructor and Destructor") {
     }
     
     SUBCASE("Destructor cleans up items") {
-        // This would need memory leak detection to properly test
-        // For now, we'll verify the order can be destroyed without crashes
         Order* order = new Order();
         OrderItem* item = new OrderItem("Test", 10.0, 1);
         order->addItem(item);
-        delete order; // Should not crash and should clean up memory
+        delete order;
     }
 }
 
@@ -52,7 +50,6 @@ TEST_CASE("Order addItem Method") {
         const std::list<OrderItem*>& items = order.getItems();
         CHECK(items.size() == 2);
         
-        // Check that both items are in the list
         bool foundItem1 = false;
         bool foundItem2 = false;
         for (const auto& item : items) {
@@ -72,7 +69,7 @@ TEST_CASE("Order total Method") {
     
     SUBCASE("Single item order calculates correctly") {
         Order order;
-        OrderItem item("Book", 15.0, 2); // 15.0 * 2 = 30.0
+        OrderItem item("Book", 15.0, 2); 
         
         order.addItem(&item);
         
@@ -89,12 +86,12 @@ TEST_CASE("Order total Method") {
         order.addItem(&item2);
         order.addItem(&item3);
         
-        CHECK(order.total() == doctest::Approx(60.0)); // 30 + 15 + 15
+        CHECK(order.total() == doctest::Approx(60.0));
     }
     
     SUBCASE("Order with zero quantity items") {
         Order order;
-        OrderItem item("Free Item", 10.0, 0); // Should be 0
+        OrderItem item("Free Item", 10.0, 0);
         
         order.addItem(&item);
         
@@ -103,7 +100,7 @@ TEST_CASE("Order total Method") {
     
     SUBCASE("Order with zero price items") {
         Order order;
-        OrderItem item("Free Item", 0.0, 5); // Should be 0
+        OrderItem item("Free Item", 0.0, 5);
         
         order.addItem(&item);
         
@@ -123,7 +120,7 @@ TEST_CASE("Order getOrder Method") {
     
     SUBCASE("Single item order shows item details") {
         Order order;
-        OrderItem item("Apple", 2.0, 3); // R6 total
+        OrderItem item("Apple", 2.0, 3);
         
         order.addItem(&item);
         std::string result = order.getOrder();
@@ -135,8 +132,8 @@ TEST_CASE("Order getOrder Method") {
     
     SUBCASE("Multiple items order shows all items and correct total") {
         Order order;
-        OrderItem item1("Apple", 2.0, 3);  // R6
-        OrderItem item2("Banana", 1.5, 2); // R3
+        OrderItem item1("Apple", 2.0, 3);
+        OrderItem item2("Banana", 1.5, 2);
         
         order.addItem(&item1);
         order.addItem(&item2);
@@ -190,7 +187,7 @@ TEST_CASE("Order getItemCount Method") {
         order.addItem(&item);
         CHECK(order.getItemCount() == 1);
         
-        order.addItem(&item); // Adding same item again
+        order.addItem(&item);
         CHECK(order.getItemCount() == 2);
     }
 }
@@ -218,7 +215,6 @@ TEST_CASE("Order getItems Method") {
         
         CHECK(items.size() == 3);
         
-        // Verify all items are present
         auto it = items.begin();
         CHECK(*it == &item1);
         ++it;
@@ -233,8 +229,7 @@ TEST_CASE("Order getItems Method") {
         order.addItem(&item);
         
         const std::list<OrderItem*>& items = order.getItems();
-        
-        // This should compile - we're testing the return type is const
+    
         CHECK(items.front() == &item);
     }
 }
@@ -242,12 +237,10 @@ TEST_CASE("Order getItems Method") {
 TEST_CASE("Order Integration Tests") {
     SUBCASE("Complete order lifecycle") {
         Order order;
-        
-        // Start empty
+
         CHECK(order.getItemCount() == 0);
         CHECK(order.total() == doctest::Approx(0.0));
         
-        // Add items
         OrderItem item1("Laptop", 1000.0, 1);
         OrderItem item2("Mouse", 25.0, 2);
         OrderItem item3("Keyboard", 75.0, 1);
@@ -256,9 +249,8 @@ TEST_CASE("Order Integration Tests") {
         order.addItem(&item2);
         order.addItem(&item3);
         
-        // Verify final state
         CHECK(order.getItemCount() == 3);
-        CHECK(order.total() == doctest::Approx(1125.0)); // 1000 + 50 + 75
+        CHECK(order.total() == doctest::Approx(1125.0));
         
         std::string orderText = order.getOrder();
         CHECK(orderText.find("Laptop") != std::string::npos);
@@ -266,4 +258,4 @@ TEST_CASE("Order Integration Tests") {
         CHECK(orderText.find("Keyboard") != std::string::npos);
         CHECK(orderText.find("Subtotal: R1125") != std::string::npos);
     }
-} */
+}
