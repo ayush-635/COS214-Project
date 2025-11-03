@@ -8,58 +8,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test:
+  build:
+
     runs-on: ubuntu-latest
-    name: Build and run tests (Ubuntu)
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Install build essentials and cppcheck
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake cppcheck
 
-      #- name: Run cppcheck linter
-        #run: |
-          #cppcheck --enable=all --inconclusive --std=c++17 src tests || true
+    - name: Install Dependencies
+      run: sudo apt-get update && sudo apt-get install -y valgrind libboost-all-dev nlohmann-json3-dev doctest-dev
 
-      - name: Gather source and test files
-        run: |
-          echo "SRC_FILES=$(find src -name '*.cpp' -print | tr '\n' ' ')" >> $GITHUB_ENV
-          echo "TEST_FILES=$(find tests -name '*.cpp' -print | tr '\n' ' ')" >> $GITHUB_ENV
-          echo "INCLUDE_FLAGS=-Isrc -Itests" >> $GITHUB_ENV
-          echo "CXXFLAGS=-std=c++17 -O2 -Wall -Wextra" >> $GITHUB_ENV
-          echo "BUILD_EXE=test_runner" >> $GITHUB_ENV
-          echo "SRC_FILES='$SRC_FILES'"
-          echo "TEST_FILES='$TEST_FILES'"
-
-      - name: Build project and tests
-        run: |
-          set -e
-          mkdir -p build
-          for file in $(find src -maxdepth 1 -name '*.cpp' ! -name '*_partial.cpp' ! -name '*_stub.cpp'); do
-            echo "Compiling $file"
-            g++ $CXXFLAGS -c $file -o build/$(basename ${file%.cpp}.o)
-          done
-      
-          if [ -n "$TEST_FILES" ]; then
-            echo "Compiling test files..."
-            g++ $CXXFLAGS $TEST_FILES build/*.o $INCLUDE_FLAGS -o $BUILD_EXE
-          else
-            echo "No test files found!"
-            exit 1
-          fi
-
-      - name: Run tests
-        run: |
-          set -e
-          ./test_runner
-
-      - name: Upload test logs
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-logs
-          path: ./test_runner
+    - name: make run_tests
+      run: make test
