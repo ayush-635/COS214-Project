@@ -1,0 +1,13 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classPlantFactory.html" title="Abstract factory class for creating plants using prototype pattern." alt="" coords="5,104,108,129"/>
+<area shape="rect" id="Node000001" href="$classFlowerFactory.html" title="Factory class for creating flower plants." alt="" coords="165,5,279,31"/>
+<area shape="poly" id="edge27_Node000000_Node000001" title=" " alt="" coords="81,93,115,66,155,40,179,28,182,33,157,44,118,70,84,97"/>
+<area shape="rect" id="Node000002" href="$classGrassFactory.html" title="Factory class for creating grass plants." alt="" coords="169,55,275,80"/>
+<area shape="poly" id="edge28_Node000000_Node000002" title=" " alt="" coords="112,97,178,78,179,83,114,103"/>
+<area shape="rect" id="Node000003" href="$classHerbFactory.html" title="Factory class for creating herb plants." alt="" coords="172,104,272,129"/>
+<area shape="poly" id="edge29_Node000000_Node000003" title=" " alt="" coords="122,114,172,114,172,119,122,119"/>
+<area shape="rect" id="Node000004" href="$classSucculentFactory.html" title="Factory class for creating succulent plants." alt="" coords="156,153,288,179"/>
+<area shape="poly" id="edge30_Node000000_Node000004" title=" " alt="" coords="114,131,179,151,178,156,112,136"/>
+<area shape="rect" id="Node000005" href="$classTreeFactory.html" title="Factory class for creating tree plants." alt="" coords="174,203,270,228"/>
+<area shape="poly" id="edge31_Node000000_Node000005" title=" " alt="" coords="85,136,118,162,157,188,184,200,182,205,155,192,115,167,81,141"/>
+</map>

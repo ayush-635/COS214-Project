@@ -1,26 +1,11 @@
 {
     "files.associations": {
-        "iosfwd": "cpp",
         "cctype": "cpp",
         "clocale": "cpp",
         "cmath": "cpp",
         "csignal": "cpp",
         "cstdarg": "cpp",
         "cstddef": "cpp",
-        "array": "cpp",
-        "atomic": "cpp",
-        "bit": "cpp",
-        "cctype": "cpp",
-        "chrono": "cpp",
-        "clocale": "cpp",
-        "cmath": "cpp",
-        "compare": "cpp",
-        "concepts": "cpp",
-        "condition_variable": "cpp",
-        "csignal": "cpp",
-        "cstdarg": "cpp",
-        "cstddef": "cpp",
-        "cstdint": "cpp",
         "cstdio": "cpp",
         "cstdlib": "cpp",
         "cstring": "cpp",
@@ -40,7 +25,6 @@
         "cstdint": "cpp",
         "deque": "cpp",
         "list": "cpp",
-        "deque": "cpp",
         "map": "cpp",
         "set": "cpp",
         "string": "cpp",
@@ -87,6 +71,5 @@
         "variant": "cpp",
         "format": "cpp",
         "__nullptr": "cpp"
-        "typeinfo": "cpp"
     }
 }

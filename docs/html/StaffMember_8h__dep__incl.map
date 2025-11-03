@@ -1,0 +1,33 @@
+<map id="src/StaffMember/StaffMember.h" name="src/StaffMember/StaffMember.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="453,5,681,31"/>
+<area shape="rect" id="Node000002" href="$Cashier_8h.html" title=" " alt="" coords="93,79,251,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="490,36,236,81,235,76,489,30"/>
+<area shape="rect" id="Node000005" href="$Gardner_8h.html" title=" " alt="" coords="275,79,439,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="521,38,392,81,390,76,519,33"/>
+<area shape="rect" id="Node000007" href="$Pathologist_8h.html" title=" " alt="" coords="464,79,669,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="569,44,569,79,564,79,564,44"/>
+<area shape="rect" id="Node000009" href="$Sales_8h.html" title=" " alt="" coords="693,79,824,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="611,33,728,76,726,81,610,38"/>
+<area shape="rect" id="Node000015" href="$StaffMember_8cpp.html" title=" " alt="" coords="848,79,1091,104"/>
+<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="645,30,905,76,904,81,644,36"/>
+<area shape="rect" id="Node000003" href="$Cashier_8cpp.html" title=" " alt="" coords="5,159,179,185"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="152,116,106,161,102,157,148,112"/>
+<area shape="rect" id="Node000004" href="$Game_8cpp.html" title=" " alt="" coords="637,328,792,353"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="185,115,209,154,225,173,243,190,290,220,341,247,394,269,448,287,551,313,638,328,637,334,550,318,446,292,392,274,339,251,288,225,240,194,221,177,204,157,181,118"/>
+<area shape="rect" id="Node000006" href="$Gardner_8cpp.html" title=" " alt="" coords="253,159,432,185"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="355,118,347,160,342,159,350,117"/>
+<area shape="rect" id="Node000008" href="$Pathologist_8cpp.html" title=" " alt="" coords="457,159,677,185"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="569,118,569,159,564,159,564,118"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="753,118,744,153,727,254,718,328,713,328,722,253,739,151,748,117"/>
+<area shape="rect" id="Node000010" href="$InteractionManager_8h.html" title="Header file for the InteractionManager class." alt="" coords="753,152,925,192"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="782,112,821,150,818,154,778,116"/>
+<area shape="rect" id="Node000014" href="$Sales_8cpp.html" title=" " alt="" coords="949,159,1096,185"/>
+<area shape="poly" id="edge15_Node000009_Node000014" title=" " alt="" coords="811,105,985,157,983,162,809,110"/>
+<area shape="rect" id="Node000011" href="$Game_8h.html" title="Header file for the Game class &#45; FACADE PATTERN." alt="" coords="752,247,891,273"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="835,206,826,247,821,246,830,205"/>
+<area shape="rect" id="Node000012" href="$InteractionManager_8cpp.html" title=" " alt="" coords="915,240,1093,280"/>
+<area shape="poly" id="edge13_Node000010_Node000012" title=" " alt="" coords="888,196,969,238,967,242,886,201"/>
+<area shape="rect" id="Node000013" href="$InventoryObserver_8cpp.html" title=" " alt="" coords="1117,240,1291,280"/>
+<area shape="poly" id="edge14_Node000010_Node000013" title=" " alt="" coords="933,193,1125,237,1123,243,931,198"/>
+<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="796,283,732,330,729,326,793,279"/>
+</map>

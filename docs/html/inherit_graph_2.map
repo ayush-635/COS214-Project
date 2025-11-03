@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classColleague.html" title="Base class for objects that communicate through a mediator." alt="" coords="5,56,92,81"/>
+<area shape="rect" id="Node000001" href="$classCustomer.html" title="Represents a customer in the nursery system." alt="" coords="151,31,236,56"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="105,56,150,48,151,53,106,61"/>
+<area shape="rect" id="Node000002" href="$classStaffMember.html" title="Base class for all staff members in the simulation. concrete classes are:" alt="" coords="140,80,247,105"/>
+<area shape="poly" id="edge3_Node000000_Node000002" title=" " alt="" coords="106,75,140,81,139,86,105,81"/>
+<area shape="rect" id="Node000003" href="$classCashier.html" title="A staff member specialized in handling sales and inventory checks. The cashier uses the Inventory sin..." alt="" coords="307,5,377,31"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="232,72,245,65,293,40,315,28,318,33,296,44,248,70,235,76"/>
+<area shape="rect" id="Node000004" href="$classGardner.html" title="A staff member specialized in plant selection based on customer preferences. The gardener uses the In..." alt="" coords="305,55,379,80"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="260,79,304,71,305,76,261,84"/>
+<area shape="rect" id="Node000005" href="$classPathologist.html" title="A staff member specialized in diagnosing plant diseases. Inherits from StaffMember." alt="" coords="295,104,389,129"/>
+<area shape="poly" id="edge6_Node000002_Node000005" title=" " alt="" coords="261,101,295,106,294,112,260,106"/>
+<area shape="rect" id="Node000006" href="$classSales.html" title="A staff member specialized in assisting customers with plant selection based on preferences...." alt="" coords="313,153,371,179"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="233,109,316,151,314,156,231,114"/>
+</map>

@@ -1,6 +1,21 @@
 #include "GiveMedicineCommand.h"
+#include "../PlanterBoxCollection/PlanterBoxCollection.h"
+#include <iostream>
 
-void GiveMedicineCommand::executeDuty(PlantableArea* area) {
-	// TODO - implement GiveMedicineCommand::executeDuty
-	throw "Not yet implemented";
+
+
+GiveMedicineCommand::GiveMedicineCommand(PlanterBoxCollection* collection, int units, int index)
+    : CareForPlantCommand(collection, index), units(units) {}
+
+
+ void GiveMedicineCommand::executeDuty() {
+
+     if (!collection) {
+        std::cout << " No plant row assigned.\n";
+        return;
+    }
+
+
+
+    collection->giveMedicine(units, index);
 }

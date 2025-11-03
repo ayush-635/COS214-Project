@@ -1,17 +1,40 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-class Iterator {
+#include "../Plant/Plant.h"
 
+/**
+ * @class Iterator
+ * 
+ * @brief Abstract base class for iterators.
+ */
 
+class Iterator { 
 public:
-	void first();
+	/**
+	 * @brief Virtual destructor for the Iterator class
+	 */
+	virtual ~Iterator() = default;
 
-	void next();
+	/**
+	 * @brief Checks if there are more elements to iterate over
+	 */
+	virtual bool hasNext() = 0;
 
-	void isDone();
+	/**
+	 * @brief Returns the next element in the iteration
+	 */
+	virtual Plant* next() = 0;
 
-	void currItem();
+	/**
+	 * @brief Returns the first element in the iteration
+	 */
+	virtual Plant* first() = 0;
+
+	/**
+	 * @brief Returns the current element in the iteration
+	 */
+	virtual Plant* currItem() = 0;
 };
 
-#endif
+#endif // ITERATOR_H

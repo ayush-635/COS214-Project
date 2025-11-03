@@ -1,0 +1,10 @@
+<map id="src/OrderItem/OrderItem.h" name="src/OrderItem/OrderItem.h">
+<area shape="rect" id="Node000001" title="Order item class representing individual products in an order." alt="" coords="5,5,199,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="89,152,147,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,33,74,47,61,64,53,84,55,103,69,124,88,142,85,146,65,128,50,105,48,83,56,62,70,43,85,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="65,79,139,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,31,105,65,99,65,99,31"/>
+<area shape="rect" id="Node000004" href="$Pot_8h.html" title="Header file for the Pot class." alt="" coords="164,79,256,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,28,182,69,179,73,118,33"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="197,106,145,146,142,141,194,102"/>
+</map>

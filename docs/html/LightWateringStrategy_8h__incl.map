@@ -1,0 +1,5 @@
+<map id="src/LightWateringStrategy/LightWateringStrategy.h" name="src/LightWateringStrategy/LightWateringStrategy.h">
+<area shape="rect" id="Node000001" title="Declares the LightWateringStrategy class, which implements a light watering approach." alt="" coords="5,5,196,45"/>
+<area shape="rect" id="Node000002" href="$WateringStrategy_8h.html" title="Declares the WateringStrategy abstract base class, which defines the interface for plant watering str..." alt="" coords="26,93,175,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,46,103,79,98,79,98,46"/>
+</map>

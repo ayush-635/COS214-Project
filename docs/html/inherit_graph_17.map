@@ -1,0 +1,15 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classPlantState.html" title="Interface for plant growth states." alt="" coords="5,129,95,155"/>
+<area shape="rect" id="Node000001" href="$classDead.html" title="Final state representing a dead plant." alt="" coords="165,5,221,31"/>
+<area shape="poly" id="edge32_Node000000_Node000001" title=" " alt="" coords="67,116,99,78,141,40,163,27,166,31,144,44,103,82,71,120"/>
+<area shape="rect" id="Node000002" href="$classDying.html" title="State representing a plant in critical condition." alt="" coords="163,55,223,80"/>
+<area shape="poly" id="edge33_Node000000_Node000002" title=" " alt="" coords="84,120,141,89,164,78,166,82,144,94,87,125"/>
+<area shape="rect" id="Node000003" href="$classGrowing.html" title="State representing plants in active growth phase." alt="" coords="155,104,231,129"/>
+<area shape="poly" id="edge34_Node000000_Node000003" title=" " alt="" coords="108,129,155,121,156,126,109,134"/>
+<area shape="rect" id="Node000004" href="$classMature.html" title="State representing fully grown plants ready for final stage." alt="" coords="159,153,227,179"/>
+<area shape="poly" id="edge35_Node000000_Node000004" title=" " alt="" coords="109,149,160,158,159,163,108,154"/>
+<area shape="rect" id="Node000005" href="$classReadyToSell.html" title="Final growth state representing plants ready for sale." alt="" coords="143,203,244,228"/>
+<area shape="poly" id="edge36_Node000000_Node000005" title=" " alt="" coords="89,159,144,188,168,200,166,205,141,192,86,163"/>
+<area shape="rect" id="Node000006" href="$classSeedling.html" title="Initial growth state for all plants." alt="" coords="154,252,233,277"/>
+<area shape="poly" id="edge37_Node000000_Node000006" title=" " alt="" coords="71,164,104,200,144,237,164,250,161,254,141,241,100,204,67,167"/>
+</map>

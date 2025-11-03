@@ -1,0 +1,7 @@
+<map id="PlantableArea" name="PlantableArea">
+<area shape="rect" id="Node000001" title="Abstract base class representing a plantable area in the game." alt="" coords="70,5,183,31"/>
+<area shape="rect" id="Node000002" href="$classPlanterBox.html" title="Leaf class representing a single planter box." alt="" coords="5,79,99,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,42,66,80,62,77,103,38"/>
+<area shape="rect" id="Node000003" href="$classPlanterBoxCollection.html" title="Composite class representing a collection of planter boxes." alt="" coords="123,79,282,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,38,192,76,188,80,147,42"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="GiveFertilizerCommand" name="GiveFertilizerCommand">
+<area shape="rect" id="Node000001" title="Command that applies fertilizer to a specific plant in a planter box." alt="" coords="25,280,201,305"/>
+<area shape="rect" id="Node000002" href="$classCareForPlantCommand.html" title="Abstract base class for commands that care for plants (e.g., watering, fertilizing,..." alt="" coords="5,143,177,168"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,181,113,279,108,280,93,182"/>
+<area shape="rect" id="Node000003" href="$classDuty.html" title="Abstract base class for all duties that a staff member can perform." alt="" coords="159,5,213,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="165,42,141,66,119,95,106,120,97,143,92,141,101,118,114,92,137,63,161,38"/>
+<area shape="rect" id="Node000005" href="$classPlantableArea.html" title="Abstract base class representing a plantable area in the game." alt="" coords="129,93,243,119"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="189,45,189,93,183,93,183,45"/>
+<area shape="rect" id="Node000004" href="$classPlanterBoxCollection.html" title="Composite class representing a collection of planter boxes." alt="" coords="129,192,288,217"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="187,228,128,281,124,277,184,224"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="223,179,239,151,251,118,253,106,251,93,252,73,246,56,231,41,212,30,214,26,234,37,251,53,257,73,257,93,258,106,257,119,244,153,227,182"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="194,131,209,191,203,193,189,133"/>
+</map>

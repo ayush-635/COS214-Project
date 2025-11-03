@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classSubject.html" title="Base class for Observer pattern subjects. Classes that inherit from Subject can attach observers and ..." alt="" coords="5,5,76,31"/>
+<area shape="rect" id="Node000001" href="$classInventory.html" title="Singleton class that manages the inventory of plants. The inventory knows the following:" alt="" coords="124,5,208,31"/>
+<area shape="poly" id="edge39_Node000000_Node000001" title=" " alt="" coords="90,15,124,15,124,21,90,21"/>
+</map>

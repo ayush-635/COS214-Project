@@ -1,0 +1,5 @@
+<map id="ExpressDelivery" name="ExpressDelivery">
+<area shape="rect" id="Node000001" title="Concrete strategy for express delivery service." alt="" coords="7,79,135,104"/>
+<area shape="rect" id="Node000002" href="$classDeliveryStrategy.html" title="Abstract base class for delivery strategies." alt="" coords="5,5,137,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,44,74,79,69,79,69,44"/>
+</map>

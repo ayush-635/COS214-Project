@@ -1,0 +1,9 @@
+<map id="src/TransactionManager/TransactionManager.cpp" name="src/TransactionManager/TransactionManager.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,5,200,45"/>
+<area shape="rect" id="Node000002" href="$TransactionManager_8h.html" title="Header file for the TransactionManager class." alt="" coords="27,93,191,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,46,111,79,106,79,106,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,68,199"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="100,121,59,165,55,162,96,117"/>
+<area shape="rect" id="Node000004" href="$TransactionCommand_8h.html" title=" " alt="" coords="93,167,271,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="121,117,157,155,153,158,118,121"/>
+</map>

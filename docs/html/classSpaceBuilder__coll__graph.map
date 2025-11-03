@@ -1,0 +1,10 @@
+<map id="SpaceBuilder" name="SpaceBuilder">
+<area shape="rect" id="Node000001" title="Abstract builder for constructing plantable space structures." alt="" coords="5,93,112,119"/>
+<area shape="rect" id="Node000002" href="$classPlantableArea.html" title="Abstract base class representing a plantable area in the game." alt="" coords="159,5,273,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,40,81,95,79,91,182,35"/>
+<area shape="rect" id="Node000004" href="$classPlanterBoxCollection.html" title="Composite class representing a collection of planter boxes." alt="" coords="137,93,295,119"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="219,45,219,93,213,93,213,45"/>
+<area shape="rect" id="Node000003" href="$classDuty.html" title="Abstract base class for all duties that a staff member can perform." alt="" coords="253,181,307,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="311,171,323,156,328,139,325,125,305,95,270,59,234,33,237,29,273,55,309,92,330,123,333,140,328,159,315,175"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="235,128,273,179,269,182,231,131"/>
+</map>

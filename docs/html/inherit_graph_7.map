@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classMediator.html" title="Abstract base class for mediator pattern." alt="" coords="5,5,85,31"/>
+<area shape="rect" id="Node000001" href="$classInteractionManager.html" title="Manages interactions between colleagues using mediator pattern." alt="" coords="133,5,283,31"/>
+<area shape="poly" id="edge18_Node000000_Node000001" title=" " alt="" coords="99,15,133,15,133,21,99,21"/>
+</map>
