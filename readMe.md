@@ -5,7 +5,7 @@
 <h1 align="center">Nursery Manager – Design Patterns Final Project</h1>
 
 <p align="center">
-  <b>University of Pretoria | COS 341 | 2025</b><br>
+  <b>University of Pretoria | COS 214 | 2025</b><br>
   <i>A plant nursery management simulation built with C++, Boost, and Design Patterns.</i><br><br>
 <img src="https://img.shields.io/github/actions/workflow/status/ayush-635/COs214-Project/ci.yml?label=CI&logo=githubactions&logoColor=white&style=for-the-badge" alt="CI Status"/>
 </p>
