@@ -120,8 +120,8 @@ Team Members
 | <img src="Data Files/Jazz.png" width="100"> | **Ayush Sanjith** <br> Command, Singleton, Mediator, Integration|
 | <img src="Data Files/member3.png" width="100"> | **Jano Venter** <br> Factory Method, Prototype |
 | <img src="Data Files/member4.png" width="100"> | **Kwaku Asiedu** <br> Command, Strategy|
-| <img src="Data Files/member4.png" width="100"> | **Heinrich Romer ** <br> Singleton, Observer, Template|
-| <img src="Data Files/member4.png" width="100"> | **Zaynab Samir ** <br> Builder, Strategy|
+| <img src="Data Files/member4.png" width="100"> | **Heinrich Romer** <br> Singleton, Observer, Template|
+| <img src="Data Files/member4.png" width="100"> | **Zaynab Samir** <br> Builder, Strategy|
 | <img src="Data Files/member4.png" width="100"> | **Ryan Lynn** <br> Composite, Iterator|
 
 
