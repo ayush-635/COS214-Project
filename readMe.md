@@ -12,7 +12,7 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 - [Overview](#-overview)
 - [Project Structure](#-project-structure)
 - [WSL Setup & Dependencies](#️-wsl-setup--dependencies)
